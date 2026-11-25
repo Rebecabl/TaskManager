@@ -51,7 +51,7 @@ body {
   line-height: 1.5;
 }
 .container {
-  max-width: 1100px;
+  max-width: 1150px;
   margin: 0 auto;
   padding: 24px 16px 64px;
 }
@@ -137,6 +137,9 @@ p.site-subtitle {
   margin-bottom: 20px;
   font-size: 0.9rem;
   color: var(--muted);
+}
+.alert-box.alert-success {
+  border-left-color: #10b981;
 }
 
 /* Grid de Projetos na Pagina Inicial */
@@ -299,6 +302,7 @@ p.site-subtitle {
   position: relative;
   vertical-align: top !important;
   padding: 6px !important;
+  transition: all 0.2s ease;
 }
 .matrix-cell.cell-baixa {
   background: var(--baixa);
@@ -332,15 +336,17 @@ p.site-subtitle {
   color: var(--ink);
   border: 1px solid rgba(0, 0, 0, 0.25);
   border-radius: 9999px;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 800;
-  padding: 1px 7px;
+  padding: 2px 8px;
   cursor: pointer;
   text-decoration: none;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  transition: transform 0.15s ease;
 }
 .risk-tag:hover {
-  transform: scale(1.08);
+  transform: scale(1.15);
+  border-color: #000;
 }
 
 /* Tabela de Registro de Riscos */
@@ -355,14 +361,14 @@ p.site-subtitle {
 table.data-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 900px;
+  min-width: 920px;
   font-size: 0.86rem;
 }
 table.data-table th, table.data-table td {
-  padding: 10px 12px;
+  padding: 10px 10px;
   border-bottom: 1px solid var(--line);
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle;
 }
 table.data-table th {
   background: var(--bg);
@@ -376,17 +382,35 @@ table.data-table th {
 table.data-table tr:last-child td {
   border-bottom: none;
 }
+.select-prob, .select-imp {
+  font: inherit;
+  font-size: 0.84rem;
+  padding: 5px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  width: 100%;
+  min-width: 110px;
+}
+.select-prob:focus, .select-imp:focus {
+  outline: 2px solid var(--accent);
+}
 .badge-level {
   display: inline-block;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 0.75rem;
-  padding: 2px 8px;
+  padding: 3px 10px;
   border-radius: 9999px;
   text-transform: uppercase;
+  text-align: center;
+  min-width: 65px;
 }
 .badge-level.baixa { background: var(--baixa); color: var(--baixa-text); }
 .badge-level.media { background: var(--media); color: var(--media-text); }
 .badge-level.alta { background: var(--alta); color: var(--alta-text); }
+.badge-level.vazio { background: var(--line); color: var(--muted); }
 
 .empty-state {
   text-align: center;
@@ -453,7 +477,7 @@ footer.site-footer a {
 
 @media print {
   body { background: #fff; color: #000; }
-  .btn, .header-actions, .noprint { display: none !important; }
+  .btn, .header-actions, .noprint, select { display: none !important; }
   .container { max-width: 100%; padding: 0; }
   .team-card, .matrix-wrapper, .table-wrapper, .scale-card { box-shadow: none; border-color: #999; }
 }
@@ -488,22 +512,22 @@ footer.site-footer a {
       <div class="scale-card">
         <h3>Escala de Probabilidade</h3>
         <ul class="scale-list">
-          <li><strong>10% (Muito Baixa):</strong> Evento muito improvável ou atípico.</li>
-          <li><strong>30% (Baixa):</strong> Pouco provável, mas já observado em projetos semelhantes.</li>
-          <li><strong>50% (Média):</strong> Provável. Chance real de acontecer na iteração da Unidade 2.</li>
-          <li><strong>70% (Alta):</strong> Muito provável. Condições do projeto favorecem a ocorrência.</li>
-          <li><strong>90% (Muito Alta):</strong> Quase certo. Ocorrência praticamente inevitável sem ação preventiva.</li>
+          <li><strong>10% (Muito Baixa):</strong> É muito improvável que o problema aconteça. Existem condições adequadas para evitá-lo.</li>
+          <li><strong>30% (Baixa):</strong> Existe possibilidade de ocorrência, mas poucos fatores favorecem o problema.</li>
+          <li><strong>50% (Moderada):</strong> Existem incertezas ou dificuldades que tornam possível a ocorrência do problema.</li>
+          <li><strong>70% (Alta):</strong> Existem dificuldades técnicas, limitações ou dependências que tornam provável a ocorrência do problema.</li>
+          <li><strong>90% (Muito Alta):</strong> Existem fortes indícios de que o problema poderá acontecer.</li>
         </ul>
       </div>
 
       <div class="scale-card">
         <h3>Escala de Impacto (Critérios de Avaliação)</h3>
         <ul class="scale-list">
-          <li><strong>Muito Baixo:</strong> Prazo < 1 dia; impacto cosmético; retrabalho mínimo (< poucas horas); sem impacto em banco de dados; segurança preservada; integração sem quebra; recursos normais.</li>
-          <li><strong>Baixo:</strong> Prazo 1 a 2 dias; falha de baixa prioridade com contorno simples; retrabalho leve; ajuste simples em esquemas; segurança com risco leve interno; integração com ajuste pontual.</li>
-          <li><strong>Moderado:</strong> Prazo 3 a 5 dias; degradação em funcionalidade importante; refatoração moderada; migração estrutural de banco de dados; quebra de endpoint; exige realocação de tarefas.</li>
-          <li><strong>Alto:</strong> Prazo > 1 semana (ameaça entrega do MVP); indisponibilidade do core do sistema; retrabalho substancial; perda de dados essenciais; risco a LGPD/autenticação; bloqueio de integração.</li>
-          <li><strong>Muito Alto:</strong> Atraso irrecuperável na entrega da unidade; paralisação completa da aplicação; perda irreversível de banco de dados; falha crítica de segurança; inviabilização do projeto.</li>
+          <li><strong>Muito Baixo:</strong> Exige pequenos ajustes, que podem ser resolvidos em algumas horas, sem comprometer funcionalidades importantes.</li>
+          <li><strong>Baixo:</strong> Exige correções simples, podendo consumir até um dia de trabalho.</li>
+          <li><strong>Moderado:</strong> Exige retrabalho de dois a três dias ou compromete parcialmente uma funcionalidade importante.</li>
+          <li><strong>Alto:</strong> Exige mudanças significativas, podendo consumir de quatro a cinco dias ou comprometer uma funcionalidade essencial.</li>
+          <li><strong>Muito Alto:</strong> Pode inviabilizar o funcionamento do software ou comprometer a entrega final do projeto.</li>
         </ul>
       </div>
     </div>
@@ -584,7 +608,7 @@ function getRepoInfo() {
 
 const REPO_INFO = getRepoInfo();
 
-// PARSER DO CORPO DA ISSUE
+// PARSER ROBUSTO DO CORPO DA ISSUE
 function parseIssueBody(body) {
   if (!body) return {};
   const sections = {};
@@ -602,31 +626,69 @@ function parseIssueBody(body) {
 // FORMATADOR DE RISCO A PARTIR DA ISSUE
 function formatRiskFromIssue(issue) {
   const sections = parseIssueBody(issue.body);
+  
+  // 1. Deteccao da equipe: via campo do formulario, titulo [E1]..[E5] ou labels
+  let teamKey = null;
   const rawEquipe = (sections["Equipe"] || "").trim();
   const equipeMatch = rawEquipe.match(/E[1-5]/i);
-  const teamKey = equipeMatch ? equipeMatch[0].toUpperCase() : null;
+  if (equipeMatch) {
+    teamKey = equipeMatch[0].toUpperCase();
+  } else {
+    const titleMatch = (issue.title || "").match(/\bE[1-5]\b/i);
+    if (titleMatch) {
+      teamKey = titleMatch[0].toUpperCase();
+    } else if (issue.labels) {
+      issue.labels.forEach(function(l) {
+        const lMatch = (l.name || "").match(/\bE[1-5]\b/i);
+        if (lMatch) teamKey = lMatch[0].toUpperCase();
+      });
+    }
+  }
 
-  const risco = sections["Risco"] || issue.title.replace(/^\[.*?\]\s*/, "") || "Risco sem título";
+  // 2. Deteccao do risco
+  let risco = sections["Risco"];
+  if (!risco || risco === "_No response_") {
+    const cleanTitle = (issue.title || "").replace(/^\[.*?\]\s*/, "").trim();
+    risco = cleanTitle || issue.body || "Risco sem título";
+  }
+
   const causaConsequencia = sections["Causa e consequência"] || "-";
-  const probabilidade = (sections["Probabilidade"] || "").trim();
-  const impacto = (sections["Impacto"] || "").trim();
+
+  // 3. Deteccao de Probabilidade
+  let probabilidade = (sections["Probabilidade"] || "").trim();
+  if (!PROB_ROWS.includes(probabilidade)) {
+    const pMatch = (issue.body || "").match(/(10%|30%|50%|70%|90%)/);
+    if (pMatch) probabilidade = pMatch[1];
+  }
+
+  // 4. Deteccao de Impacto
+  let impacto = (sections["Impacto"] || "").trim();
+  if (!IMP_COLS.includes(impacto)) {
+    const bLower = (issue.body || "").toLowerCase();
+    if (bLower.includes("muito baixo")) impacto = "Muito Baixo";
+    else if (bLower.includes("muito alto")) impacto = "Muito Alto";
+    else if (bLower.includes("moderado")) impacto = "Moderado";
+    else if (bLower.includes("baixo")) impacto = "Baixo";
+    else if (bLower.includes("alto")) impacto = "Alto";
+  }
+
   const justificativa = sections["Justificativa da classificação"] || "-";
   const resposta = sections["Resposta ao risco"] || "-";
   const responsavel = sections["Responsável"] || (issue.user ? issue.user.login : "-");
 
   const nivel = (MATRIX_LEVELS[probabilidade] && MATRIX_LEVELS[probabilidade][impacto])
     ? MATRIX_LEVELS[probabilidade][impacto]
-    : "Indefinido";
+    : "-";
 
   return {
     issueNumber: issue.number,
     issueUrl: issue.html_url,
     title: issue.title,
-    teamKey,
+    teamKey: teamKey || "E1",
     risco,
     causaConsequencia,
-    probabilidade,
-    impacto,
+    probabilidade: probabilidade || "",
+    impacto: impacto || "",
     nivel,
     justificativa,
     resposta,
@@ -637,10 +699,11 @@ function formatRiskFromIssue(issue) {
 
 let allRisks = [];
 
-// BUSCA DE ISSUES VIA API DO GITHUB
+// BUSCA DE ISSUES VIA API DO GITHUB (Nao ignora nenhuma issue aberta)
 async function fetchIssues() {
   const statusBar = document.getElementById("status-bar");
   statusBar.style.display = "block";
+  statusBar.className = "alert-box";
   statusBar.innerHTML = "Carregando riscos do repositório <strong>" + REPO_INFO.owner + "/" + REPO_INFO.repo + "</strong>...";
 
   try {
@@ -656,12 +719,7 @@ async function fetchIssues() {
 
     const issues = await response.json();
     const riskIssues = issues.filter(function(issue) {
-      if (issue.pull_request) return false;
-      const hasLabel = issue.labels && issue.labels.some(function(l) {
-        return l.name && l.name.toLowerCase() === "risco";
-      });
-      const hasField = issue.body && issue.body.includes("### Equipe");
-      return hasLabel || hasField;
+      return !issue.pull_request; // apenas issues normais
     });
 
     allRisks = riskIssues.map(formatRiskFromIssue);
@@ -680,7 +738,7 @@ function renderApp() {
   const selectedTeam = params.get("equipe") ? params.get("equipe").toUpperCase() : null;
 
   const btnGithubIssues = document.getElementById("btn-github-issues");
-  btnGithubIssues.href = "https://github.com/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues?q=is%3Aissue+is%3Aopen+label%3Arisco";
+  btnGithubIssues.href = "https://github.com/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues";
 
   const btnNewRiskHeader = document.getElementById("btn-new-risk-header");
   if (selectedTeam && TEAMS[selectedTeam]) {
@@ -732,7 +790,7 @@ function renderHomeView(container) {
   container.innerHTML = html;
 }
 
-// RENDERIZA A MATRIZ E A TABELA DO PROJETO SELECIONADO
+// RENDERIZA A MATRIZ E A TABELA INTERATIVA DO PROJETO SELECIONADO
 function renderTeamView(teamKey, container) {
   const team = TEAMS[teamKey];
   document.getElementById("page-title").textContent = team.name + " (" + team.id + ")";
@@ -754,8 +812,8 @@ function renderTeamView(teamKey, container) {
   html += '    <h2 class="team-panel-title">' + team.name + ' <span class="team-code">' + team.id + '</span></h2>';
   html += '  </div>';
   html += '  <div class="team-panel-actions">';
-  html += '    <span style="font-size: 0.88rem; color: var(--muted); margin-right: 6px;"><strong>' + teamRisks.length + '</strong> riscos registrados</span>';
-  html += '    <a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues/new?template=registrar-risco.yml&equipe=' + team.id + '&title=%5B' + team.id + '%5D+" target="_blank" rel="noopener" class="btn btn-primary btn-sm noprint">+ Registrar novo risco</a>';
+  html += '    <span id="risk-count-badge" style="font-size: 0.88rem; color: var(--muted); margin-right: 6px;"><strong>' + teamRisks.length + '</strong> riscos registrados</span>';
+  html += '    <a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues/new?template=registrar-risco.yml&equipe=' + team.id + '&title=%5B' + team.id + '%5D+" target="_blank" rel="noopener" class="btn btn-primary btn-sm noprint">+ Registrar novo risco no GitHub</a>';
   html += '  </div>';
   html += '</div>';
 
@@ -770,7 +828,7 @@ function renderTeamView(teamKey, container) {
   html += '</h3>';
 
   html += '<div class="matrix-wrapper">';
-  html += '  <table class="matrix-table" role="table" aria-label="Matriz de Probabilidade e Impacto">';
+  html += '  <table class="matrix-table" id="matrix-table" role="table" aria-label="Matriz de Probabilidade e Impacto">';
   html += '    <thead>';
   html += '      <tr>';
   html += '        <th colspan="2" rowspan="2" style="background: transparent; border: none;"></th>';
@@ -798,9 +856,9 @@ function renderTeamView(teamKey, container) {
         return r.probabilidade === prob && r.impacto === imp;
       });
 
-      html += '    <td class="matrix-cell ' + cellClass + '">';
+      html += '    <td class="matrix-cell ' + cellClass + '" data-prob="' + prob + '" data-imp="' + imp + '">';
       html += '      <span class="cell-level-label">' + level + '</span>';
-      html += '      <div class="cell-risks">';
+      html += '      <div class="cell-risks" id="cell-risks-' + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '') + '">';
       matchingRisks.forEach(function(r) {
         html += '      <a href="#row-' + r.code + '" class="risk-tag" title="' + escapeHtml(r.risco) + '">' + r.code + '</a>';
       });
@@ -814,64 +872,224 @@ function renderTeamView(teamKey, container) {
   html += '  </table>';
   html += '</div>';
 
-  // Tabela de Registro de Riscos
+  // Tabela de Registro de Riscos Interativa
   html += '<h3 class="section-title">';
   html += '  <span>Registro de Riscos</span>';
-  html += '  <button onclick="window.print()" class="btn btn-secondary btn-sm noprint">Imprimir / Salvar PDF</button>';
+  html += '  <div class="header-actions noprint">';
+  html += '    <button id="btn-add-row" class="btn btn-secondary btn-sm">+ Adicionar linha na tabela</button>';
+  html += '    <button onclick="window.print()" class="btn btn-secondary btn-sm">Imprimir / Salvar PDF</button>';
+  html += '  </div>';
   html += '</h3>';
 
+  html += '<div class="table-wrapper">';
+  html += '  <table class="data-table" id="risks-table">';
+  html += '    <thead>';
+  html += '      <tr>';
+  html += '        <th style="width: 50px;">ID</th>';
+  html += '        <th style="min-width: 170px;">Risco</th>';
+  html += '        <th style="min-width: 170px;">Causa e consequência</th>';
+  html += '        <th style="width: 120px;">Probabilidade</th>';
+  html += '        <th style="width: 130px;">Impacto</th>';
+  html += '        <th style="width: 90px; text-align:center;">Nível</th>';
+  html += '        <th style="min-width: 160px;">Resposta ao risco</th>';
+  html += '        <th style="width: 110px;">Responsável</th>';
+  html += '        <th style="width: 80px;" class="noprint">Issue</th>';
+  html += '      </tr>';
+  html += '    </thead>';
+  html += '    <tbody id="risks-tbody">';
+
   if (teamRisks.length === 0) {
-    html += '<div class="table-wrapper">';
-    html += '  <div class="empty-state">';
-    html += '    <h3>Nenhum risco registrado para este projeto</h3>';
-    html += '    <p>Clique no botão abaixo para abrir o formulário no GitHub e registrar o primeiro risco.</p>';
-    html += '    <a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues/new?template=registrar-risco.yml&equipe=' + team.id + '&title=%5B' + team.id + '%5D+" target="_blank" rel="noopener" class="btn btn-primary btn-sm">+ Registrar novo risco</a>';
-    html += '  </div>';
-    html += '</div>';
+    html += '      <tr id="empty-row"><td colspan="9" style="text-align:center; padding: 24px; color: var(--muted);">';
+    html += '        Nenhum risco cadastrado ainda. Clique em <strong>+ Registrar novo risco no GitHub</strong> ou em <strong>+ Adicionar linha na tabela</strong> acima.';
+    html += '      </td></tr>';
   } else {
-    html += '<div class="table-wrapper">';
-    html += '  <table class="data-table">';
-    html += '    <thead>';
-    html += '      <tr>';
-    html += '        <th style="width: 50px;">ID</th>';
-    html += '        <th style="min-width: 170px;">Risco</th>';
-    html += '        <th style="min-width: 170px;">Causa e consequência</th>';
-    html += '        <th style="width: 80px;">Prob.</th>';
-    html += '        <th style="width: 95px;">Impacto</th>';
-    html += '        <th style="width: 80px;">Nível</th>';
-    html += '        <th style="min-width: 170px;">Justificativa</th>';
-    html += '        <th style="min-width: 170px;">Resposta ao risco</th>';
-    html += '        <th style="width: 110px;">Responsável</th>';
-    html += '        <th style="width: 75px;" class="noprint">Issue</th>';
-    html += '      </tr>';
-    html += '    </thead>';
-    html += '    <tbody>';
-
     teamRisks.forEach(function(r) {
-      let levelClass = "baixa";
-      if (r.nivel === "Média") levelClass = "media";
-      if (r.nivel === "Alta") levelClass = "alta";
-
-      html += '      <tr id="row-' + r.code + '">';
-      html += '        <td><strong>' + r.code + '</strong></td>';
-      html += '        <td>' + escapeHtml(r.risco) + '</td>';
-      html += '        <td>' + escapeHtml(r.causaConsequencia) + '</td>';
-      html += '        <td>' + escapeHtml(r.probabilidade) + '</td>';
-      html += '        <td>' + escapeHtml(r.impacto) + '</td>';
-      html += '        <td><span class="badge-level ' + levelClass + '">' + r.nivel + '</span></td>';
-      html += '        <td>' + escapeHtml(r.justificativa) + '</td>';
-      html += '        <td>' + escapeHtml(r.resposta) + '</td>';
-      html += '        <td>' + escapeHtml(r.responsavel) + '</td>';
-      html += '        <td class="noprint"><a href="' + r.issueUrl + '" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">#' + r.issueNumber + '</a></td>';
-      html += '      </tr>';
+      html += renderRiskRowHtml(r);
     });
-
-    html += '    </tbody>';
-    html += '  </table>';
-    html += '</div>';
   }
 
+  html += '    </tbody>';
+  html += '  </table>';
+  html += '</div>';
+
   container.innerHTML = html;
+
+  // Associa eventos nos dropdowns de probabilidade e impacto para atualizacao instantanea
+  attachTableEventListeners(teamKey);
+
+  const btnAddRow = document.getElementById("btn-add-row");
+  if (btnAddRow) {
+    btnAddRow.addEventListener("click", function() {
+      addNewRow(teamKey);
+    });
+  }
+}
+
+// GERA HTML DE UMA LINHA DA TABELA COM SELECTS INTERATIVOS
+function renderRiskRowHtml(r) {
+  let levelClass = "vazio";
+  if (r.nivel === "Baixa") levelClass = "baixa";
+  if (r.nivel === "Média") levelClass = "media";
+  if (r.nivel === "Alta") levelClass = "alta";
+
+  let probOptions = '<option value="">Escolher</option>';
+  PROB_ROWS.forEach(function(p) {
+    const sel = (r.probabilidade === p) ? ' selected' : '';
+    probOptions += '<option value="' + p + '"' + sel + '>' + p + '</option>';
+  });
+
+  let impOptions = '<option value="">Escolher</option>';
+  IMP_COLS.forEach(function(i) {
+    const sel = (r.impacto === i) ? ' selected' : '';
+    impOptions += '<option value="' + i + '"' + sel + '>' + i + '</option>';
+  });
+
+  let issueLink = '-';
+  if (r.issueUrl) {
+    issueLink = '<a href="' + r.issueUrl + '" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">#' + r.issueNumber + '</a>';
+  }
+
+  let html = '';
+  html += '<tr id="row-' + r.code + '" data-code="' + r.code + '" data-issue="' + (r.issueNumber || '') + '">';
+  html += '  <td><strong>' + r.code + '</strong></td>';
+  html += '  <td>' + escapeHtml(r.risco) + '</td>';
+  html += '  <td>' + escapeHtml(r.causaConsequencia) + '</td>';
+  html += '  <td><select class="select-prob" data-code="' + r.code + '">' + probOptions + '</select></td>';
+  html += '  <td><select class="select-imp" data-code="' + r.code + '">' + impOptions + '</select></td>';
+  html += '  <td style="text-align:center;"><span class="badge-level ' + levelClass + '" id="badge-' + r.code + '">' + (r.nivel || '-') + '</span></td>';
+  html += '  <td>' + escapeHtml(r.resposta) + '</td>';
+  html += '  <td>' + escapeHtml(r.responsavel) + '</td>';
+  html += '  <td class="noprint">' + issueLink + '</td>';
+  html += '</tr>';
+  return html;
+}
+
+// ADICIONA NOVA LINHA EDITAVEL NA TABELA
+function addNewRow(teamKey) {
+  const tbody = document.getElementById("risks-tbody");
+  const emptyRow = document.getElementById("empty-row");
+  if (emptyRow) emptyRow.remove();
+
+  const currentRows = tbody.querySelectorAll("tr");
+  const nextNumber = currentRows.length + 1;
+  const newCode = "R" + nextNumber;
+
+  const newRisk = {
+    code: newCode,
+    teamKey: teamKey,
+    risco: "Novo risco a definir",
+    causaConsequencia: "-",
+    probabilidade: "50%",
+    impacto: "Alto",
+    nivel: "Alta",
+    resposta: "Mitigar",
+    responsavel: "Equipe",
+    createdAt: new Date()
+  };
+
+  allRisks.push(newRisk);
+
+  const tr = document.createElement("tr");
+  tr.id = "row-" + newCode;
+  tr.dataset.code = newCode;
+  tr.innerHTML = renderRiskRowHtml(newRisk).replace(/^<tr[^>]*>|<\/tr>$/g, '');
+  tbody.appendChild(tr);
+
+  attachTableEventListeners(teamKey);
+  recalculateMatrix(teamKey);
+}
+
+// ASSOCIA OS EVENTOS NOS SELECTS PARA ATUALIZACAO AUTOMATICA INSTANTANEA
+function attachTableEventListeners(teamKey) {
+  const tbody = document.getElementById("risks-tbody");
+  if (!tbody) return;
+
+  const probSelects = tbody.querySelectorAll(".select-prob");
+  const impSelects = tbody.querySelectorAll(".select-imp");
+
+  probSelects.forEach(function(sel) {
+    sel.onchange = function() {
+      onRiskCriteriaChange(this.dataset.code, teamKey);
+    };
+  });
+
+  impSelects.forEach(function(sel) {
+    sel.onchange = function() {
+      onRiskCriteriaChange(this.dataset.code, teamKey);
+    };
+  });
+}
+
+// QUANDO O USUARIO ESCOLHE PROBABILIDADE OU IMPACTO NA TABELA
+function onRiskCriteriaChange(code, teamKey) {
+  const row = document.getElementById("row-" + code);
+  if (!row) return;
+
+  const prob = row.querySelector(".select-prob").value;
+  const imp = row.querySelector(".select-imp").value;
+  const badge = document.getElementById("badge-" + code);
+
+  // Atualiza objeto em memoria
+  const riskObj = allRisks.find(function(r) { return r.code === code && r.teamKey === teamKey; });
+
+  if (prob && imp && MATRIX_LEVELS[prob] && MATRIX_LEVELS[prob][imp]) {
+    const nivel = MATRIX_LEVELS[prob][imp];
+    badge.textContent = nivel;
+    badge.className = "badge-level " + (nivel === "Baixa" ? "baixa" : (nivel === "Média" ? "media" : "alta"));
+    if (riskObj) {
+      riskObj.probabilidade = prob;
+      riskObj.impacto = imp;
+      riskObj.nivel = nivel;
+    }
+  } else {
+    badge.textContent = "-";
+    badge.className = "badge-level vazio";
+    if (riskObj) {
+      riskObj.probabilidade = prob;
+      riskObj.impacto = imp;
+      riskObj.nivel = "-";
+    }
+  }
+
+  // Atualiza posicoes na matriz 5x5 imediatamente
+  recalculateMatrix(teamKey);
+}
+
+// RECALCULA E REDESENHA OS CODIGOS (R1, R2...) NAS CELULAS DA MATRIZ 5x5
+function recalculateMatrix(teamKey) {
+  // Limpa todas as celulas da matriz
+  PROB_ROWS.forEach(function(prob) {
+    IMP_COLS.forEach(function(imp) {
+      const containerId = "cell-risks-" + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '');
+      const container = document.getElementById(containerId);
+      if (container) container.innerHTML = "";
+    });
+  });
+
+  // Percorre todas as linhas da tabela e aloca nas celulas
+  const tbody = document.getElementById("risks-tbody");
+  if (!tbody) return;
+
+  tbody.querySelectorAll("tr").forEach(function(tr) {
+    const code = tr.dataset.code;
+    const probSelect = tr.querySelector(".select-prob");
+    const impSelect = tr.querySelector(".select-imp");
+    if (probSelect && impSelect) {
+      const prob = probSelect.value;
+      const imp = impSelect.value;
+      if (prob && imp) {
+        const containerId = "cell-risks-" + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '');
+        const container = document.getElementById(containerId);
+        if (container) {
+          const a = document.createElement("a");
+          a.href = "#row-" + code;
+          a.className = "risk-tag";
+          a.textContent = code;
+          container.appendChild(a);
+        }
+      }
+    }
+  });
 }
 
 function escapeHtml(str) {
