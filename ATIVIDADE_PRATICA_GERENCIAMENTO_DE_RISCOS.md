@@ -11,7 +11,7 @@
 
 **Identificação da Equipe:**
 - **Equipe / Código:** [ Ex.: E1, E2, E3, E4 ou E5 ]
-- **Nome do Projeto:** [ Nome do projeto de software ]
+- **Nome do Projeto:** [ Nome do projeto de software desenvolvido pela equipe ]
 - **Integrantes da Equipe:**
   1. [ Nome do integrante 1 - Papel ]
   2. [ Nome do integrante 2 - Papel ]
@@ -22,124 +22,159 @@
 
 ---
 
-## 1. Contextualização e Objetivo da Atividade
+## 1. Contextualização da Atividade
 
-No desenvolvimento de software, riscos são eventos ou condições incertas que, se ocorrerem, causam impactos no escopo, no prazo, no custo ou na qualidade do produto final. 
+Os alunos possuem um projeto acadêmico de software com prazo aproximado de um mês para desenvolvimento. Atualmente, possuem apenas o protótipo da aplicação e os artefatos de planejamento produzidos nas etapas anteriores da disciplina.
 
-Nesta prática, cada equipe realizará a **identificação e avaliação preventiva dos riscos** do seu projeto acadêmico de software (de baixa a média complexidade, com duração aproximada de um mês), **antes do início da implementação** (Unidade 2).
+**Nenhuma funcionalidade foi implementada até o momento.**
 
-O objetivo é exercitar o planejamento proativo e preventivo:
-- Reconhecer potenciais obstáculos antes que eles se transformem em problemas reais;
-- Classificar a severidade dos riscos por meio de uma **Matriz de Probabilidade x Impacto (5 x 5)**;
-- Planejar ações de tratamento proporcionais à realidade de um projeto acadêmico de curta duração.
+A atividade deverá ser realizada antes da implementação, com o objetivo de antecipar possíveis dificuldades técnicas e operacionais e estabelecer estratégias preventivas.
 
-> **Observação didática:** Não serão exigidas métricas de execução, resultados de testes, cálculos estatísticos avançados ou comprovação prática das estratégias nesta etapa inicial, mas sim a capacidade de raciocínio crítico, estimativa qualitativa e planejamento preventivo da equipe.
+> **Importante:** Não solicite métricas de execução, resultados de testes, análise de código, histórico de bugs ou medições de desempenho. O foco exclusivo desta etapa é a reflexão preventiva e o planejamento prévio.
 
 ---
 
-## 2. Mensuração da Probabilidade
+## 2. Identificação dos Riscos
 
-A probabilidade indica a chance de determinado evento de risco ocorrer ao longo do mês de desenvolvimento. 
+Os alunos deverão identificar os riscos considerando as informações concretas disponíveis nesta etapa do projeto:
 
-Os percentuais adotados representam **estimativas qualitativas** fundamentadas nas condições reais da equipe: familiaridade com a linguagem e frameworks escolhidos, complexidade das funcionalidades planejadas, grau de dependência de APIs ou serviços externos e tempo disponível dos integrantes.
+- Protótipo da aplicação;
+- Requisitos do software;
+- Backlog do produto;
+- Complexidade das funcionalidades previstas;
+- Tecnologias e frameworks escolhidos ou planejados;
+- Conhecimento técnico dos integrantes;
+- Disponibilidade da equipe;
+- Prazo de desenvolvimento;
+- Dependências entre funcionalidades;
+- Necessidade de integração com serviços externos.
 
-| Probabilidade | Classificação | Critério de Avaliação |
+Os riscos deverão representar **eventos incertos que poderão acontecer durante a futura implementação**.
+
+---
+
+## 3. Mensuração da Probabilidade
+
+A probabilidade deverá ser estimada com base nas condições atuais do projeto e nas dificuldades previstas pela equipe antes do início da codificação.
+
+Utilize a seguinte tabela como referência:
+
+| Probabilidade | Classificação | Critério de Avaliação Antes da Implementação |
 | :---: | :---: | :--- |
-| **10%** | Muito baixa | É muito improvável que o problema aconteça. Existem condições adequadas para evitá-lo. |
-| **30%** | Baixa | Existe possibilidade de ocorrência, mas poucos fatores favorecem o problema. |
-| **50%** | Moderada | Existem incertezas ou dificuldades que tornam possível a ocorrência do problema. |
-| **70%** | Alta | Existem dificuldades técnicas, limitações ou dependências que tornam provável a ocorrência do problema. |
-| **90%** | Muito alta | Existem fortes indícios de que o problema poderá acontecer. |
+| **10%** | Muito baixa | Não foram identificados fatores relevantes que favoreçam a ocorrência do risco. A equipe possui conhecimento e recursos adequados. |
+| **30%** | Baixa | Existem poucas dificuldades previstas, e a equipe possui condições para lidar com elas. |
+| **50%** | Moderada | Existem incertezas sobre a implementação, a tecnologia ou a capacidade da equipe de realizar determinada funcionalidade. |
+| **70%** | Alta | Existem limitações relevantes, como pouca experiência técnica, funcionalidades complexas ou dependências externas importantes. |
+| **90%** | Muito alta | Existem fortes indícios de que o risco poderá ocorrer, considerando as limitações conhecidas e a ausência de alternativas ou medidas preventivas adequadas. |
+
+Os percentuais representam **estimativas qualitativas** utilizadas para padronizar a avaliação. Não representam probabilidades comprovadas estatisticamente.
+
+A equipe deverá justificar a classificação com base nas informações disponíveis antes da implementação.
 
 ---
 
-## 3. Mensuração do Impacto
+## 4. Mensuração do Impacto
 
-O impacto mede a gravidade dos efeitos causados no projeto caso o risco se concretize. 
+O impacto deverá ser avaliado considerando as consequências previstas caso o risco aconteça durante o desenvolvimento.
 
-Para esta atividade, os critérios foram calibrados para a escala e realidade de um **projeto acadêmico com duração de um mês**:
+Utilize os seguintes critérios:
 
-| Impacto | Critério de Avaliação |
+| Impacto | Critério de Avaliação Antes da Implementação |
 | :---: | :--- |
-| **Muito baixo** | Exige pequenos ajustes, que podem ser resolvidos em algumas horas, sem comprometer funcionalidades importantes. |
-| **Baixo** | Exige correções simples, podendo consumir até um dia de trabalho. |
-| **Moderado** | Exige retrabalho de dois a três dias ou compromete parcialmente uma funcionalidade importante. |
-| **Alto** | Exige mudanças significativas, podendo consumir de quatro a cinco dias ou comprometer uma funcionalidade essencial. |
-| **Muito alto** | Pode inviabilizar o funcionamento do software ou comprometer a entrega final do projeto. |
+| **Muito baixo** | Poderá exigir pequenos ajustes, sem comprometer as funcionalidades previstas ou o planejamento do projeto. |
+| **Baixo** | Poderá exigir alterações pontuais em funcionalidades secundárias, sem comprometer os objetivos principais. |
+| **Moderado** | Poderá exigir mudanças no planejamento, retrabalho ou alterações em funcionalidades importantes. |
+| **Alto** | Poderá comprometer funcionalidades essenciais, exigir mudanças técnicas significativas ou prejudicar o prazo de entrega. |
+| **Muito alto** | Poderá inviabilizar a implementação da proposta, comprometer os objetivos principais ou impedir a entrega de um software funcional. |
 
-### Orientações para a Avaliação de Impacto:
-1. **Prazos como referência:** Os prazos em dias e horas servem como guia prático. A equipe também deve considerar a criticidade da funcionalidade afetada para o usuário, a integridade dos dados e o nível de esforço cognitivo para contornar a falha.
-2. **Critério da pior consequência:** Caso um mesmo risco acarrete consequências distintas (por exemplo: atraso de 1 dia, mas com risco de corromper dados do sistema), a equipe deve considerar o **maior impacto identificado**, desde que devidamente justificado.
+### Fatores para Avaliação do Impacto:
+Para avaliar o impacto, os alunos deverão considerar:
+- A importância da funcionalidade afetada;
+- A dependência de outras funcionalidades;
+- A existência de soluções alternativas;
+- A dificuldade prevista para resolver o problema;
+- As consequências para o planejamento;
+- O comprometimento do prazo de entrega;
+- A viabilidade do projeto.
+
+**Atenção:** Não estabeleça quantidades obrigatórias de horas ou dias de retrabalho, pois o software ainda não foi implementado.
+
+Caso um risco apresente diferentes consequências, considere o **maior impacto aplicável**, desde que devidamente justificado.
 
 ---
 
-## 4. Matriz de Probabilidade x Impacto (5 x 5)
+## 5. Matriz de Probabilidade e Impacto (5 x 5)
 
-A severidade de cada risco é calculada pelo cruzamento entre a linha da **Probabilidade** e a coluna do **Impacto**, resultando em três níveis: **Baixo** (verde), **Médio** (amarelo) e **Alto** (vermelho).
+A classificação de cada risco é obtida pelo cruzamento da linha da **Probabilidade** com a coluna do **Impacto**, resultando em três níveis: **Baixo** (verde), **Médio** (amarelo) e **Alto** (vermelho).
 
-### 4.1. Imagem de Referência da Matriz
+### 5.1. Imagem Oficial de Referência da Matriz
 
 ![Matriz de Riscos 5x5](matriz_riscos_5x5.png)
 
 ---
 
-### 4.2. Versão Editável da Matriz (Preenchimento pela Equipe)
+### 5.2. Versão Editável da Matriz para Preenchimento
 
-Insira os códigos dos riscos (**R1, R2, R3, R4, R5...**) nas células correspondentes à combinação de Probabilidade e Impacto avaliada.
+Insira os códigos dos riscos identificados (**R1, R2, R3, R4, R5...**) no espaço correspondente dentro de cada célula.
 
 | Probabilidade / Impacto | Muito baixo | Baixo | Moderado | Alto | Muito alto |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| **90%** | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px;">**Alto**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px;">**Alto**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px;">**Alto**<br><br>*(inserir códigos)*</span> |
-| **70%** | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px;">**Alto**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px;">**Alto**<br><br>*(inserir códigos)*</span> |
-| **50%** | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px;">**Alto**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px;">**Alto**<br><br>*(inserir códigos)*</span> |
-| **30%** | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px;">**Alto**<br><br>*(inserir códigos)*</span> |
-| **10%** | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px;">**Médio**<br><br>*(inserir códigos)*</span> |
+| **90%** | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px; text-align:center;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px; text-align:center;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px; text-align:center;">**Alto**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px; text-align:center;">**Alto**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px; text-align:center;">**Alto**<br><br>*(inserir códigos)*</span> |
+| **70%** | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px; text-align:center;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px; text-align:center;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px; text-align:center;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px; text-align:center;">**Alto**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px; text-align:center;">**Alto**<br><br>*(inserir códigos)*</span> |
+| **50%** | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px; text-align:center;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px; text-align:center;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px; text-align:center;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px; text-align:center;">**Alto**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px; text-align:center;">**Alto**<br><br>*(inserir códigos)*</span> |
+| **30%** | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px; text-align:center;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px; text-align:center;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px; text-align:center;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px; text-align:center;">**Médio**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ff7c80; display:block; padding:8px; border-radius:4px; text-align:center;">**Alto**<br><br>*(inserir códigos)*</span> |
+| **10%** | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px; text-align:center;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px; text-align:center;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px; text-align:center;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#a9d18e; display:block; padding:8px; border-radius:4px; text-align:center;">**Baixo**<br><br>*(inserir códigos)*</span> | <span style="background-color:#ffd966; display:block; padding:8px; border-radius:4px; text-align:center;">**Médio**<br><br>*(inserir códigos)*</span> |
 
-**Convenção de Cores da Matriz:**
-- **Verde (#A9D18E):** Risco Baixo. Ações de monitoramento rotineiro são suficientes.
-- **Amarelo (#FFD966):** Risco Médio. Exige medidas de prevenção e plano de mitigação claro.
-- **Vermelho (#FF7C80):** Risco Alto. Prioridade máxima; ameaça direta à entrega e estabilidade do projeto.
-
----
-
-## 5. Funcionamento da Matriz e Regras de Decisão
-
-Para aplicar a matriz corretamente, é fundamental distinguir os três conceitos envolvidos:
-
-1. **Probabilidade:** É a possibilidade ou propensão de o evento de risco acontecer durante o projeto.
-2. **Impacto:** É a intensidade da consequência ou do prejuízo caso o risco venha a se concretizar.
-3. **Nível de Risco:** É a classificação final (Baixo, Médio ou Alto) decorrente da interseção entre a probabilidade e o impacto na matriz.
-
-### Como a matriz deve ser utilizada pelos alunos:
-- **Não escolha o nível de risco diretamente:** A equipe não deve decidir previamente se um risco é "Alto" ou "Médio". Primeiro, estime a probabilidade fundamentada (10% a 90%), depois avalie o impacto técnico (Muito baixo a Muito alto) e consulte a célula da matriz para obter o nível resultante.
-- **Assimetria das classificações:** Nem todas as linhas e colunas possuem os três níveis de risco. A matriz reflete prioridades gerenciais predefinidas. Exemplos práticos:
-  - Probabilidade de **90%** e impacto **Muito baixo** resultam em risco **Médio** (pois embora aconteça quase com certeza, seu efeito é pequeno).
-  - Probabilidade de **90%** e impacto **Moderado** resultam em risco **Alto** (alta chance somada a dias de retrabalho).
-  - Probabilidade de **10%** e impacto **Muito alto** resultam em risco **Médio** (evento com baixíssima chance de ocorrer, equilibrando a criticidade).
-  - Probabilidade de **50%** e impacto **Baixo** resultam em risco **Baixo**.
-- **Contexto da matriz:** Não existe uma distribuição universal e engessada de cores válida para todas as indústrias. A matriz acima define os parâmetros específicos e calibrados para o escopo desta disciplina e dos projetos das equipes.
+**Distribuição das Cores:**
+- **Verde (#A9D18E):** Riscos Baixos.
+- **Amarelo (#FFD966):** Riscos Médios.
+- **Vermelho (#FF7C80):** Riscos Altos.
 
 ---
 
-## 6. Registro dos Riscos Identificados
+## 6. Funcionamento da Matriz
 
-Cada equipe deverá identificar, descrever e classificar **no mínimo cinco riscos (R1 a R5)** relacionados ao seu projeto de software. Caso a equipe identifique riscos adicionais, basta acrescentar novas linhas na tabela.
+A **probabilidade** representa a possibilidade de ocorrência, enquanto o **impacto** representa a consequência prevista caso o risco venha a se concretizar.
 
-| ID | Risco | Causa e Consequência | Probabilidade | Impacto | Nível de Risco | Estratégia de Tratamento | Responsável |
-| :---: | :--- | :--- | :---: | :---: | :---: | :--- | :--- |
-| **R1** | | **Causa:** <br>**Consequência:** | | | | | |
-| **R2** | | **Causa:** <br>**Consequência:** | | | | | |
-| **R3** | | **Causa:** <br>**Consequência:** | | | | | |
-| **R4** | | **Causa:** <br>**Consequência:** | | | | | |
-| **R5** | | **Causa:** <br>**Consequência:** | | | | | |
+O **nível de risco** é obtido pelo cruzamento dessas duas informações.
+
+Nem todas as linhas apresentam os três níveis de risco, pois a distribuição das classificações foi previamente estabelecida pela matriz de acordo com critérios de severidade.
+
+**Importante:** Os alunos não deverão escolher diretamente o nível de risco. Eles devem estimar a probabilidade, avaliar o impacto e consultar a matriz para verificar a classificação correspondente.
+
+### Exemplo Didático:
+
+- **Risco:** Dificuldade na implementação da autenticação de usuários.
+- **Justificativa da probabilidade:** A equipe possui pouca experiência com mecanismos de autenticação.
+- **Probabilidade:** 70%.
+- **Justificativa do impacto:** A autenticação é necessária para acessar funcionalidades essenciais previstas no protótipo.
+- **Impacto:** Alto.
+- **Nível de risco:** Alto, conforme a matriz.
+- **Estratégia de tratamento:** Estudar previamente a tecnologia escolhida e planejar a implementação da autenticação como uma das primeiras tarefas do desenvolvimento.
+
+*(Observação: esse exemplo é estritamente hipotético e não representa uma funcionalidade já implementada.)*
 
 ---
 
-## 7. Justificativa da Avaliação Técnica
+## 7. Registro dos Riscos
 
-Para cada risco registrado na seção anterior, a equipe deve detalhar e justificar tecnicamente as notas atribuídas de probabilidade e impacto, baseando-se no cenário real do projeto e da equipe antes da implementação.
+Cada equipe deverá identificar, no mínimo, **cinco riscos (R1 a R5)** relacionados ao seu próprio projeto de software. Caso identifique outros riscos relevantes, podem ser adicionadas novas linhas.
 
-| ID | Justificativa da Probabilidade (Por que esse percentual?) | Justificativa do Impacto (Por que este nível de gravidade?) |
+| ID | Risco | Causa | Consequência Prevista | Probabilidade | Impacto | Nível de Risco | Ação Planejada | Responsável |
+| :---: | :--- | :--- | :--- | :---: | :---: | :---: | :--- | :--- |
+| **R1** | | | | | | | | |
+| **R2** | | | | | | | | |
+| **R3** | | | | | | | | |
+| **R4** | | | | | | | | |
+| **R5** | | | | | | | | |
+
+---
+
+## 8. Justificativa das Classificações
+
+Apresente a justificativa técnica para as estimativas de probabilidade e impacto atribuídas a cada risco:
+
+| ID | Justificativa da Probabilidade | Justificativa do Impacto |
 | :---: | :--- | :--- |
 | **R1** | | |
 | **R2** | | |
@@ -147,29 +182,30 @@ Para cada risco registrado na seção anterior, a equipe deve detalhar e justifi
 | **R4** | | |
 | **R5** | | |
 
----
-
-## 8. Estratégias de Tratamento dos Riscos
-
-Para cada risco levantado, a equipe deve selecionar e planejar uma das quatro estratégias clássicas de tratamento da Engenharia de Software:
-
-1. **Evitar:** Eliminar a causa do risco alterando o planejamento, simplificando o escopo ou substituindo uma tecnologia desconhecida/instável por outra dominada pela equipe.
-2. **Mitigar:** Adotar medidas preventivas para diminuir a probabilidade de ocorrência ou reduzir o impacto caso o evento aconteça (ex.: reuniões curtas de alinhamento, padronização de contratos de API, realização de spikes técnicos).
-3. **Transferir:** Repassar a responsabilidade ou o impacto do risco para um componente ou serviço externo de terceiros já testado e consolidado (ex.: utilizar autenticação pronta como Supabase/Firebase Auth em vez de codificar autenticação própria do zero).
-4. **Aceitar:** Reconhecer a existência do risco e assumir suas consequências caso ocorra, elaborando um plano de contingência caso seja viável conviver com ele sem paralisar o projeto.
-
-> **Importante:** A atividade exige apenas o **planejamento prévio** das ações preventivas, não sendo necessária sua execução imediata nesta entrega.
+As justificativas deverão estar fundamentadas no **protótipo**, nos **requisitos**, no **planejamento** e nas **condições atuais da equipe**.
 
 ---
 
-## 9. Critérios de Entrega e Checklist da Equipe
+## 9. Estratégias de Tratamento
 
-A atividade será entregue em grupo contendo os seguintes itens completamente preenchidos:
+Para cada risco identificado, a equipe deverá definir uma ação de resposta planejada, adotando uma das quatro estratégias:
 
-- [ ] Cabeçalho preenchido com nome do projeto e identificação de todos os integrantes da equipe;
-- [ ] Identificação de no mínimo 5 riscos reais do projeto;
-- [ ] Tabela de **Registro dos Riscos** completamente preenchida;
-- [ ] Tabela de **Justificativas Técnicas** da probabilidade e do impacto para cada risco;
-- [ ] **Matriz de Riscos 5 x 5** com os códigos (R1, R2, R3...) alocados nas células coloridas correspondentes;
-- [ ] Definição da estratégia de tratamento (Evitar, Mitigar, Transferir ou Aceitar) e descrição da ação planejada;
-- [ ] Indicação dos integrantes responsáveis pelo monitoramento de cada risco.
+- **Evitar:** Modificar o planejamento para eliminar a exposição ao risco.
+- **Mitigar:** Planejar ações para reduzir a probabilidade ou o impacto.
+- **Transferir:** Atribuir parte das consequências ou responsabilidades a terceiros, quando aplicável.
+- **Aceitar:** Reconhecer o risco e planejar seu acompanhamento.
+
+**Atenção:** Os alunos deverão apenas planejar as ações. Não será necessário implementá-las ou comprovar sua eficácia nesta atividade.
+
+---
+
+## 10. Entrega da Atividade
+
+A equipe deverá entregar o documento contendo:
+
+- [ ] Identificação da equipe, projeto e integrantes preenchida no cabeçalho;
+- [ ] Registro dos riscos identificados (mínimo de 5 riscos);
+- [ ] Justificativas da probabilidade e do impacto devidamente fundamentadas;
+- [ ] Matriz de riscos preenchida com os respectivos códigos (R1 a R5...);
+- [ ] Estratégias de tratamento planejadas;
+- [ ] Responsáveis pelo acompanhamento dos riscos indicados.

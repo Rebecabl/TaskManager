@@ -17,7 +17,7 @@
     padding: 24px;
   }
   .doc-container {
-    max-width: 900px;
+    max-width: 920px;
     margin: 0 auto;
     background: #ffffff;
     padding: 40px 48px;
@@ -125,6 +125,20 @@
     font-size: 10pt;
     color: #713f12;
   }
+  .example-box {
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 4px solid #3b82f6;
+    padding: 14px 16px;
+    margin: 16px 0;
+    font-size: 10pt;
+    border-radius: 4px;
+  }
+  .example-box h4 {
+    margin: 0 0 8px;
+    color: #1e40af;
+    font-size: 10.5pt;
+  }
   table.content-table {
     width: 100%;
     border-collapse: collapse;
@@ -184,13 +198,6 @@
     font-weight: bold;
     height: 65px;
     width: 18%;
-  }
-  .cell-desc {
-    font-size: 8pt;
-    font-weight: normal;
-    display: block;
-    margin-top: 4px;
-    opacity: 0.9;
   }
   .cell-codes {
     font-size: 9pt;
@@ -256,7 +263,7 @@
   <!-- TITULO DO DOCUMENTO -->
   <div class="doc-title-box">
     <h1>Atividade Prática: Gerenciamento e Análise de Riscos de Software</h1>
-    <p>Identificação, avaliação qualitativa e planejamento preventivo de tratamento de riscos para projetos acadêmicos (Unidade 2).</p>
+    <p>Identificação preventiva de riscos para o desenvolvimento do projeto acadêmico de software (Unidade 2).</p>
   </div>
 
   <!-- IDENTIFICACAO DA EQUIPE -->
@@ -298,19 +305,46 @@
   <!-- SECAO 1 -->
   <h2 class="section-heading">1. Contextualização da Atividade</h2>
   <p>
-    No desenvolvimento de software, riscos são condições ou eventos incertos que, caso ocorram, provocam impactos indesejados no escopo, no cronograma ou na qualidade do produto. O gerenciamento de riscos é a disciplina que visa identificar, avaliar e mitigar essas ameaças de forma proativa, antes que se tornem problemas consumados.
+    Os alunos possuem um projeto acadêmico de software com prazo aproximado de um mês para desenvolvimento. Atualmente, possuem apenas o protótipo e os artefatos de planejamento produzidos nas etapas anteriores da disciplina.
   </p>
   <p>
-    Nesta atividade prática, os alunos desenvolverão um <strong>projeto acadêmico de software de baixa ou média complexidade, com prazo de execução aproximado de um mês</strong>. A atividade deve ser realizada <strong>antes do início da implementação</strong>, permitindo que a equipe planeje com antecedência como lidar com as principais incertezas técnicas e operacionais.
+    <strong>Nenhuma funcionalidade foi implementada até o momento.</strong>
+  </p>
+  <p>
+    A atividade deverá ser realizada antes da implementação, com o objetivo de antecipar possíveis dificuldades e estabelecer estratégias preventivas.
   </p>
   <div class="info-alert">
-    <strong>Aviso didático:</strong> Por se tratar de um projeto acadêmico de curta duração, <strong>não serão exigidas</strong> métricas complexas de execução, resultados de testes de estresse, cálculos estatísticos formais ou a comprovação prática imediata das estratégias nesta etapa de entrega. O foco é a reflexão crítica e preventiva da equipe.
+    <strong>Aviso didático:</strong> Não solicite métricas de execução, resultados de testes, análise de código, histórico de bugs ou medições de desempenho. O foco exclusivo desta etapa é a reflexão preventiva e o planejamento prévio.
   </div>
 
   <!-- SECAO 2 -->
-  <h2 class="section-heading">2. Mensuração da Probabilidade</h2>
+  <h2 class="section-heading">2. Identificação dos Riscos</h2>
   <p>
-    A probabilidade expressa a chance estimada de um risco se manifestar durante o mês de desenvolvimento. Os percentuais adotados representam <strong>estimativas qualitativas</strong> fundamentadas nas condições concretas do projeto: o conhecimento técnico prévio da equipe nas tecnologias escolhidas, a complexidade dos requisitos funcionais, a dependência de bibliotecas ou APIs de terceiros e a disponibilidade de tempo dos membros.
+    Os alunos deverão identificar os riscos considerando as informações disponíveis nesta etapa do projeto:
+  </p>
+  <ul>
+    <li>Protótipo da aplicação;</li>
+    <li>Requisitos do software;</li>
+    <li>Backlog do produto;</li>
+    <li>Complexidade das funcionalidades previstas;</li>
+    <li>Tecnologias e frameworks escolhidos ou planejados;</li>
+    <li>Conhecimento técnico dos integrantes;</li>
+    <li>Disponibilidade da equipe;</li>
+    <li>Prazo de desenvolvimento;</li>
+    <li>Dependências entre funcionalidades;</li>
+    <li>Necessidade de integração com serviços externos.</li>
+  </ul>
+  <p>
+    Os riscos deverão representar <strong>eventos incertos que poderão acontecer durante a futura implementação</strong>.
+  </p>
+
+  <!-- SECAO 3 -->
+  <h2 class="section-heading">3. Mensuração da Probabilidade</h2>
+  <p>
+    A probabilidade deverá ser estimada com base nas condições atuais do projeto e nas dificuldades previstas pela equipe.
+  </p>
+  <p>
+    Utilize a seguinte tabela como referência:
   </p>
 
   <table class="content-table">
@@ -318,87 +352,102 @@
       <tr>
         <th class="center" style="width: 15%;">Probabilidade</th>
         <th style="width: 25%;">Classificação</th>
-        <th>Critério de Avaliação</th>
+        <th>Critério de Avaliação Antes da Implementação</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="center"><strong>10%</strong></td>
         <td>Muito baixa</td>
-        <td>É muito improvável que o problema aconteça. Existem condições adequadas para evitá-lo.</td>
+        <td>Não foram identificados fatores relevantes que favoreçam a ocorrência do risco. A equipe possui conhecimento e recursos adequados.</td>
       </tr>
       <tr>
         <td class="center"><strong>30%</strong></td>
         <td>Baixa</td>
-        <td>Existe possibilidade de ocorrência, mas poucos fatores favorecem o problema.</td>
+        <td>Existem poucas dificuldades previstas, e a equipe possui condições para lidar com elas.</td>
       </tr>
       <tr>
         <td class="center"><strong>50%</strong></td>
         <td>Moderada</td>
-        <td>Existem incertezas ou dificuldades que tornam possível a ocorrência do problema.</td>
+        <td>Existem incertezas sobre a implementação, a tecnologia ou a capacidade da equipe de realizar determinada funcionalidade.</td>
       </tr>
       <tr>
         <td class="center"><strong>70%</strong></td>
         <td>Alta</td>
-        <td>Existem dificuldades técnicas, limitações ou dependências que tornam provável a ocorrência do problema.</td>
+        <td>Existem limitações relevantes, como pouca experiência técnica, funcionalidades complexas ou dependências externas importantes.</td>
       </tr>
       <tr>
         <td class="center"><strong>90%</strong></td>
         <td>Muito alta</td>
-        <td>Existem fortes indícios de que o problema poderá acontecer.</td>
+        <td>Existem fortes indícios de que o risco poderá ocorrer, considerando as limitações conhecidas e a ausência de alternativas ou medidas preventivas adequadas.</td>
       </tr>
     </tbody>
   </table>
 
-  <!-- SECAO 3 -->
-  <h2 class="section-heading">3. Mensuração do Impacto</h2>
   <p>
-    O impacto mede o nível de prejuízo ou retrabalho gerado no projeto caso o risco venha a acontecer. Os critérios abaixo são <strong>proporcionais à realidade de um projeto acadêmico com duração de um mês</strong>:
+    Os percentuais representam <strong>estimativas qualitativas</strong> utilizadas para padronizar a avaliação. Não representam probabilidades comprovadas estatisticamente. A equipe deverá justificar a classificação com base nas informações disponíveis antes da implementação.
+  </p>
+
+  <!-- SECAO 4 -->
+  <h2 class="section-heading">4. Mensuração do Impacto</h2>
+  <p>
+    O impacto deverá ser avaliado considerando as consequências previstas caso o risco aconteça durante o desenvolvimento.
+  </p>
+  <p>
+    Utilize os seguintes critérios:
   </p>
 
   <table class="content-table">
     <thead>
       <tr>
         <th style="width: 25%;">Impacto</th>
-        <th>Critério de Avaliação</th>
+        <th>Critério de Avaliação Antes da Implementação</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><strong>Muito baixo</strong></td>
-        <td>Exige pequenos ajustes, que podem ser resolvidos em algumas horas, sem comprometer funcionalidades importantes.</td>
+        <td>Poderá exigir pequenos ajustes, sem comprometer as funcionalidades previstas ou o planejamento do projeto.</td>
       </tr>
       <tr>
         <td><strong>Baixo</strong></td>
-        <td>Exige correções simples, podendo consumir até um dia de trabalho.</td>
+        <td>Poderá exigir alterações pontuais em funcionalidades secundárias, sem comprometer os objetivos principais.</td>
       </tr>
       <tr>
         <td><strong>Moderado</strong></td>
-        <td>Exige retrabalho de dois a três dias ou compromete parcialmente uma funcionalidade importante.</td>
+        <td>Poderá exigir mudanças no planejamento, retrabalho ou alterações em funcionalidades importantes.</td>
       </tr>
       <tr>
         <td><strong>Alto</strong></td>
-        <td>Exige mudanças significativas, podendo consumir de quatro a cinco dias ou comprometer uma funcionalidade essencial.</td>
+        <td>Poderá comprometer funcionalidades essenciais, exigir mudanças técnicas significativas ou prejudicar o prazo de entrega.</td>
       </tr>
       <tr>
         <td><strong>Muito alto</strong></td>
-        <td>Pode inviabilizar o funcionamento do software ou comprometer a entrega final do projeto.</td>
+        <td>Poderá inviabilizar a implementação da proposta, comprometer os objetivos principais ou impedir a entrega de um software funcional.</td>
       </tr>
     </tbody>
   </table>
 
   <p>
-    <strong>Diretrizes para avaliação de impacto:</strong>
+    <strong>Para avaliar o impacto, os alunos deverão considerar:</strong>
   </p>
   <ul>
-    <li>Os prazos em dias ou horas servem como referências para orientar a análise. O impacto também deve levar em conta a importância das funcionalidades afetadas para o usuário, o risco de perda ou inconsistência de informações e o grau de complexidade para recuperar o sistema.</li>
-    <li>Caso um risco apresente diferentes consequências simultâneas, a equipe deve considerar o <strong>maior impacto identificado</strong>, desde que essa escolha esteja devidamente fundamentada na justificativa técnica.</li>
+    <li>A importância da funcionalidade afetada;</li>
+    <li>A dependência de outras funcionalidades;</li>
+    <li>A existência de soluções alternativas;</li>
+    <li>A dificuldade prevista para resolver o problema;</li>
+    <li>As consequências para o planejamento;</li>
+    <li>O comprometimento do prazo de entrega;</li>
+    <li>A viabilidade do projeto.</li>
   </ul>
-
-  <!-- SECAO 4 -->
-  <h2 class="section-heading">4. Matriz de Riscos (5 x 5)</h2>
   <p>
-    A classificação do risco resulta do cruzamento da Probabilidade (linhas) com o Impacto (colunas), conforme a matriz 5 x 5 oficial da disciplina. As cores indicam a gravidade da ameaça: <strong>Verde</strong> para risco Baixo, <strong>Amarelo</strong> para risco Médio e <strong>Vermelho</strong> para risco Alto.
+    Não estabeleça quantidades obrigatórias de horas ou dias de retrabalho, pois o software ainda não foi implementado. Caso um risco apresente diferentes consequências, considere o <strong>maior impacto aplicável</strong>, desde que devidamente justificado.
+  </p>
+
+  <!-- SECAO 5 -->
+  <h2 class="section-heading">5. Matriz de Probabilidade e Impacto</h2>
+  <p>
+    Substitua a matriz anterior pela matriz 5 × 5 da imagem fornecida. Preserve exatamente as seguintes classificações:
   </p>
 
   <div class="image-box">
@@ -406,7 +455,9 @@
     <div class="image-caption">Figura 1 - Matriz de Probabilidade x Impacto (5 x 5) de referência da disciplina.</div>
   </div>
 
-  <p><strong>Versão Editável da Matriz:</strong> Insira os códigos dos riscos identificados (ex.: R1, R2, R3...) no espaço indicado dentro de cada célula correspondente à combinação avaliada.</p>
+  <p>
+    <strong>Versão Editável da Matriz:</strong> Insira os códigos dos riscos identificados (R1, R2, R3...) no espaço indicado dentro de cada célula correspondente.
+  </p>
 
   <table class="matrix-5x5">
     <thead>
@@ -428,101 +479,92 @@
         <th class="axis-label" style="width: 65px;">90%</th>
         <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
         <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alta<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alta<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alta<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
       </tr>
       <tr>
         <th class="axis-label">70%</th>
-        <td class="cell-baixa">Baixa<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
         <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
         <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alta<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alta<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
       </tr>
       <tr>
         <th class="axis-label">50%</th>
-        <td class="cell-baixa">Baixa<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-baixa">Baixa<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
         <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alta<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alta<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
       </tr>
       <tr>
         <th class="axis-label">30%</th>
-        <td class="cell-baixa">Baixa<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-baixa">Baixa<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
         <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
         <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alta<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
       </tr>
       <tr>
         <th class="axis-label">10%</th>
-        <td class="cell-baixa">Baixa<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-baixa">Baixa<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-baixa">Baixa<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-baixa">Baixa<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
+        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
         <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
       </tr>
     </tbody>
   </table>
 
-  <!-- SECAO 5 -->
-  <h2 class="section-heading">5. Explicação Didática sobre o Funcionamento da Matriz</h2>
-  <p>
-    Para utilizar a ferramenta com clareza, os alunos devem distinguir os três elementos centrais:
-  </p>
-  <ul>
-    <li><strong>Probabilidade:</strong> Refere-se à chance de o evento de risco acontecer no projeto.</li>
-    <li><strong>Impacto:</strong> Refere-se ao dano, atraso ou perda gerada caso o evento se concretize.</li>
-    <li><strong>Nível de risco:</strong> É a classificação resultante (Baixo, Médio ou Alto) definida pela interseção entre a probabilidade e o impacto na matriz.</li>
-  </ul>
-
-  <p>
-    <strong>Pontos essenciais sobre a lógica da matriz:</strong>
-  </p>
-  <ol>
-    <li>
-      <strong>Os alunos não escolhem diretamente o nível de risco:</strong> A equipe deve primeiro estimar a probabilidade com base nos fatos, avaliar o impacto técnico e, em seguida, localizar a célula correspondente na matriz para identificar se o risco é Baixo, Médio ou Alto.
-    </li>
-    <li>
-      <strong>Assimetria da matriz:</strong> Nem todas as linhas e colunas contêm os três níveis de risco. As classificações refletem decisões gerenciais pré-estabelecidas para o contexto acadêmico:
-      <ul>
-        <li>Probabilidade de <strong>90%</strong> e impacto <strong>Muito baixo</strong> resultam em risco <strong>Médio</strong> (o evento é quase certo, mas a consequência é trivial de ajustar).</li>
-        <li>Probabilidade de <strong>90%</strong> e impacto <strong>Moderado</strong> resultam em risco <strong>Alto</strong> (chance altíssima somada a 2 a 3 dias de retrabalho exigem atenção prioritária).</li>
-        <li>Probabilidade de <strong>10%</strong> e impacto <strong>Muito alto</strong> resultam em risco <strong>Médio</strong> (a consequência seria grave, mas a probabilidade de ocorrer é muito pequena).</li>
-        <li>Probabilidade de <strong>50%</strong> e impacto <strong>Baixo</strong> resultam em risco <strong>Baixo</strong>.</li>
-      </ul>
-    </li>
-    <li>
-      <strong>Contextualidade da ferramenta:</strong> Não existe uma distribuição universal obrigatória das cores para matrizes de risco. A matriz aqui apresentada estabelece os critérios de classificação adotados especificamente para a dinâmica e o escopo desta disciplina.
-    </li>
-  </ol>
-
   <!-- SECAO 6 -->
-  <h2 class="section-heading">6. Registro dos Riscos Identificados</h2>
+  <h2 class="section-heading">6. Funcionamento da Matriz</h2>
   <p>
-    Cada equipe deve identificar <strong>no mínimo cinco riscos (R1 a R5)</strong> pertinentes ao seu próprio projeto de software. Caso identifique outros riscos relevantes, sinta-se à vontade para adicionar novas linhas na tabela.
+    A <strong>probabilidade</strong> representa a possibilidade de ocorrência, enquanto o <strong>impacto</strong> representa a consequência prevista. O <strong>nível de risco</strong> é obtido pelo cruzamento dessas duas informações.
+  </p>
+  <p>
+    Nem todas as linhas apresentam os três níveis de risco, pois a distribuição das classificações foi previamente estabelecida pela matriz. Os alunos não deverão escolher diretamente o nível de risco.
+  </p>
+
+  <div class="example-box">
+    <h4>Exemplo Didático:</h4>
+    <p style="margin-bottom: 6px;"><strong>Risco:</strong> Dificuldade na implementação da autenticação de usuários.</p>
+    <p style="margin-bottom: 6px;"><strong>Justificativa da probabilidade:</strong> A equipe possui pouca experiência com mecanismos de autenticação.</p>
+    <p style="margin-bottom: 6px;"><strong>Probabilidade:</strong> 70%.</p>
+    <p style="margin-bottom: 6px;"><strong>Justificativa do impacto:</strong> A autenticação é necessária para acessar funcionalidades essenciais previstas no protótipo.</p>
+    <p style="margin-bottom: 6px;"><strong>Impacto:</strong> Alto.</p>
+    <p style="margin-bottom: 6px;"><strong>Nível de risco:</strong> Alto, conforme a matriz.</p>
+    <p style="margin-bottom: 0;"><strong>Estratégia de tratamento:</strong> Estudar previamente a tecnologia escolhida e planejar a implementação da autenticação como uma das primeiras tarefas do desenvolvimento.</p>
+    <p style="margin-top: 8px; font-size: 8.5pt; color: #64748b; margin-bottom: 0;"><em>(Esse exemplo é hipotético e não representa uma funcionalidade já implementada.)</em></p>
+  </div>
+
+  <!-- SECAO 7 -->
+  <h2 class="section-heading">7. Registro dos Riscos</h2>
+  <p>
+    Cada equipe deve identificar, no mínimo, <strong>cinco riscos (R1 a R5)</strong> relacionados ao seu próprio projeto.
   </p>
 
   <table class="content-table">
     <thead>
       <tr>
         <th class="center" style="width: 5%;">ID</th>
-        <th style="width: 20%;">Risco</th>
-        <th style="width: 25%;">Causa e Consequência</th>
-        <th class="center" style="width: 8%;">Prob.</th>
-        <th class="center" style="width: 10%;">Impacto</th>
+        <th style="width: 17%;">Risco</th>
+        <th style="width: 16%;">Causa</th>
+        <th style="width: 16%;">Consequência prevista</th>
+        <th class="center" style="width: 7%;">Prob.</th>
+        <th class="center" style="width: 9%;">Impacto</th>
         <th class="center" style="width: 8%;">Nível</th>
-        <th style="width: 12%;">Estratégia</th>
-        <th style="width: 12%;">Responsável</th>
+        <th style="width: 11%;">Ação planejada</th>
+        <th style="width: 11%;">Responsável</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="center"><strong>R1</strong></td>
         <td></td>
-        <td><strong>Causa:</strong><br><br><strong>Consequência:</strong></td>
+        <td></td>
+        <td></td>
         <td class="center"></td>
         <td class="center"></td>
         <td class="center"></td>
@@ -532,7 +574,8 @@
       <tr>
         <td class="center"><strong>R2</strong></td>
         <td></td>
-        <td><strong>Causa:</strong><br><br><strong>Consequência:</strong></td>
+        <td></td>
+        <td></td>
         <td class="center"></td>
         <td class="center"></td>
         <td class="center"></td>
@@ -542,7 +585,8 @@
       <tr>
         <td class="center"><strong>R3</strong></td>
         <td></td>
-        <td><strong>Causa:</strong><br><br><strong>Consequência:</strong></td>
+        <td></td>
+        <td></td>
         <td class="center"></td>
         <td class="center"></td>
         <td class="center"></td>
@@ -552,7 +596,8 @@
       <tr>
         <td class="center"><strong>R4</strong></td>
         <td></td>
-        <td><strong>Causa:</strong><br><br><strong>Consequência:</strong></td>
+        <td></td>
+        <td></td>
         <td class="center"></td>
         <td class="center"></td>
         <td class="center"></td>
@@ -562,7 +607,8 @@
       <tr>
         <td class="center"><strong>R5</strong></td>
         <td></td>
-        <td><strong>Causa:</strong><br><br><strong>Consequência:</strong></td>
+        <td></td>
+        <td></td>
         <td class="center"></td>
         <td class="center"></td>
         <td class="center"></td>
@@ -572,10 +618,10 @@
     </tbody>
   </table>
 
-  <!-- SECAO 7 -->
-  <h2 class="section-heading">7. Justificativa da Avaliação Técnica</h2>
+  <!-- SECAO 8 -->
+  <h2 class="section-heading">8. Justificativa das Classificações</h2>
   <p>
-    Para cada um dos riscos identificados, a equipe deve justificar os valores atribuídos à probabilidade e ao impacto, considerando as condições e limitações reais do projeto antes do início da codificação.
+    Apresente a justificativa técnica para as estimativas de probabilidade e impacto de cada risco:
   </p>
 
   <table class="content-table">
@@ -614,33 +660,34 @@
       </tr>
     </tbody>
   </table>
-
-  <!-- SECAO 8 -->
-  <h2 class="section-heading">8. Estratégias de Tratamento dos Riscos</h2>
-  <p>
-    Para cada risco, a equipe deve planejar uma ação preventiva utilizando uma das quatro abordagens fundamentais:
+  <p style="font-size: 9.5pt; color: #4b5563;">
+    <em>As justificativas deverão estar relacionadas ao protótipo, aos requisitos, ao planejamento e às condições atuais da equipe.</em>
   </p>
-  <ul>
-    <li><strong>Evitar:</strong> Eliminar a condição que origina o risco (por exemplo: simplificar o escopo retirando uma funcionalidade de altíssima complexidade ou substituir uma biblioteca externa instável por uma nativa).</li>
-    <li><strong>Mitigar:</strong> Adotar medidas para reduzir a probabilidade de ocorrência ou diminuir o impacto potencial (por exemplo: criar protótipos de viabilidade técnica antecipados, alinhar contratos de API previamente ou agendar revisões de código em pares).</li>
-    <li><strong>Transferir:</strong> Repassar o risco ou parte de seu impacto para terceiros ou serviços especializados (por exemplo: adotar um serviço pronto de autenticação ou banco em nuvem gerenciado em vez de implementar infraestrutura própria).</li>
-    <li><strong>Aceitar:</strong> Decidir conviver com o risco caso ocorra, ciente de suas consequências, estabelecendo um plano básico de contingência caso seja acionado.</li>
-  </ul>
-  <div class="info-alert">
-    <strong>Lembrete:</strong> Esta prática exige apenas o <strong>planejamento das estratégias</strong>; a comprovação ou execução dessas ações ocorrerá nas etapas posteriores da disciplina.
-  </div>
 
   <!-- SECAO 9 -->
-  <h2 class="section-heading">9. Critérios de Entrega da Atividade</h2>
-  <p>Cada equipe deverá entregar este documento contendo:</p>
+  <h2 class="section-heading">9. Estratégias de Tratamento</h2>
+  <p>
+    Apresente as quatro estratégias de resposta aos riscos:
+  </p>
+  <ul>
+    <li><strong>Evitar:</strong> Modificar o planejamento para eliminar a exposição ao risco.</li>
+    <li><strong>Mitigar:</strong> Planejar ações para reduzir a probabilidade ou o impacto.</li>
+    <li><strong>Transferir:</strong> Atribuir parte das consequências ou responsabilidades a terceiros, quando aplicável.</li>
+    <li><strong>Aceitar:</strong> Reconhecer o risco e planejar seu acompanhamento.</li>
+  </ul>
+  <div class="info-alert">
+    <strong>Aviso:</strong> Os alunos deverão apenas planejar as ações. Não será necessário implementá-las ou comprovar sua eficácia nesta atividade.
+  </div>
+
+  <!-- SECAO 10 -->
+  <h2 class="section-heading">10. Entrega da Atividade</h2>
+  <p>A equipe deverá entregar:</p>
   <ul class="checklist">
-    <li><span class="checkbox"></span> Identificação completa da equipe, projeto e integrantes preenchida no cabeçalho;</li>
-    <li><span class="checkbox"></span> Identificação de no mínimo 5 riscos reais do projeto;</li>
-    <li><span class="checkbox"></span> Tabela de <strong>Registro dos Riscos</strong> (Seção 6) preenchida;</li>
-    <li><span class="checkbox"></span> Tabela de <strong>Justificativas</strong> da probabilidade e do impacto (Seção 7) fundamentada;</li>
-    <li><span class="checkbox"></span> <strong>Matriz de Riscos 5 x 5</strong> (Seção 4.2) preenchida com os códigos (R1 a R5) nas células coloridas;</li>
-    <li><span class="checkbox"></span> Definição de uma estratégia de tratamento válida para cada risco;</li>
-    <li><span class="checkbox"></span> Atribuição clara do integrante responsável pelo acompanhamento de cada risco.</li>
+    <li><span class="checkbox"></span> Registro dos riscos identificados;</li>
+    <li><span class="checkbox"></span> Justificativas da probabilidade e do impacto;</li>
+    <li><span class="checkbox"></span> Matriz de riscos preenchida com os respectivos códigos (R1 a R5...);</li>
+    <li><span class="checkbox"></span> Estratégias de tratamento planejadas;</li>
+    <li><span class="checkbox"></span> Responsáveis pelo acompanhamento dos riscos indicados.</li>
   </ul>
 
 </div>
