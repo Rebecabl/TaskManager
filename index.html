@@ -472,7 +472,152 @@
   .level-badge.alta { background-color: var(--alta); color: var(--alta-ink); }
   .level-badge.vazio { background-color: #e5e7eb; color: #6b7280; font-weight: normal; }
 
-  /* Escalas de Medicao */
+  /* Inputs e Textareas editaveis da tabela */
+  .cell-input {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-main);
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 4px 6px;
+    transition: background-color 0.15s, border-color 0.15s;
+    display: block;
+  }
+
+  .cell-input:hover {
+    background-color: #ffffff;
+    border-color: var(--border-color);
+  }
+
+  .cell-input:focus {
+    background-color: #ffffff;
+    border-color: var(--primary);
+    outline: 2px solid rgba(9, 105, 218, 0.25);
+  }
+
+  textarea.cell-input {
+    resize: vertical;
+    min-height: 44px;
+  }
+
+  .btn-xs {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 4px;
+    line-height: 18px;
+  }
+
+  .btn-danger {
+    color: #cf222e;
+    background-color: #f6f8fa;
+    border-color: var(--border-color);
+  }
+
+  .btn-danger:hover {
+    background-color: #ffebe9;
+    border-color: #ff8182;
+    color: #cf222e;
+  }
+
+  .btn-danger-solid {
+    background-color: #cf222e;
+    border-color: rgba(27, 31, 36, 0.15);
+    color: #ffffff;
+  }
+
+  .btn-danger-solid:hover {
+    background-color: #a40e26;
+    color: #ffffff;
+  }
+
+  .badge-local {
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: #0969da;
+    background-color: #ddf4ff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #54aeff66;
+  }
+
+  .table-info-banner {
+    background-color: #f6f8fa;
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 8px 16px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .table-info-banner strong {
+    color: var(--text-main);
+  }
+
+  /* Modal de confirmacao de exclusao */
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(27, 31, 36, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 16px;
+  }
+
+  .modal-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    max-width: 500px;
+    width: 100%;
+    padding: 20px 22px;
+    box-shadow: 0 8px 24px rgba(140, 149, 159, 0.2);
+  }
+
+  .modal-title {
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  .modal-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0 0 18px;
+  }
+
+  .modal-desc strong {
+    color: var(--text-main);
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  @media print {
+    body { background: #fff; color: #000; font-size: 11pt; }
+    .btn, .header-actions, .noprint, select, .table-info-banner { display: none !important; }
+    .site-wrapper { max-width: 100%; padding: 0; }
+    header.institutional-header, .matrix-card, .table-card, .scale-box { box-shadow: none; border-color: #999; }
+    .cell-input { border: none !important; background: transparent !important; padding: 0 !important; resize: none !important; }
+  }
   .scales-section {
     margin-top: 32px;
   }
@@ -620,7 +765,7 @@ const MATRIX_LEVELS = {
   "90%": { "Muito Baixo": "Médio", "Baixo": "Médio", "Moderado": "Alto", "Alto": "Alto", "Muito Alto": "Alto" },
   "70%": { "Muito Baixo": "Baixo", "Baixo": "Médio", "Moderado": "Médio", "Alto": "Alto", "Muito Alto": "Alto" },
   "50%": { "Muito Baixo": "Baixo", "Baixo": "Baixo", "Moderado": "Médio", "Alto": "Alto", "Muito Alto": "Alto" },
-  "30%": { "Muito Baixo": "Baixo", "Baixo": "Baixo", "Moderado": "Médio", "Médio": "Médio", "Alto": "Alto" },
+  "30%": { "Muito Baixo": "Baixo", "Baixo": "Baixo", "Moderado": "Médio", "Alto": "Médio", "Muito Alto": "Alto" },
   "10%": { "Muito Baixo": "Baixo", "Baixo": "Baixo", "Moderado": "Baixo", "Alto": "Baixo", "Muito Alto": "Médio" }
 };
 
@@ -736,6 +881,38 @@ function formatRiskFromIssue(issue) {
 
 let allRisks = [];
 
+// PERSISTENCIA LOCAL (Armazena alteracoes feitas diretamente na tela)
+function getTeamRisks(teamKey) {
+  const localRaw = localStorage.getItem("taskmanager_risks_" + teamKey);
+  if (localRaw) {
+    try {
+      const parsed = JSON.parse(localRaw);
+      if (Array.isArray(parsed)) {
+        return parsed;
+      }
+    } catch (e) {}
+  }
+
+  const fromGithub = allRisks
+    .filter(function(r) { return r.teamKey === teamKey; })
+    .sort(function(a, b) { return new Date(a.createdAt) - new Date(b.createdAt); });
+
+  return fromGithub.map(function(r, idx) {
+    return Object.assign({}, r, { code: "R" + (idx + 1) });
+  });
+}
+
+function saveTeamRisks(teamKey, risks) {
+  try {
+    localStorage.setItem("taskmanager_risks_" + teamKey, JSON.stringify(risks));
+  } catch (e) {}
+}
+
+function resetTeamRisks(teamKey) {
+  localStorage.removeItem("taskmanager_risks_" + teamKey);
+  renderApp();
+}
+
 async function fetchIssues() {
   const statusBar = document.getElementById("status-bar");
   statusBar.style.display = "block";
@@ -809,7 +986,7 @@ function renderHomeView(container) {
 
   Object.keys(TEAMS).forEach(function(teamKey) {
     const team = TEAMS[teamKey];
-    const teamRisks = allRisks.filter(function(r) { return r.teamKey === teamKey; });
+    const teamRisks = getTeamRisks(teamKey);
     const count = teamRisks.length;
 
     html += '      <tr>';
@@ -832,14 +1009,7 @@ function renderHomeView(container) {
 
 function renderTeamView(teamKey, container) {
   const team = TEAMS[teamKey];
-
-  const teamRisks = allRisks
-    .filter(function(r) { return r.teamKey === teamKey; })
-    .sort(function(a, b) { return a.createdAt - b.createdAt; });
-
-  teamRisks.forEach(function(r, idx) {
-    r.code = "R" + (idx + 1);
-  });
+  const teamRisks = getTeamRisks(teamKey);
 
   let html = '';
 
@@ -848,7 +1018,7 @@ function renderTeamView(teamKey, container) {
   html += '    <a href="index.html" class="btn btn-sm noprint">← Todos os Projetos</a>';
   html += '    <h2 class="team-bar-title">' + team.name + ' <span class="code-badge">' + team.id + '</span></h2>';
   html += '  </div>';
-  html += '  <div style="display:flex; gap:8px; align-items:center;">';
+  html += '  <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">';
   html += '    <span style="font-size: 13px; color: var(--text-muted);">' + teamRisks.length + ' riscos registrados</span>';
   html += '    <a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues/new?template=registrar-risco.yml&equipe=' + team.id + '&title=%5B' + team.id + '%5D+" target="_blank" rel="noopener" class="btn btn-sm btn-primary noprint">Registrar risco no GitHub</a>';
   html += '  </div>';
@@ -915,32 +1085,39 @@ function renderTeamView(teamKey, container) {
   // Tabela de Registro de Riscos
   html += '<div class="table-card">';
   html += '  <div class="table-card-header">';
-  html += '    <h3 class="table-card-title">Registro de Riscos</h3>';
-  html += '    <div style="display:flex; gap:6px;">';
-  html += '      <button id="btn-add-row" class="btn btn-sm noprint">+ Linha manual</button>';
+  html += '    <div>';
+  html += '      <h3 class="table-card-title">Registro de Riscos</h3>';
+  html += '    </div>';
+  html += '    <div style="display:flex; gap:6px; flex-wrap:wrap;">';
+  html += '      <button id="btn-add-row" class="btn btn-sm btn-primary noprint">+ Adicionar risco</button>';
+  html += '      <button id="btn-reset-team" class="btn btn-sm noprint" title="Descarta edições locais e recarrega os riscos oficiais do GitHub">Restaurar do GitHub</button>';
   html += '      <button onclick="window.print()" class="btn btn-sm noprint">Imprimir / PDF</button>';
   html += '    </div>';
+  html += '  </div>';
+
+  html += '  <div class="table-info-banner noprint">';
+  html += '    <span>💡 <strong>Edição interativa:</strong> Você pode adicionar novos riscos, alterar textos e critérios, ou apagar itens diretamente nesta tabela. A matriz 5x5 atualiza instantaneamente. Para salvar permanentemente no repositório, utilize <strong>Registrar risco no GitHub</strong>.</span>';
   html += '  </div>';
 
   html += '  <table class="data-table" id="risks-table">';
   html += '    <thead>';
   html += '      <tr>';
-  html += '        <th style="width: 45px;">ID</th>';
-  html += '        <th style="min-width: 170px;">Risco</th>';
-  html += '        <th style="min-width: 170px;">Causa e Consequência</th>';
+  html += '        <th style="width: 50px;">ID</th>';
+  html += '        <th style="min-width: 180px;">Risco</th>';
+  html += '        <th style="min-width: 180px;">Causa e Consequência</th>';
   html += '        <th style="width: 120px;">Probabilidade</th>';
   html += '        <th style="width: 130px;">Impacto</th>';
   html += '        <th style="width: 80px; text-align:center;">Nível</th>';
   html += '        <th style="min-width: 160px;">Ação planejada</th>';
-  html += '        <th style="width: 100px;">Responsável</th>';
-  html += '        <th style="width: 70px;" class="noprint">Issue</th>';
+  html += '        <th style="width: 120px;">Responsável</th>';
+  html += '        <th style="width: 110px;" class="noprint">Ações</th>';
   html += '      </tr>';
   html += '    </thead>';
   html += '    <tbody id="risks-tbody">';
 
   if (teamRisks.length === 0) {
-    html += '      <tr id="empty-row"><td colspan="9" style="text-align:center; padding: 24px; color: var(--text-muted);">';
-    html += '        Nenhum risco registrado ainda. Clique em <strong>Registrar risco no GitHub</strong> para preencher.';
+    html += '      <tr id="empty-row"><td colspan="9" style="text-align:center; padding: 28px; color: var(--text-muted);">';
+    html += '        Nenhum risco registrado nesta equipe ainda. Clique no botão <strong>+ Adicionar risco</strong> acima para preencher na tela ou <strong>Registrar risco no GitHub</strong> para salvar pelo formulário.';
     html += '      </td></tr>';
   } else {
     teamRisks.forEach(function(r) {
@@ -955,13 +1132,6 @@ function renderTeamView(teamKey, container) {
   container.innerHTML = html;
 
   attachTableEventListeners(teamKey);
-
-  const btnAddRow = document.getElementById("btn-add-row");
-  if (btnAddRow) {
-    btnAddRow.addEventListener("click", function() {
-      addNewRow(teamKey);
-    });
-  }
 }
 
 function renderRiskRowHtml(r) {
@@ -982,78 +1152,121 @@ function renderRiskRowHtml(r) {
     impOptions += '<option value="' + i + '"' + sel + '>' + i + '</option>';
   });
 
-  let issueLink = '-';
+  let actionsCol = '';
   if (r.issueUrl) {
-    issueLink = '<a href="' + r.issueUrl + '" target="_blank" rel="noopener" class="code-badge">#' + r.issueNumber + '</a>';
+    actionsCol += '<a href="' + r.issueUrl + '" target="_blank" rel="noopener" class="code-badge" title="Abrir Issue no GitHub">#' + r.issueNumber + '</a> ';
+    actionsCol += '<button type="button" class="btn btn-xs btn-danger btn-delete-row" data-code="' + r.code + '" data-issue="' + (r.issueNumber || '') + '" data-url="' + (r.issueUrl || '') + '" title="Excluir risco">Excluir</button>';
+  } else {
+    actionsCol += '<span class="badge-local" title="Risco inserido nesta sessão">Local</span> ';
+    actionsCol += '<button type="button" class="btn btn-xs btn-danger btn-delete-row" data-code="' + r.code + '" title="Excluir risco">Excluir</button>';
   }
 
   let html = '';
   html += '<tr id="row-' + r.code + '" data-code="' + r.code + '">';
   html += '  <td><span class="code-badge">' + r.code + '</span></td>';
-  html += '  <td>' + escapeHtml(r.risco) + '</td>';
-  html += '  <td>' + escapeHtml(r.causaConsequencia) + '</td>';
+  html += '  <td><textarea class="cell-input input-field" data-code="' + r.code + '" data-field="risco" rows="2" placeholder="Descreva o risco...">' + escapeHtml(r.risco) + '</textarea></td>';
+  html += '  <td><textarea class="cell-input input-field" data-code="' + r.code + '" data-field="causaConsequencia" rows="2" placeholder="Causa e consequência...">' + escapeHtml(r.causaConsequencia) + '</textarea></td>';
   html += '  <td><select class="select-criteria select-prob" data-code="' + r.code + '">' + probOptions + '</select></td>';
   html += '  <td><select class="select-criteria select-imp" data-code="' + r.code + '">' + impOptions + '</select></td>';
   html += '  <td style="text-align:center;"><span class="level-badge ' + levelClass + '" id="badge-' + r.code + '">' + (r.nivel || '-') + '</span></td>';
-  html += '  <td>' + escapeHtml(r.resposta) + '</td>';
-  html += '  <td>' + escapeHtml(r.responsavel) + '</td>';
-  html += '  <td class="noprint">' + issueLink + '</td>';
+  html += '  <td><textarea class="cell-input input-field" data-code="' + r.code + '" data-field="resposta" rows="2" placeholder="Ação planejada...">' + escapeHtml(r.resposta) + '</textarea></td>';
+  html += '  <td><input type="text" class="cell-input input-field" data-code="' + r.code + '" data-field="responsavel" value="' + escapeHtml(r.responsavel) + '" placeholder="Responsável..."></td>';
+  html += '  <td class="noprint" style="white-space: nowrap;">' + actionsCol + '</td>';
   html += '</tr>';
   return html;
 }
 
 function addNewRow(teamKey) {
-  const tbody = document.getElementById("risks-tbody");
-  const emptyRow = document.getElementById("empty-row");
-  if (emptyRow) emptyRow.remove();
-
-  const currentRows = tbody.querySelectorAll("tr");
-  const nextNumber = currentRows.length + 1;
+  const risks = getTeamRisks(teamKey);
+  const nextNumber = risks.length + 1;
   const newCode = "R" + nextNumber;
 
   const newRisk = {
     code: newCode,
     teamKey: teamKey,
     risco: "Novo risco a identificar",
-    causaConsequencia: "-",
+    causaConsequencia: "Causa e consequência a detalhar",
     probabilidade: "50%",
-    impacto: "Alto",
-    nivel: "Alto",
+    impacto: "Moderado",
+    nivel: "Médio",
     resposta: "Mitigar",
     responsavel: "Equipe",
-    createdAt: new Date()
+    createdAt: new Date().toISOString()
   };
 
-  allRisks.push(newRisk);
+  risks.push(newRisk);
+  saveTeamRisks(teamKey, risks);
+  renderApp();
 
-  const tr = document.createElement("tr");
-  tr.id = "row-" + newCode;
-  tr.dataset.code = newCode;
-  tr.innerHTML = renderRiskRowHtml(newRisk).replace(/^<tr[^>]*>|<\/tr>$/g, '');
-  tbody.appendChild(tr);
-
-  attachTableEventListeners(teamKey);
-  recalculateMatrix(teamKey);
+  setTimeout(function() {
+    const newRowInput = document.querySelector('#row-' + newCode + ' [data-field="risco"]');
+    if (newRowInput) {
+      newRowInput.focus();
+      newRowInput.select();
+    }
+  }, 80);
 }
 
 function attachTableEventListeners(teamKey) {
   const tbody = document.getElementById("risks-tbody");
   if (!tbody) return;
 
-  const probSelects = tbody.querySelectorAll(".select-prob");
-  const impSelects = tbody.querySelectorAll(".select-imp");
-
-  probSelects.forEach(function(sel) {
-    sel.onchange = function() {
-      onRiskCriteriaChange(this.dataset.code, teamKey);
-    };
+  // Atualizacao de campos de texto ao digitar
+  tbody.querySelectorAll(".input-field").forEach(function(input) {
+    input.addEventListener("input", function() {
+      const code = this.dataset.code;
+      const field = this.dataset.field;
+      const val = this.value;
+      const risks = getTeamRisks(teamKey);
+      const item = risks.find(function(r) { return r.code === code; });
+      if (item) {
+        item[field] = val;
+        saveTeamRisks(teamKey, risks);
+      }
+    });
   });
 
-  impSelects.forEach(function(sel) {
-    sel.onchange = function() {
+  // Atualizacao de probabilidade
+  tbody.querySelectorAll(".select-prob").forEach(function(sel) {
+    sel.addEventListener("change", function() {
       onRiskCriteriaChange(this.dataset.code, teamKey);
-    };
+    });
   });
+
+  // Atualizacao de impacto
+  tbody.querySelectorAll(".select-imp").forEach(function(sel) {
+    sel.addEventListener("change", function() {
+      onRiskCriteriaChange(this.dataset.code, teamKey);
+    });
+  });
+
+  // Botoes de exclusao
+  tbody.querySelectorAll(".btn-delete-row").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      const code = this.dataset.code;
+      const issueNum = this.dataset.issue;
+      const issueUrl = this.dataset.url;
+      openDeleteModal(teamKey, code, issueNum, issueUrl);
+    });
+  });
+
+  // Botao de adicionar risco
+  const btnAdd = document.getElementById("btn-add-row");
+  if (btnAdd) {
+    btnAdd.addEventListener("click", function() {
+      addNewRow(teamKey);
+    });
+  }
+
+  // Botao de restaurar do GitHub
+  const btnReset = document.getElementById("btn-reset-team");
+  if (btnReset) {
+    btnReset.addEventListener("click", function() {
+      if (confirm("Deseja descartar as alterações locais desta equipe e recarregar os dados oficiais das issues do GitHub?")) {
+        resetTeamRisks(teamKey);
+      }
+    });
+  }
 }
 
 function onRiskCriteriaChange(code, teamKey) {
@@ -1064,25 +1277,24 @@ function onRiskCriteriaChange(code, teamKey) {
   const imp = row.querySelector(".select-imp").value;
   const badge = document.getElementById("badge-" + code);
 
-  const riskObj = allRisks.find(function(r) { return r.code === code && r.teamKey === teamKey; });
+  const risks = getTeamRisks(teamKey);
+  const riskObj = risks.find(function(r) { return r.code === code; });
 
+  let nivel = "-";
   if (prob && imp && MATRIX_LEVELS[prob] && MATRIX_LEVELS[prob][imp]) {
-    const nivel = MATRIX_LEVELS[prob][imp];
+    nivel = MATRIX_LEVELS[prob][imp];
     badge.textContent = nivel;
     badge.className = "level-badge " + (nivel === "Baixo" ? "baixa" : (nivel === "Médio" ? "media" : "alta"));
-    if (riskObj) {
-      riskObj.probabilidade = prob;
-      riskObj.impacto = imp;
-      riskObj.nivel = nivel;
-    }
   } else {
     badge.textContent = "-";
     badge.className = "level-badge vazio";
-    if (riskObj) {
-      riskObj.probabilidade = prob;
-      riskObj.impacto = imp;
-      riskObj.nivel = "-";
-    }
+  }
+
+  if (riskObj) {
+    riskObj.probabilidade = prob;
+    riskObj.impacto = imp;
+    riskObj.nivel = nivel;
+    saveTeamRisks(teamKey, risks);
   }
 
   recalculateMatrix(teamKey);
@@ -1097,29 +1309,102 @@ function recalculateMatrix(teamKey) {
     });
   });
 
-  const tbody = document.getElementById("risks-tbody");
-  if (!tbody) return;
-
-  tbody.querySelectorAll("tr").forEach(function(tr) {
-    const code = tr.dataset.code;
-    const probSelect = tr.querySelector(".select-prob");
-    const impSelect = tr.querySelector(".select-imp");
-    if (probSelect && impSelect) {
-      const prob = probSelect.value;
-      const imp = impSelect.value;
-      if (prob && imp) {
-        const containerId = "cell-risks-" + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '');
-        const container = document.getElementById(containerId);
-        if (container) {
-          const a = document.createElement("a");
-          a.href = "#row-" + code;
-          a.className = "risk-badge-tag";
-          a.textContent = code;
-          container.appendChild(a);
-        }
+  const risks = getTeamRisks(teamKey);
+  risks.forEach(function(r) {
+    if (r.probabilidade && r.impacto) {
+      const containerId = "cell-risks-" + r.probabilidade.replace('%', '') + '-' + r.impacto.replace(/\s+/g, '');
+      const container = document.getElementById(containerId);
+      if (container) {
+        const a = document.createElement("a");
+        a.href = "#row-" + r.code;
+        a.className = "risk-badge-tag";
+        a.title = r.risco || r.code;
+        a.textContent = r.code;
+        container.appendChild(a);
       }
     }
   });
+}
+
+// MODAL DE CONFIRMACAO DE EXCLUSAO
+let pendingDelete = null;
+
+function openDeleteModal(teamKey, code, issueNum, issueUrl) {
+  pendingDelete = { teamKey, code, issueNum, issueUrl };
+
+  const modal = document.getElementById("delete-modal");
+  const title = document.getElementById("modal-delete-title");
+  const desc = document.getElementById("modal-delete-desc");
+  const btnGithub = document.getElementById("modal-btn-github");
+
+  title.textContent = "Excluir Risco " + code;
+
+  if (issueNum) {
+    desc.innerHTML = "Este risco está registrado no repositório como <strong>Issue #" + issueNum + "</strong> no GitHub.<br><br>" +
+      "• <strong>Remover da matriz agora:</strong> Oculta este risco da tela e recalcula a matriz 5x5 imediatamente.<br>" +
+      "• <strong>Fechar Issue no GitHub:</strong> Abre a issue para que você possa clicar em <em>Close issue</em>, removendo-a permanentemente do repositório.";
+    btnGithub.style.display = "inline-flex";
+    btnGithub.href = issueUrl || ("https://github.com/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues/" + issueNum);
+  } else {
+    desc.innerHTML = "Tem certeza de que deseja excluir o risco <strong>" + code + "</strong>? Esta ação removerá a linha da tabela e atualizará a matriz 5x5.";
+    btnGithub.style.display = "none";
+  }
+
+  modal.style.display = "flex";
+}
+
+function closeDeleteModal() {
+  const modal = document.getElementById("delete-modal");
+  if (modal) modal.style.display = "none";
+  pendingDelete = null;
+}
+
+function confirmDelete() {
+  if (!pendingDelete) return;
+  const teamKey = pendingDelete.teamKey;
+  const code = pendingDelete.code;
+  let risks = getTeamRisks(teamKey);
+
+  risks = risks.filter(function(r) { return r.code !== code; });
+
+  // Reordena sequencialmente os codigos R1, R2, R3...
+  risks.forEach(function(r, idx) {
+    r.code = "R" + (idx + 1);
+  });
+
+  saveTeamRisks(teamKey, risks);
+  closeDeleteModal();
+  renderApp();
+}
+
+function setupModalEvents() {
+  const btnCancel = document.getElementById("modal-btn-cancel");
+  if (btnCancel) {
+    btnCancel.addEventListener("click", closeDeleteModal);
+  }
+
+  const btnConfirm = document.getElementById("modal-btn-confirm");
+  if (btnConfirm) {
+    btnConfirm.addEventListener("click", confirmDelete);
+  }
+
+  const btnGithub = document.getElementById("modal-btn-github");
+  if (btnGithub) {
+    btnGithub.addEventListener("click", function() {
+      if (pendingDelete) {
+        confirmDelete();
+      }
+    });
+  }
+
+  const modal = document.getElementById("delete-modal");
+  if (modal) {
+    modal.addEventListener("click", function(e) {
+      if (e.target === modal) {
+        closeDeleteModal();
+      }
+    });
+  }
 }
 
 function escapeHtml(str) {
@@ -1140,7 +1425,21 @@ window.addEventListener("popstate", function() {
   renderApp();
 });
 
+setupModalEvents();
 fetchIssues();
 </script>
+
+<!-- Modal de Exclusao -->
+<div id="delete-modal" class="modal-backdrop" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modal-delete-title">
+  <div class="modal-box">
+    <h3 class="modal-title" id="modal-delete-title">Excluir Risco</h3>
+    <div id="modal-delete-desc" class="modal-desc"></div>
+    <div class="modal-actions">
+      <button type="button" id="modal-btn-cancel" class="btn">Cancelar</button>
+      <a id="modal-btn-github" class="btn btn-secondary" target="_blank" rel="noopener" style="display:none;">Fechar Issue no GitHub ↗</a>
+      <button type="button" id="modal-btn-confirm" class="btn btn-danger-solid">Remover da matriz</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
