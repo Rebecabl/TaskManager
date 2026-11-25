@@ -1,6 +1,4 @@
 # UNIVERSIDADE ESTADUAL DA PARAÍBA - UEPB
-## CENTRO DE CIÊNCIAS E TECNOLOGIA - CCT
-### DEPARTAMENTO DE COMPUTAÇÃO
 **Disciplina:** Laboratório de Engenharia de Software I  
 **Professora:** Rebeca Barbosa Lourenço  
 **Período Letivo:** 2026.2  
@@ -391,7 +389,7 @@ Cada equipe deverá entregar este documento contendo:
 
 ## 16. Formatação do documento
 
-- Cabeçalho institucional: Universidade Estadual da Paraíba (UEPB), Centro de Ciências e Tecnologia (CCT), Departamento de Computação, Disciplina: Laboratório de Engenharia de Software I, Docente: Profª Rebeca Barbosa Lourenço.
+- Cabeçalho institucional: Universidade Estadual da Paraíba (UEPB), Disciplina: Laboratório de Engenharia de Software I, Docente: Profª Rebeca Barbosa Lourenço.
 - Linguagem acadêmica, objetiva, simples e didática.
 - Organização do documento:
   - Seções numeradas sequencialmente de 1 a 18;
