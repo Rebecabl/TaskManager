@@ -6,22 +6,31 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## Pratica de Laboratorio - Analise de Riscos
-        Antes de preencher o formulario, consulte as escalas de probabilidade e impacto abaixo:
+        ## Pratica de Laboratorio - Analise de Riscos de Software
+        Preencha os campos abaixo com base no prototipo e artefatos de planejamento do projeto da sua equipe.
 
-        ### Escala de Probabilidade
-        - **10%**: Muito improvavel. Evento raro ou atipico no contexto da disciplina.
-        - **30%**: Pouco provavel. Baixa probabilidade, mas ja observado em projetos semelhantes.
-        - **50%**: Provavel. Probabilidade media, chance real de acontecer durante a iteracao.
-        - **70%**: Muito provavel. Alta probabilidade, condicoes do projeto favorecem o evento.
-        - **90%**: Quase certo. Praticamente garantido de acontecer caso nenhuma acao seja tomada.
+        ### Escala de Probabilidade (Pre-implementacao)
+        - **10% (Muito baixa)**: A equipe possui conhecimento e recursos adequados, sem fatores que favorecam a ocorrencia.
+        - **30% (Baixa)**: Poucas dificuldades previstas; a equipe possui condicoes adequadas para lidar com elas.
+        - **50% (Moderada)**: Incertezas relevantes sobre a implementacao, tecnologia ou capacidade tecnica.
+        - **70% (Alta)**: Limitacoes significativas, funcionalidades complexas ou dependencias externas.
+        - **90% (Muito alta)**: Fortes indicios de ocorrencia, considerando limitacoes e ausencia de medidas preventivas.
 
-        ### Escala de Impacto
-        - **Muito Baixo**: Prazo < 1 dia; impacto cosmetico em funcionalidade; retrabalho minimo (< poucas horas); sem impacto em banco de dados; seguranca intacta; integracao sem alteracao de contrato; recursos normais.
-        - **Baixo**: Prazo 1 a 2 dias; falha em funcionalidade secundaria de facil contorno; retrabalho leve; ajuste simples em tabelas; seguranca com risco leve interno; integracao com ajuste pontual; recursos demandam pouco esforco extra.
-        - **Moderado**: Prazo 3 a 5 dias (consome margem da entrega); degradacao de funcionalidade importante; refatoracao ou retrabalho moderado; migracao ou ajuste estrutural no banco de dados; risco a dados nao sensiveis; quebra parcial de contrato de API; recursos exigem realocacao interna.
-        - **Alto**: Prazo > 1 semana (ameaca o MVP da Unidade 2); indisponibilidade de funcionalidade essencial (core do sistema); retrabalho substancial; perda ou corrupcao de dados essenciais; risco de violacao a LGPD ou autenticacao; falha de comunicacao frontend e backend; sobrecarga severa da equipe.
-        - **Muito Alto**: Atraso irrecuperavel para a entrega da unidade; paralizacao total do sistema; perda completa do modulo desenvolvido; perda irreparavel da base de dados; violacao grave de seguranca ou vazamento de dados; inviabilidade tecnica de integracao; desistencia de membros inviabilizando o projeto.
+        ### Escala de Impacto (Pre-implementacao)
+        - **Muito Baixo**: Podera exigir pequenos ajustes pontuais, sem comprometer funcionalidades ou o planejamento geral.
+        - **Baixo**: Podera comprometer funcionalidades secundarias, sem prejudicar os objetivos centrais do software.
+        - **Moderado**: Podera comprometer funcionalidade importante, gerar retrabalho ou exigir alteracoes no planejamento.
+        - **Alto**: Podera comprometer funcionalidades essenciais, etapas subsequentes ou o prazo de entrega final.
+        - **Muito Alto**: Podera inviabilizar a implementacao ou impedir a entrega de um software funcional.
+
+        ### Exemplo de Preenchimento para Referencia
+        - **Risco**: Dificuldade na integracao com API externa de geolocalizacao
+        - **Causa e consequencia**: Pouca familiaridade com a biblioteca de mapas. Pode inviabilizar a busca de vagas por proximidade geografica.
+        - **Probabilidade**: 50%
+        - **Impacto**: Alto
+        - **Justificativa**: A equipe nunca utilizou essa biblioteca na stack (50%). A localizacao geografica e requisito essencial do prototipo (Alto).
+        - **Resposta ao risco**: Mitigar: Desenvolver prova de conceito tecnica na primeira semana e consultar a documentacao oficial.
+        - **Responsavel**: Integrante do Front-end
 
   - type: dropdown
     id: equipe
@@ -42,7 +51,7 @@ body:
     attributes:
       label: Risco
       description: Descreva o risco de forma clara e objetiva.
-      placeholder: Exemplo: Dificuldade na integracao entre o frontend e a API...
+      placeholder: "Exemplo: Dificuldade na integracao com API externa de mapas"
     validations:
       required: true
 
@@ -51,7 +60,7 @@ body:
     attributes:
       label: Causa e consequência
       description: Explique o que pode causar esse risco e quais as consequencias caso ocorra.
-      placeholder: Causa: Falta de padronizacao nos contratos de endpoints. Consequencia: Atraso nos testes integrados e retrabalho na interface.
+      placeholder: "Exemplo: Causa: Pouca experiencia com a biblioteca. Consequencia: Pode impedir a busca de vagas por proximidade geografica no prototipo."
     validations:
       required: true
 
@@ -59,7 +68,7 @@ body:
     id: probabilidade
     attributes:
       label: Probabilidade
-      description: Selecione a probabilidade de ocorrencia de acordo com a escala acima.
+      description: Selecione a probabilidade de acordo com a escala qualitativa.
       options:
         - 10%
         - 30%
@@ -73,7 +82,7 @@ body:
     id: impacto
     attributes:
       label: Impacto
-      description: Selecione o impacto caso o risco se concretize.
+      description: Selecione o impacto previsto caso o risco se concretize.
       options:
         - Muito Baixo
         - Baixo
@@ -88,7 +97,7 @@ body:
     attributes:
       label: Justificativa da classificação
       description: Justifique por que essa probabilidade e esse impacto foram atribuidos ao risco.
-      placeholder: Justificativa baseada nos criterios de prazo, funcionalidade e seguranca...
+      placeholder: "Exemplo: A equipe nunca utilizou essa biblioteca na stack (50%). A localizacao geografica e requisito essencial do prototipo (Alto)."
     validations:
       required: true
 
@@ -96,8 +105,8 @@ body:
     id: resposta
     attributes:
       label: Resposta ao risco
-      description: Estrategia de resposta (mitigar, evitar, transferir ou aceitar) e acoes praticas planejadas.
-      placeholder: Mitigar: Definir os contratos de endpoints no Swagger antes do inicio da codificacao.
+      description: Estrategia de resposta (mitigar, evitar, transferir ou aceitar) e acao preventiva planejada.
+      placeholder: "Exemplo: Mitigar: Desenvolver prova de conceito tecnica na primeira semana e consultar a documentacao oficial."
     validations:
       required: true
 
@@ -105,7 +114,7 @@ body:
     id: responsavel
     attributes:
       label: Responsável
-      description: Nome do integrante ou integrantes encarregados de monitorar e agir.
-      placeholder: Exemplo: Alice Monteiro (QA) e Isaque Nobrega (PO)
+      description: Integrante encarregado de acompanhar o risco.
+      placeholder: "Exemplo: Integrante responsavel pelo Front-end"
     validations:
       required: true

@@ -546,19 +546,62 @@
     border: 1px solid #54aeff66;
   }
 
-  .table-info-banner {
+  .badge-example {
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: #57606a;
     background-color: #f6f8fa;
-    border-bottom: 1px solid var(--border-subtle);
-    padding: 8px 16px;
-    font-size: 12.5px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #d0d7de;
   }
 
-  .table-info-banner strong {
+  .team-bar-desc {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: normal;
+  }
+
+  .example-guide-box {
+    background-color: #f6f8fa;
+    border: 1px solid var(--border-color);
+    border-left: 3px solid #0969da;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+
+  .example-guide-title {
+    font-weight: 600;
     color: var(--text-main);
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+  }
+
+  .example-guide-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: var(--text-muted);
+  }
+
+  .example-guide-content strong {
+    color: var(--text-main);
+  }
+
+  .example-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 6px 14px;
+    padding: 6px 0;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    margin: 4px 0;
   }
 
   /* Modal de confirmacao de exclusao */
@@ -754,7 +797,7 @@
     <div id="modal-delete-desc" class="modal-desc"></div>
     <div class="modal-actions">
       <button type="button" id="modal-btn-cancel" class="btn" onclick="closeDeleteModal()">Cancelar</button>
-      <a id="modal-btn-github" class="btn btn-secondary" target="_blank" rel="noopener" style="display:none;" onclick="onModalGithubClick()">Fechar Issue no GitHub ↗</a>
+      <a id="modal-btn-github" class="btn btn-secondary" target="_blank" rel="noopener" style="display:none;" onclick="onModalGithubClick()">Fechar Issue no GitHub (nova aba)</a>
       <button type="button" id="modal-btn-confirm" class="btn btn-danger-solid" onclick="confirmDelete()">Remover da matriz</button>
     </div>
   </div>
@@ -763,11 +806,100 @@
 <script>
 // EQUIPES E PROJETOS DA TURMA
 const TEAMS = {
-  E1: { id: "E1", name: "Sertão Ágil" },
-  E2: { id: "E2", name: "DuckTrampos" },
-  E3: { id: "E3", name: "VagaCerta" },
-  E4: { id: "E4", name: "Primeira Oportunidade" },
-  E5: { id: "E5", name: "StarTI" }
+  E1: {
+    id: "E1",
+    name: "Sertão Ágil",
+    description: "Plataforma para conectar trabalhadores autônomos e produtores locais a oportunidades de prestação de serviços."
+  },
+  E2: {
+    id: "E2",
+    name: "DuckTrampos",
+    description: "Aplicação voltada para contratação ágil e segura de serviços pontuais e freelancers na comunidade."
+  },
+  E3: {
+    id: "E3",
+    name: "VagaCerta",
+    description: "Sistema para intermediação e triagem de candidatos a vagas de emprego em pequenas e médias empresas."
+  },
+  E4: {
+    id: "E4",
+    name: "Primeira Oportunidade",
+    description: "Portal focado na inserção profissional de jovens, estudantes e estagiários no mercado de trabalho."
+  },
+  E5: {
+    id: "E5",
+    name: "StarTI",
+    description: "Plataforma para conectar estudantes da área de tecnologia a projetos práticos de software e estágios."
+  }
+};
+
+// EXEMPLOS PADRAO DE PREENCHIMENTO POR PROJETO
+const DEFAULT_EXAMPLES = {
+  E1: {
+    code: "R1",
+    teamKey: "E1",
+    risco: "Dificuldade na integração com API externa de geolocalização",
+    causaConsequencia: "Pouca familiaridade da equipe com a biblioteca de mapas. Pode inviabilizar a busca de oportunidades por proximidade geográfica.",
+    probabilidade: "50%",
+    impacto: "Alto",
+    nivel: "Alto",
+    resposta: "Mitigar: Desenvolver prova de conceito técnica no início do cronograma e consultar a documentação oficial.",
+    responsavel: "Integrante do Front-end",
+    isExample: true,
+    createdAt: new Date("2026-11-25T10:00:00Z")
+  },
+  E2: {
+    code: "R1",
+    teamKey: "E2",
+    risco: "Dificuldade na implementação da autenticação e perfis de acesso",
+    causaConsequencia: "Pouca experiência com gerenciamento de sessões e perfis de acesso. Pode comprometer a segurança e o acesso às telas do protótipo.",
+    probabilidade: "70%",
+    impacto: "Alto",
+    nivel: "Alto",
+    resposta: "Mitigar: Estudar a biblioteca de autenticação selecionada e priorizar o módulo de login no início da implementação.",
+    responsavel: "Integrante do Back-end",
+    isExample: true,
+    createdAt: new Date("2026-11-25T10:00:00Z")
+  },
+  E3: {
+    code: "R1",
+    teamKey: "E3",
+    risco: "Dificuldade na modelagem do banco de dados relacional de vagas",
+    causaConsequencia: "Incerteza na estruturação das tabelas de vagas e candidaturas. Pode gerar retrabalho na persistência dos dados.",
+    probabilidade: "50%",
+    impacto: "Moderado",
+    nivel: "Médio",
+    resposta: "Mitigar: Validar o diagrama de entidades e relacionamentos com a professora antes da criação das tabelas.",
+    responsavel: "Integrante do Banco de Dados",
+    isExample: true,
+    createdAt: new Date("2026-11-25T10:00:00Z")
+  },
+  E4: {
+    code: "R1",
+    teamKey: "E4",
+    risco: "Dificuldade na adaptação da responsividade para dispositivos móveis",
+    causaConsequencia: "Complexidade na adaptação de formulários extensos para telas pequenas. Pode prejudicar a usabilidade móvel.",
+    probabilidade: "70%",
+    impacto: "Baixo",
+    nivel: "Médio",
+    resposta: "Mitigar: Aplicar abordagem mobile-first com framework CSS padronizado e testar em diferentes resoluções.",
+    responsavel: "Integrante do Front-end",
+    isExample: true,
+    createdAt: new Date("2026-11-25T10:00:00Z")
+  },
+  E5: {
+    code: "R1",
+    teamKey: "E5",
+    risco: "Tempo insuficiente para testes das funcionalidades essenciais",
+    causaConsequencia: "Prazo curto de um mês somado à curva de aprendizado da stack. Pode levar à entrega com falhas não identificadas.",
+    probabilidade: "70%",
+    impacto: "Alto",
+    nivel: "Alto",
+    resposta: "Mitigar: Elaborar casos de teste manuais para as regras de negócio críticas desde a fase de planejamento.",
+    responsavel: "Integrante de Testes / Qualidade",
+    isExample: true,
+    createdAt: new Date("2026-11-25T10:00:00Z")
+  }
 };
 
 // REGRAS DA MATRIZ (5x5)
@@ -919,9 +1051,18 @@ function getTeamRisks(teamKey) {
     })
     .sort(function(a, b) { return new Date(a.createdAt) - new Date(b.createdAt); });
 
-  return fromGithub.map(function(r, idx) {
-    return Object.assign({}, r, { code: "R" + (idx + 1) });
-  });
+  if (fromGithub.length > 0) {
+    return fromGithub.map(function(r, idx) {
+      return Object.assign({}, r, { code: "R" + (idx + 1) });
+    });
+  }
+
+  // Se a equipe ainda nao tiver issues abertas no GitHub, exibe o exemplo inicial preenchido
+  if (DEFAULT_EXAMPLES[teamKey]) {
+    return [Object.assign({}, DEFAULT_EXAMPLES[teamKey])];
+  }
+
+  return [];
 }
 
 function saveTeamRisks(teamKey, risks) {
@@ -1033,17 +1174,37 @@ function renderHomeView(container) {
 function renderTeamView(teamKey, container) {
   const team = TEAMS[teamKey];
   const teamRisks = getTeamRisks(teamKey);
+  const example = DEFAULT_EXAMPLES[teamKey] || DEFAULT_EXAMPLES.E1;
 
   let html = '';
 
   html += '<div class="team-bar">';
   html += '  <div class="team-bar-left">';
-  html += '    <a href="index.html" class="btn btn-sm noprint">← Todos os Projetos</a>';
-  html += '    <h2 class="team-bar-title">' + team.name + ' <span class="code-badge">' + team.id + '</span></h2>';
+  html += '    <a href="index.html" class="btn btn-sm noprint">Todos os Projetos</a>';
+  html += '    <div>';
+  html += '      <h2 class="team-bar-title">' + team.name + ' <span class="code-badge">' + team.id + '</span></h2>';
+  html += '      <p class="team-bar-desc">' + team.description + '</p>';
+  html += '    </div>';
   html += '  </div>';
   html += '  <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">';
-  html += '    <span style="font-size: 13px; color: var(--text-muted);">' + teamRisks.length + ' riscos registrados</span>';
+  html += '    <span style="font-size: 13px; color: var(--text-muted);">' + teamRisks.length + ' riscos</span>';
   html += '    <a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues/new?template=registrar-risco.yml&equipe=' + team.id + '&title=%5B' + team.id + '%5D+" target="_blank" rel="noopener" class="btn btn-sm btn-primary noprint">Registrar risco no GitHub</a>';
+  html += '  </div>';
+  html += '</div>';
+
+  // Exemplo de preenchimento para a equipe
+  html += '<div class="example-guide-box noprint">';
+  html += '  <div class="example-guide-title">Exemplo de preenchimento de risco para este projeto:</div>';
+  html += '  <div class="example-guide-content">';
+  html += '    <div><strong>Risco:</strong> ' + escapeHtml(example.risco) + '</div>';
+  html += '    <div><strong>Causa e consequência:</strong> ' + escapeHtml(example.causaConsequencia) + '</div>';
+  html += '    <div class="example-guide-grid">';
+  html += '      <div><strong>Probabilidade:</strong> ' + example.probabilidade + '</div>';
+  html += '      <div><strong>Impacto:</strong> ' + example.impacto + '</div>';
+  html += '      <div><strong>Nível na matriz:</strong> ' + example.nivel + '</div>';
+  html += '      <div><strong>Responsável:</strong> ' + escapeHtml(example.responsavel) + '</div>';
+  html += '    </div>';
+  html += '    <div><strong>Ação preventiva planejada:</strong> ' + escapeHtml(example.resposta) + '</div>';
   html += '  </div>';
   html += '</div>';
 
@@ -1113,13 +1274,9 @@ function renderTeamView(teamKey, container) {
   html += '    </div>';
   html += '    <div style="display:flex; gap:6px; flex-wrap:wrap;">';
   html += '      <button id="btn-add-row" class="btn btn-sm btn-primary noprint">+ Adicionar risco</button>';
-  html += '      <button id="btn-reset-team" class="btn btn-sm noprint" title="Descarta edições locais e recarrega os riscos oficiais do GitHub">Restaurar do GitHub</button>';
+  html += '      <button id="btn-reset-team" class="btn btn-sm noprint" title="Descarta edições locais e recarrega os dados do GitHub">Restaurar do GitHub</button>';
   html += '      <button onclick="window.print()" class="btn btn-sm noprint">Imprimir / PDF</button>';
   html += '    </div>';
-  html += '  </div>';
-
-  html += '  <div class="table-info-banner noprint">';
-  html += '    <span>💡 <strong>Edição interativa:</strong> Você pode adicionar novos riscos, alterar textos e critérios, ou apagar itens diretamente nesta tabela. A matriz 5x5 atualiza instantaneamente. Para salvar permanentemente no repositório, utilize <strong>Registrar risco no GitHub</strong>.</span>';
   html += '  </div>';
 
   html += '  <table class="data-table" id="risks-table">';
@@ -1179,6 +1336,9 @@ function renderRiskRowHtml(r) {
   if (r.issueUrl) {
     actionsCol += '<a href="' + r.issueUrl + '" target="_blank" rel="noopener" class="code-badge" title="Abrir Issue no GitHub">#' + r.issueNumber + '</a> ';
     actionsCol += '<button type="button" class="btn btn-xs btn-danger btn-delete-row" data-code="' + r.code + '" data-issue="' + (r.issueNumber || '') + '" data-url="' + (r.issueUrl || '') + '" title="Excluir risco">Excluir</button>';
+  } else if (r.isExample) {
+    actionsCol += '<span class="badge-example" title="Exemplo preenchido como referência">Exemplo</span> ';
+    actionsCol += '<button type="button" class="btn btn-xs btn-danger btn-delete-row" data-code="' + r.code + '" title="Excluir risco">Excluir</button>';
   } else {
     actionsCol += '<span class="badge-local" title="Risco inserido nesta sessão">Local</span> ';
     actionsCol += '<button type="button" class="btn btn-xs btn-danger btn-delete-row" data-code="' + r.code + '" title="Excluir risco">Excluir</button>';

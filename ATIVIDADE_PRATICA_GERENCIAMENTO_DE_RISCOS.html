@@ -224,12 +224,14 @@
     margin-bottom: 6px;
   }
   .checklist li::before {
-    content: "☐";
+    content: "";
     position: absolute;
     left: 4px;
-    top: 0;
-    font-size: 11pt;
-    color: #0969da;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #0969da;
+    border-radius: 2px;
   }
   @media print {
     body { background-color: #fff; padding: 0; }
