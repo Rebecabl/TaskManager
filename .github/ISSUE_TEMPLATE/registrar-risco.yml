@@ -1,0 +1,111 @@
+name: Registrar Novo Risco
+description: Formulario para registro de riscos de projeto da disciplina LES I.
+title: "[Risco] "
+labels: ["risco"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Pratica de Laboratorio - Analise de Riscos
+        Antes de preencher o formulario, consulte as escalas de probabilidade e impacto abaixo:
+
+        ### Escala de Probabilidade
+        - **10%**: Muito improvavel. Evento raro ou atipico no contexto da disciplina.
+        - **30%**: Pouco provavel. Baixa probabilidade, mas ja observado em projetos semelhantes.
+        - **50%**: Provavel. Probabilidade media, chance real de acontecer durante a iteracao.
+        - **70%**: Muito provavel. Alta probabilidade, condicoes do projeto favorecem o evento.
+        - **90%**: Quase certo. Praticamente garantido de acontecer caso nenhuma acao seja tomada.
+
+        ### Escala de Impacto
+        - **Muito Baixo**: Prazo < 1 dia; impacto cosmetico em funcionalidade; retrabalho minimo (< poucas horas); sem impacto em banco de dados; seguranca intacta; integracao sem alteracao de contrato; recursos normais.
+        - **Baixo**: Prazo 1 a 2 dias; falha em funcionalidade secundaria de facil contorno; retrabalho leve; ajuste simples em tabelas; seguranca com risco leve interno; integracao com ajuste pontual; recursos demandam pouco esforco extra.
+        - **Moderado**: Prazo 3 a 5 dias (consome margem da entrega); degradacao de funcionalidade importante; refatoracao ou retrabalho moderado; migracao ou ajuste estrutural no banco de dados; risco a dados nao sensiveis; quebra parcial de contrato de API; recursos exigem realocacao interna.
+        - **Alto**: Prazo > 1 semana (ameaca o MVP da Unidade 2); indisponibilidade de funcionalidade essencial (core do sistema); retrabalho substancial; perda ou corrupcao de dados essenciais; risco de violacao a LGPD ou autenticacao; falha de comunicacao frontend e backend; sobrecarga severa da equipe.
+        - **Muito Alto**: Atraso irrecuperavel para a entrega da unidade; paralizacao total do sistema; perda completa do modulo desenvolvido; perda irreparavel da base de dados; violacao grave de seguranca ou vazamento de dados; inviabilidade tecnica de integracao; desistencia de membros inviabilizando o projeto.
+
+  - type: dropdown
+    id: equipe
+    attributes:
+      label: Equipe
+      description: Selecione a equipe responsavel pelo projeto.
+      options:
+        - E1
+        - E2
+        - E3
+        - E4
+        - E5
+    validations:
+      required: true
+
+  - type: textarea
+    id: risco
+    attributes:
+      label: Risco
+      description: Descreva o risco de forma clara e objetiva.
+      placeholder: Exemplo: Dificuldade na integracao entre o frontend e a API...
+    validations:
+      required: true
+
+  - type: textarea
+    id: causa_consequencia
+    attributes:
+      label: Causa e consequência
+      description: Explique o que pode causar esse risco e quais as consequencias caso ocorra.
+      placeholder: Causa: Falta de padronizacao nos contratos de endpoints. Consequencia: Atraso nos testes integrados e retrabalho na interface.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: probabilidade
+    attributes:
+      label: Probabilidade
+      description: Selecione a probabilidade de ocorrencia de acordo com a escala acima.
+      options:
+        - 10%
+        - 30%
+        - 50%
+        - 70%
+        - 90%
+    validations:
+      required: true
+
+  - type: dropdown
+    id: impacto
+    attributes:
+      label: Impacto
+      description: Selecione o impacto caso o risco se concretize.
+      options:
+        - Muito Baixo
+        - Baixo
+        - Moderado
+        - Alto
+        - Muito Alto
+    validations:
+      required: true
+
+  - type: textarea
+    id: justificativa
+    attributes:
+      label: Justificativa da classificação
+      description: Justifique por que essa probabilidade e esse impacto foram atribuidos ao risco.
+      placeholder: Justificativa baseada nos criterios de prazo, funcionalidade e seguranca...
+    validations:
+      required: true
+
+  - type: textarea
+    id: resposta
+    attributes:
+      label: Resposta ao risco
+      description: Estrategia de resposta (mitigar, evitar, transferir ou aceitar) e acoes praticas planejadas.
+      placeholder: Mitigar: Definir os contratos de endpoints no Swagger antes do inicio da codificacao.
+    validations:
+      required: true
+
+  - type: input
+    id: responsavel
+    attributes:
+      label: Responsável
+      description: Nome do integrante ou integrantes encarregados de monitorar e agir.
+      placeholder: Exemplo: Alice Monteiro (QA) e Isaque Nobrega (PO)
+    validations:
+      required: true
