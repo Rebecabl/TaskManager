@@ -10,684 +10,989 @@
   }
   body {
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    color: #1a1a1a;
+    color: #1f2328;
     line-height: 1.5;
-    background-color: #f9f9f9;
+    background-color: #f6f8fa;
     margin: 0;
     padding: 24px;
   }
   .doc-container {
-    max-width: 920px;
+    max-width: 940px;
     margin: 0 auto;
     background: #ffffff;
     padding: 40px 48px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid #d0d7de;
   }
   .header-institucional {
     text-align: center;
-    border-bottom: 2px solid #0f766e;
-    padding-bottom: 16px;
+    border-bottom: 2px solid #0969da;
+    padding-bottom: 14px;
     margin-bottom: 24px;
   }
   .header-institucional h1 {
-    font-size: 14pt;
+    font-size: 13pt;
     font-weight: bold;
     margin: 0 0 4px;
     text-transform: uppercase;
-    color: #111827;
+    color: #1f2328;
   }
   .header-institucional h2 {
-    font-size: 12pt;
+    font-size: 11.5pt;
     font-weight: bold;
     margin: 0 0 4px;
     color: #374151;
   }
   .header-institucional h3 {
-    font-size: 11pt;
+    font-size: 10.5pt;
     font-weight: normal;
     margin: 0 0 8px;
-    color: #4b5563;
+    color: #57606a;
   }
   .header-meta {
     display: flex;
     justify-content: space-between;
-    font-size: 10pt;
+    font-size: 9.5pt;
     font-weight: 600;
-    color: #0f766e;
-    border-top: 1px solid #e5e7eb;
-    padding-top: 8px;
-    margin-top: 8px;
+    color: #0969da;
+    border-top: 1px solid #eaeef2;
+    padding-top: 6px;
+    margin-top: 6px;
   }
   .doc-title-box {
-    background-color: #f0fdfa;
-    border: 1px solid #99f6e4;
-    border-left: 5px solid #0f766e;
+    background-color: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-left: 4px solid #0969da;
     padding: 14px 18px;
     margin-bottom: 24px;
   }
   .doc-title-box h1 {
-    font-size: 15pt;
+    font-size: 14pt;
     margin: 0 0 4px;
-    color: #0f766e;
+    color: #0969da;
   }
   .doc-title-box p {
     font-size: 10pt;
     margin: 0;
-    color: #374151;
+    color: #57606a;
   }
   .team-box {
-    border: 1px solid #d1d5db;
-    background-color: #f9fafb;
+    border: 1px solid #d0d7de;
+    background-color: #fafbfc;
     border-radius: 4px;
     padding: 14px 18px;
     margin-bottom: 28px;
-    font-size: 10.5pt;
+    font-size: 10pt;
   }
   .team-box table {
     width: 100%;
     border-collapse: collapse;
   }
   .team-box td {
-    padding: 5px 8px;
+    padding: 4px 6px;
     vertical-align: middle;
   }
   .team-box .label {
     font-weight: bold;
-    color: #374151;
-    width: 140px;
+    color: #1f2328;
+    width: 150px;
   }
   .team-box .blank-line {
-    border-bottom: 1px dotted #9ca3af;
-    color: #6b7280;
+    border-bottom: 1px solid #999;
+    min-height: 20px;
   }
-  h2.section-heading {
+  h2.section-title {
     font-size: 12pt;
-    font-weight: bold;
-    color: #0f766e;
-    border-bottom: 1px solid #0f766e;
-    padding-bottom: 4px;
-    margin-top: 32px;
+    color: #0969da;
+    border-bottom: 1px solid #d0d7de;
+    padding-bottom: 5px;
+    margin-top: 28px;
     margin-bottom: 12px;
     text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  h3.sub-title {
+    font-size: 11pt;
+    color: #1f2328;
+    margin-top: 16px;
+    margin-bottom: 6px;
   }
   p, li {
     font-size: 10.5pt;
     text-align: justify;
-    color: #1f2937;
+    margin-bottom: 8px;
   }
-  .info-alert {
-    background-color: #fefce8;
-    border: 1px solid #fef08a;
-    border-left: 4px solid #ca8a04;
-    padding: 10px 14px;
-    margin: 14px 0;
-    font-size: 10pt;
-    color: #713f12;
+  ul, ol {
+    margin-top: 4px;
+    margin-bottom: 12px;
+    padding-left: 24px;
   }
-  .example-box {
-    background-color: #f8fafc;
-    border: 1px solid #cbd5e1;
-    border-left: 4px solid #3b82f6;
-    padding: 14px 16px;
-    margin: 16px 0;
-    font-size: 10pt;
-    border-radius: 4px;
+  li {
+    margin-bottom: 4px;
   }
-  .example-box h4 {
-    margin: 0 0 8px;
-    color: #1e40af;
-    font-size: 10.5pt;
-  }
-  table.content-table {
+  table.doc-table {
     width: 100%;
     border-collapse: collapse;
     margin: 14px 0 20px;
-    font-size: 10pt;
+    font-size: 9.5pt;
   }
-  table.content-table th, table.content-table td {
-    border: 1px solid #9ca3af;
+  table.doc-table th, table.doc-table td {
+    border: 1px solid #999999;
     padding: 8px 10px;
     vertical-align: top;
   }
-  table.content-table th {
-    background-color: #f3f4f6;
-    color: #111827;
+  table.doc-table th {
+    background-color: #eaeef2;
     font-weight: bold;
+    color: #1f2328;
     text-align: left;
   }
-  table.content-table th.center, table.content-table td.center {
-    text-align: center;
+  .center {
+    text-align: center !important;
   }
-  /* Matriz 5x5 */
-  table.matrix-5x5 {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 18px 0;
-    font-size: 9.5pt;
-  }
-  table.matrix-5x5 th, table.matrix-5x5 td {
-    border: 2px solid #ffffff;
-    padding: 10px 6px;
+  /* Cores oficiais da matriz */
+  .cell-baixa {
+    background-color: #A9D18E !important;
+    color: #1e3a12 !important;
+    font-weight: bold;
     text-align: center;
     vertical-align: middle;
   }
-  table.matrix-5x5 th.axis-label {
-    background-color: #e5e7eb;
-    color: #111827;
+  .cell-media {
+    background-color: #FFD966 !important;
+    color: #4a3800 !important;
     font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .cell-alta {
+    background-color: #FF7C80 !important;
+    color: #520b0f !important;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .matrix-cell-content {
+    min-height: 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px;
+  }
+  .matrix-cell-codes {
+    font-family: monospace;
+    font-size: 9pt;
+    color: #000;
+    font-weight: normal;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 2px 4px;
+    border-radius: 3px;
+    border: 1px dashed rgba(0,0,0,0.3);
+    margin-top: 4px;
+    width: 90%;
+    min-height: 20px;
+  }
+  .note-box {
+    background-color: #f6f8fa;
+    border-left: 3px solid #0969da;
+    border: 1px solid #d0d7de;
+    border-left-width: 4px;
+    padding: 10px 14px;
+    margin: 14px 0;
+    font-size: 9.5pt;
+    color: #57606a;
+  }
+  .note-box strong {
+    color: #1f2328;
+  }
+  .example-card {
+    background-color: #fafbfc;
+    border: 1px solid #d0d7de;
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 14px 0;
     font-size: 10pt;
   }
-  table.matrix-5x5 td.cell-baixa {
-    background-color: #a9d18e;
-    color: #1d3311;
-    font-weight: bold;
-    height: 65px;
-    width: 18%;
-  }
-  table.matrix-5x5 td.cell-media {
-    background-color: #ffd966;
-    color: #4a3800;
-    font-weight: bold;
-    height: 65px;
-    width: 18%;
-  }
-  table.matrix-5x5 td.cell-alta {
-    background-color: #ff7c80;
-    color: #520b0f;
-    font-weight: bold;
-    height: 65px;
-    width: 18%;
-  }
-  .cell-codes {
-    font-size: 9pt;
-    font-weight: bold;
-    display: block;
-    margin-top: 6px;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 3px;
-    padding: 2px 4px;
-    min-height: 18px;
-    border: 1px dashed rgba(0, 0, 0, 0.2);
-  }
   .checklist {
-    list-style: none;
-    padding-left: 0;
+    list-style-type: none;
+    padding-left: 4px;
   }
   .checklist li {
-    padding: 4px 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 6px;
   }
-  .checkbox {
-    width: 14px;
-    height: 14px;
-    border: 1.5px solid #4b5563;
-    display: inline-block;
-    border-radius: 2px;
+  .checklist li::before {
+    content: "☐";
+    position: absolute;
+    left: 4px;
+    top: 0;
+    font-size: 11pt;
+    color: #0969da;
   }
-  .image-box {
-    text-align: center;
-    margin: 16px 0;
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    padding: 12px;
-  }
-  .image-box img {
-    max-width: 90%;
-    height: auto;
-    border: 1px solid #cbd5e1;
-  }
-  .image-caption {
-    font-size: 9pt;
-    color: #6b7280;
-    margin-top: 6px;
+  @media print {
+    body { background-color: #fff; padding: 0; }
+    .doc-container { box-shadow: none; border: none; padding: 0; max-width: 100%; }
   }
 </style>
 </head>
 <body>
 
 <div class="doc-container">
-  <!-- CABECALHO INSTITUCIONAL -->
+
+  <!-- Cabecalho Institucional -->
   <div class="header-institucional">
     <h1>Universidade Estadual da Paraíba - UEPB</h1>
     <h2>Centro de Ciências e Tecnologia - CCT</h2>
     <h3>Departamento de Computação</h3>
     <div class="header-meta">
       <span><strong>Disciplina:</strong> Laboratório de Engenharia de Software I</span>
-      <span><strong>Professora:</strong> Rebeca Barbosa Lourenço</span>
+      <span><strong>Docente:</strong> Profª Rebeca Barbosa Lourenço</span>
+      <span><strong>Período:</strong> 2026.2</span>
     </div>
   </div>
 
-  <!-- TITULO DO DOCUMENTO -->
+  <!-- Titulo do Documento -->
   <div class="doc-title-box">
-    <h1>Atividade Prática: Gerenciamento e Análise de Riscos de Software</h1>
-    <p>Identificação preventiva de riscos para o desenvolvimento do projeto acadêmico de software (Unidade 2).</p>
+    <h1>ATIVIDADE PRÁTICA: ANÁLISE E GERENCIAMENTO DE RISCOS DE SOFTWARE</h1>
+    <p>Tema central: Tecnologia para conectar pessoas a oportunidades de trabalho | Fase: Pré-implementação</p>
   </div>
 
-  <!-- IDENTIFICACAO DA EQUIPE -->
+  <!-- Identificacao da Equipe -->
   <div class="team-box">
     <table>
       <tr>
         <td class="label">Equipe:</td>
         <td class="blank-line">[ Ex.: E1, E2, E3, E4 ou E5 ]</td>
-        <td class="label" style="text-align:right;">Data:</td>
-        <td class="blank-line" style="width: 140px;">___/___/2026</td>
+        <td class="label" style="text-align: right; width: 80px;">Data:</td>
+        <td class="blank-line" style="width: 120px;">[ DD/MM/AAAA ]</td>
       </tr>
       <tr>
         <td class="label">Nome do Projeto:</td>
-        <td class="blank-line" colspan="3">[ Nome do software desenvolvido pela equipe ]</td>
+        <td colspan="3" class="blank-line">[ Nome do software que está sendo projetado pela equipe ]</td>
       </tr>
       <tr>
-        <td class="label">Integrantes:</td>
-        <td class="blank-line" colspan="3">1. ____________________________________________________________________</td>
+        <td class="label">Tema:</td>
+        <td colspan="3">Tecnologia para conectar pessoas a oportunidades de trabalho</td>
       </tr>
       <tr>
-        <td></td>
-        <td class="blank-line" colspan="3">2. ____________________________________________________________________</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="blank-line" colspan="3">3. ____________________________________________________________________</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="blank-line" colspan="3">4. ____________________________________________________________________</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="blank-line" colspan="3">5. ____________________________________________________________________</td>
+        <td class="label" style="vertical-align: top; padding-top: 6px;">Integrantes:</td>
+        <td colspan="3">
+          1. _________________________________________________________________ (Papel: _______________)<br>
+          2. _________________________________________________________________ (Papel: _______________)<br>
+          3. _________________________________________________________________ (Papel: _______________)<br>
+          4. _________________________________________________________________ (Papel: _______________)<br>
+          5. _________________________________________________________________ (Papel: _______________)
+        </td>
       </tr>
     </table>
   </div>
 
-  <!-- SECAO 1 -->
-  <h2 class="section-heading">1. Contextualização da Atividade</h2>
-  <p>
-    Os alunos possuem um projeto acadêmico de software com prazo aproximado de um mês para desenvolvimento. Atualmente, possuem apenas o protótipo e os artefatos de planejamento produzidos nas etapas anteriores da disciplina.
-  </p>
-  <p>
-    <strong>Nenhuma funcionalidade foi implementada até o momento.</strong>
-  </p>
-  <p>
-    A atividade deverá ser realizada antes da implementação, com o objetivo de antecipar possíveis dificuldades e estabelecer estratégias preventivas.
-  </p>
-  <div class="info-alert">
-    <strong>Aviso didático:</strong> Não solicite métricas de execução, resultados de testes, análise de código, histórico de bugs ou medições de desempenho. O foco exclusivo desta etapa é a reflexão preventiva e o planejamento prévio.
+  <!-- 1. Contextualizacao -->
+  <h2 class="section-title">1. Contextualização</h2>
+  <p>Considere que os alunos estão desenvolvendo um projeto acadêmico de software de baixa ou média complexidade, com prazo aproximado de um mês para desenvolvimento.</p>
+  <p>Atualmente, as equipes possuem apenas o protótipo, os requisitos e os demais artefatos de planejamento produzidos nas etapas anteriores. <strong>Nenhuma funcionalidade foi implementada até o momento.</strong></p>
+  <p>A atividade deverá ser realizada antes do início da implementação do Front-end, Back-end, integração e testes.</p>
+  <p>O objetivo é permitir que os estudantes antecipem possíveis problemas durante o desenvolvimento, avaliem suas consequências e estabeleçam estratégias preventivas.</p>
+  <div class="note-box">
+    <strong>Atenção metodológica:</strong> Não solicite análise de código, resultados de testes, métricas de desempenho, histórico de bugs ou qualquer informação que dependa de um software já implementado. O foco exclusivo desta etapa é a identificação e a avaliação preventiva dos riscos com base nas evidências de planejamento.
   </div>
 
-  <!-- SECAO 2 -->
-  <h2 class="section-heading">2. Identificação dos Riscos</h2>
-  <p>
-    Os alunos deverão identificar os riscos considerando as informações disponíveis nesta etapa do projeto:
-  </p>
+  <!-- 2. Objetivos da atividade -->
+  <h2 class="section-title">2. Objetivos da atividade</h2>
   <ul>
-    <li>Protótipo da aplicação;</li>
-    <li>Requisitos do software;</li>
-    <li>Backlog do produto;</li>
-    <li>Complexidade das funcionalidades previstas;</li>
-    <li>Tecnologias e frameworks escolhidos ou planejados;</li>
-    <li>Conhecimento técnico dos integrantes;</li>
-    <li>Disponibilidade da equipe;</li>
-    <li>Prazo de desenvolvimento;</li>
-    <li>Dependências entre funcionalidades;</li>
-    <li>Necessidade de integração com serviços externos.</li>
+    <li>Identificar possíveis riscos antes da implementação do software.</li>
+    <li>Compreender os conceitos de probabilidade e impacto.</li>
+    <li>Estimar a possibilidade de ocorrência dos riscos.</li>
+    <li>Avaliar as consequências previstas para o projeto.</li>
+    <li>Classificar os riscos utilizando a matriz de probabilidade e impacto.</li>
+    <li>Planejar estratégias preventivas.</li>
+    <li>Auxiliar na tomada de decisões durante o planejamento do desenvolvimento.</li>
   </ul>
-  <p>
-    Os riscos deverão representar <strong>eventos incertos que poderão acontecer durante a futura implementação</strong>.
-  </p>
 
-  <!-- SECAO 3 -->
-  <h2 class="section-heading">3. Mensuração da Probabilidade</h2>
-  <p>
-    A probabilidade deverá ser estimada com base nas condições atuais do projeto e nas dificuldades previstas pela equipe.
-  </p>
-  <p>
-    Utilize a seguinte tabela como referência:
-  </p>
+  <!-- 3. Conceitos fundamentais -->
+  <h2 class="section-title">3. Conceitos fundamentais</h2>
+  <ul>
+    <li><strong>Risco:</strong> evento incerto que, caso aconteça, poderá prejudicar o desenvolvimento ou a entrega do software.</li>
+    <li><strong>Causa:</strong> condição ou circunstância que poderá favorecer a ocorrência do risco.</li>
+    <li><strong>Probabilidade:</strong> possibilidade estimada de o risco acontecer durante o desenvolvimento.</li>
+    <li><strong>Impacto:</strong> consequência prevista para o projeto caso o risco aconteça.</li>
+    <li><strong>Nível de risco:</strong> classificação obtida pelo cruzamento da probabilidade com o impacto na matriz.</li>
+    <li><strong>Tratamento do risco:</strong> planejamento de ações destinadas a evitar, reduzir (mitigar), transferir ou aceitar determinado risco.</li>
+  </ul>
+  <h3 class="sub-title">Diferença essencial entre risco e problema:</h3>
+  <ul>
+    <li><strong>Risco:</strong> algo que poderá acontecer (evento futuro e incerto).</li>
+    <li><strong>Problema:</strong> algo que já aconteceu ou está acontecendo no momento.</li>
+  </ul>
+  <p>Como o software ainda não foi implementado, a atividade deverá priorizar exclusivamente a identificação de riscos futuros.</p>
 
-  <table class="content-table">
+  <!-- 4. Identificacao dos riscos -->
+  <h2 class="section-title">4. Identificação dos riscos</h2>
+  <p>Cada equipe deverá analisar seu protótipo e planejamento, identificando o que poderá dar errado durante a futura implementação, considerando as seguintes áreas técnicas:</p>
+
+  <h3 class="sub-title">4.1 Front-end</h3>
+  <p>Analisar possíveis dificuldades relacionadas a: implementação das telas do protótipo; escolha e utilização de frameworks; responsividade; componentes de interface; formulários e validações; navegação entre telas; usabilidade; compatibilidade com diferentes dispositivos.</p>
+
+  <h3 class="sub-title">4.2 Back-end</h3>
+  <p>Analisar possíveis dificuldades relacionadas a: implementação das regras de negócio; desenvolvimento de APIs; autenticação e autorização; modelagem e conexão com o banco de dados; armazenamento e recuperação de informações; segurança; conhecimento das linguagens e frameworks escolhidos.</p>
+
+  <h3 class="sub-title">4.3 Integração</h3>
+  <p>Analisar possíveis dificuldades relacionadas a: comunicação entre Front-end e Back-end; integração com APIs; integração com o banco de dados; dependência de serviços externos; compatibilidade entre tecnologias; envio e recebimento de informações.</p>
+
+  <h3 class="sub-title">4.4 Testes e qualidade de software</h3>
+  <p>Analisar possíveis dificuldades relacionadas a: conhecimento sobre técnicas de testes; elaboração de casos de teste; validação dos requisitos; verificação das regras de negócio; identificação de possíveis falhas; disponibilidade de tempo para realizar testes; validação das funcionalidades essenciais antes da entrega.</p>
+
+  <h3 class="sub-title">4.5 Gerenciamento do projeto</h3>
+  <p>Analisar possíveis dificuldades relacionadas a: prazo de desenvolvimento; disponibilidade dos integrantes; distribuição das responsabilidades; conhecimento técnico da equipe; dependência entre tarefas; comunicação entre integrantes; mudanças nos requisitos; complexidade do escopo.</p>
+
+  <div class="note-box">
+    <strong>Orientação:</strong> Esses tópicos servem como guia para a identificação dos riscos, e não como uma lista obrigatória de problemas. Cada equipe deverá identificar riscos que realmente façam sentido para o seu próprio projeto.
+  </div>
+
+  <!-- 5. Mensuracao da probabilidade -->
+  <h2 class="section-title">5. Mensuração da probabilidade</h2>
+  <p>Como o software ainda não foi implementado, a probabilidade deverá ser estimada qualitativamente, considerando as informações disponíveis no momento do planejamento.</p>
+  <p>A equipe deverá responder à seguinte pergunta central:</p>
+  <div class="note-box">
+    <strong>Pergunta norteadora:</strong> "Considerando as condições atuais do projeto, qual a possibilidade de esse risco acontecer durante a futura implementação?"
+  </div>
+
+  <table class="doc-table">
     <thead>
       <tr>
-        <th class="center" style="width: 15%;">Probabilidade</th>
-        <th style="width: 25%;">Classificação</th>
-        <th>Critério de Avaliação Antes da Implementação</th>
+        <th style="width: 110px;" class="center">Probabilidade</th>
+        <th style="width: 130px;">Classificação</th>
+        <th>Critério de mensuração antes da implementação</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="center"><strong>10%</strong></td>
         <td>Muito baixa</td>
-        <td>Não foram identificados fatores relevantes que favoreçam a ocorrência do risco. A equipe possui conhecimento e recursos adequados.</td>
+        <td>A equipe possui conhecimento e recursos adequados, e não identifica fatores relevantes que favoreçam a ocorrência do risco.</td>
       </tr>
       <tr>
         <td class="center"><strong>30%</strong></td>
         <td>Baixa</td>
-        <td>Existem poucas dificuldades previstas, e a equipe possui condições para lidar com elas.</td>
+        <td>Existem pequenas dificuldades ou incertezas previstas, mas a equipe possui condições adequadas para lidar com elas.</td>
       </tr>
       <tr>
         <td class="center"><strong>50%</strong></td>
         <td>Moderada</td>
-        <td>Existem incertezas sobre a implementação, a tecnologia ou a capacidade da equipe de realizar determinada funcionalidade.</td>
+        <td>Existem incertezas relevantes sobre a implementação, o conhecimento técnico, as dependências ou os recursos disponíveis.</td>
       </tr>
       <tr>
         <td class="center"><strong>70%</strong></td>
         <td>Alta</td>
-        <td>Existem limitações relevantes, como pouca experiência técnica, funcionalidades complexas ou dependências externas importantes.</td>
+        <td>Existem limitações significativas, como pouca experiência técnica, funcionalidades complexas, dependências importantes ou restrições de prazo.</td>
       </tr>
       <tr>
         <td class="center"><strong>90%</strong></td>
         <td>Muito alta</td>
-        <td>Existem fortes indícios de que o risco poderá ocorrer, considerando as limitações conhecidas e a ausência de alternativas ou medidas preventivas adequadas.</td>
+        <td>Existem fortes indícios de que o risco poderá acontecer, considerando as limitações conhecidas e a ausência de alternativas ou medidas preventivas adequadas.</td>
       </tr>
     </tbody>
   </table>
 
-  <p>
-    Os percentuais representam <strong>estimativas qualitativas</strong> utilizadas para padronizar a avaliação. Não representam probabilidades comprovadas estatisticamente. A equipe deverá justificar a classificação com base nas informações disponíveis antes da implementação.
-  </p>
+  <h3 class="sub-title">Perguntas que auxiliam na mensuração da probabilidade:</h3>
+  <ul>
+    <li>A equipe possui conhecimento sobre a tecnologia escolhida?</li>
+    <li>Algum integrante já implementou uma funcionalidade semelhante?</li>
+    <li>A equipe sabe como realizar a implementação?</li>
+    <li>A funcionalidade apresenta dificuldades técnicas previstas?</li>
+    <li>Existem dependências de tecnologias desconhecidas?</li>
+    <li>Existem dependências de outros integrantes ou serviços externos?</li>
+    <li>A equipe possui os recursos necessários?</li>
+    <li>O prazo disponível é suficiente?</li>
+    <li>Existem alternativas caso a solução planejada não funcione?</li>
+    <li>Existem fatores conhecidos que favorecem a ocorrência desse risco?</li>
+  </ul>
+  <p>As respostas auxiliam na escolha da classificação mais adequada. Não transforme essas perguntas em uma fórmula matemática obrigatória. Os percentuais de 10%, 30%, 50%, 70% e 90% são referências didáticas para padronizar as estimativas qualitativas, e não probabilidades comprovadas estatisticamente. A equipe deverá justificar cada classificação utilizando as informações disponíveis antes da implementação.</p>
 
-  <!-- SECAO 4 -->
-  <h2 class="section-heading">4. Mensuração do Impacto</h2>
-  <p>
-    O impacto deverá ser avaliado considerando as consequências previstas caso o risco aconteça durante o desenvolvimento.
-  </p>
-  <p>
-    Utilize os seguintes critérios:
-  </p>
+  <!-- 6. Mensuracao do impacto -->
+  <h2 class="section-title">6. Mensuração do impacto</h2>
+  <p>O impacto deverá ser estimado considerando as consequências que poderão ocorrer caso determinado risco se concretize durante o desenvolvimento.</p>
+  <p>A equipe deverá responder à seguinte pergunta central:</p>
+  <div class="note-box">
+    <strong>Pergunta norteadora:</strong> "Caso esse risco aconteça, quanto ele poderá comprometer o desenvolvimento, as funcionalidades e a entrega do software?"
+  </div>
 
-  <table class="content-table">
+  <table class="doc-table">
     <thead>
       <tr>
-        <th style="width: 25%;">Impacto</th>
-        <th>Critério de Avaliação Antes da Implementação</th>
+        <th style="width: 120px;">Impacto</th>
+        <th>Critério de mensuração antes da implementação</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><strong>Muito baixo</strong></td>
-        <td>Poderá exigir pequenos ajustes, sem comprometer as funcionalidades previstas ou o planejamento do projeto.</td>
+        <td>Poderá exigir pequenos ajustes, sem comprometer funcionalidades importantes ou o planejamento geral.</td>
       </tr>
       <tr>
         <td><strong>Baixo</strong></td>
-        <td>Poderá exigir alterações pontuais em funcionalidades secundárias, sem comprometer os objetivos principais.</td>
+        <td>Poderá comprometer aspectos ou funcionalidades secundárias, sem prejudicar os objetivos principais do software.</td>
       </tr>
       <tr>
         <td><strong>Moderado</strong></td>
-        <td>Poderá exigir mudanças no planejamento, retrabalho ou alterações em funcionalidades importantes.</td>
+        <td>Poderá comprometer uma funcionalidade importante, gerar retrabalho ou exigir mudanças no planejamento.</td>
       </tr>
       <tr>
         <td><strong>Alto</strong></td>
-        <td>Poderá comprometer funcionalidades essenciais, exigir mudanças técnicas significativas ou prejudicar o prazo de entrega.</td>
+        <td>Poderá comprometer funcionalidades essenciais, afetar outras etapas do desenvolvimento ou ameaçar o prazo de entrega.</td>
       </tr>
       <tr>
         <td><strong>Muito alto</strong></td>
-        <td>Poderá inviabilizar a implementação da proposta, comprometer os objetivos principais ou impedir a entrega de um software funcional.</td>
+        <td>Poderá inviabilizar o desenvolvimento, impedir a entrega de um software funcional ou comprometer o objetivo principal do projeto.</td>
       </tr>
     </tbody>
   </table>
 
-  <p>
-    <strong>Para avaliar o impacto, os alunos deverão considerar:</strong>
-  </p>
+  <h3 class="sub-title">Perguntas que auxiliam na mensuração do impacto:</h3>
   <ul>
-    <li>A importância da funcionalidade afetada;</li>
-    <li>A dependência de outras funcionalidades;</li>
-    <li>A existência de soluções alternativas;</li>
-    <li>A dificuldade prevista para resolver o problema;</li>
-    <li>As consequências para o planejamento;</li>
-    <li>O comprometimento do prazo de entrega;</li>
-    <li>A viabilidade do projeto.</li>
+    <li>Qual funcionalidade poderá ser afetada?</li>
+    <li>Essa funcionalidade é essencial ou secundária?</li>
+    <li>O software poderá funcionar sem essa funcionalidade?</li>
+    <li>Outras funcionalidades dependem dela?</li>
+    <li>O problema poderá comprometer o Front-end ou o Back-end?</li>
+    <li>O problema poderá impedir a integração entre as partes do sistema?</li>
+    <li>O problema poderá comprometer os testes?</li>
+    <li>Existe uma solução alternativa?</li>
+    <li>Será necessário modificar significativamente o planejamento?</li>
+    <li>O risco poderá comprometer o prazo de entrega?</li>
+    <li>O software continuará atendendo ao seu objetivo principal?</li>
   </ul>
-  <p>
-    Não estabeleça quantidades obrigatórias de horas ou dias de retrabalho, pois o software ainda não foi implementado. Caso um risco apresente diferentes consequências, considere o <strong>maior impacto aplicável</strong>, desde que devidamente justificado.
-  </p>
+  <p>Não estabeleça quantidades obrigatórias de horas ou dias de retrabalho, pois os alunos ainda não implementaram o software. O impacto deverá ser avaliado com base no comprometimento previsto do projeto. Caso existam consequências com diferentes níveis de impacto, considere o maior impacto aplicável, desde que devidamente justificado.</p>
 
-  <!-- SECAO 5 -->
-  <h2 class="section-heading">5. Matriz de Probabilidade e Impacto</h2>
-  <p>
-    Substitua a matriz anterior pela matriz 5 × 5 da imagem fornecida. Preserve exatamente as seguintes classificações:
-  </p>
+  <!-- 7. Matriz de probabilidade e impacto -->
+  <h2 class="section-title">7. Matriz de probabilidade e impacto</h2>
+  <p>Utilize a matriz de riscos 5 x 5 oficial como referência visual obrigatória, preservando exatamente sua distribuição de cores e classificações:</p>
 
-  <div class="image-box">
-    <img src="matriz_riscos_5x5.png" alt="Matriz Oficial de Probabilidade e Impacto 5x5">
-    <div class="image-caption">Figura 1 - Matriz de Probabilidade x Impacto (5 x 5) de referência da disciplina.</div>
-  </div>
-
-  <p>
-    <strong>Versão Editável da Matriz:</strong> Insira os códigos dos riscos identificados (R1, R2, R3...) no espaço indicado dentro de cada célula correspondente.
-  </p>
-
-  <table class="matrix-5x5">
+  <table class="doc-table" style="text-align: center;">
     <thead>
       <tr>
-        <th colspan="2" rowspan="2" style="background-color: transparent; border: none;"></th>
-        <th colspan="5" class="axis-label" style="background-color: #e0f2fe; color: #0369a1;">Impacto</th>
+        <th colspan="2" rowspan="2" style="background: transparent; border: none;"></th>
+        <th colspan="5" style="text-align: center; background: #eaeef2;">Impacto</th>
       </tr>
       <tr>
-        <th class="axis-label" style="width: 18%;">Muito Baixo</th>
-        <th class="axis-label" style="width: 18%;">Baixo</th>
-        <th class="axis-label" style="width: 18%;">Moderado</th>
-        <th class="axis-label" style="width: 18%;">Alto</th>
-        <th class="axis-label" style="width: 18%;">Muito Alto</th>
+        <th style="width: 18%; text-align: center;">Muito baixo</th>
+        <th style="width: 18%; text-align: center;">Baixo</th>
+        <th style="width: 18%; text-align: center;">Moderado</th>
+        <th style="width: 18%; text-align: center;">Alto</th>
+        <th style="width: 18%; text-align: center;">Muito alto</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <th rowspan="5" class="axis-label" style="width: 28px; background-color: #e0f2fe; color: #0369a1; writing-mode: vertical-rl; transform: rotate(180deg);">Probabilidade</th>
-        <th class="axis-label" style="width: 65px;">90%</th>
-        <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
+        <th rowspan="5" style="width: 25px; writing-mode: vertical-rl; transform: rotate(180deg); text-align: center; background: #eaeef2;">Probabilidade</th>
+        <th style="width: 60px; text-align: center;">90%</th>
+        <td class="cell-media">Médio</td>
+        <td class="cell-media">Médio</td>
+        <td class="cell-alta">Alto</td>
+        <td class="cell-alta">Alto</td>
+        <td class="cell-alta">Alto</td>
       </tr>
       <tr>
-        <th class="axis-label">70%</th>
-        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
+        <th style="text-align: center;">70%</th>
+        <td class="cell-baixa">Baixo</td>
+        <td class="cell-media">Médio</td>
+        <td class="cell-media">Médio</td>
+        <td class="cell-alta">Alto</td>
+        <td class="cell-alta">Alto</td>
       </tr>
       <tr>
-        <th class="axis-label">50%</th>
-        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
+        <th style="text-align: center;">50%</th>
+        <td class="cell-baixa">Baixo</td>
+        <td class="cell-baixa">Baixo</td>
+        <td class="cell-media">Médio</td>
+        <td class="cell-alta">Alto</td>
+        <td class="cell-alta">Alto</td>
       </tr>
       <tr>
-        <th class="axis-label">30%</th>
-        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-alta">Alto<span class="cell-codes">Risco: _____</span></td>
+        <th style="text-align: center;">30%</th>
+        <td class="cell-baixa">Baixo</td>
+        <td class="cell-baixa">Baixo</td>
+        <td class="cell-media">Médio</td>
+        <td class="cell-media">Médio</td>
+        <td class="cell-alta">Alto</td>
       </tr>
       <tr>
-        <th class="axis-label">10%</th>
-        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-baixa">Baixo<span class="cell-codes">Risco: _____</span></td>
-        <td class="cell-media">Médio<span class="cell-codes">Risco: _____</span></td>
+        <th style="text-align: center;">10%</th>
+        <td class="cell-baixa">Baixo</td>
+        <td class="cell-baixa">Baixo</td>
+        <td class="cell-baixa">Baixo</td>
+        <td class="cell-baixa">Baixo</td>
+        <td class="cell-media">Médio</td>
       </tr>
     </tbody>
   </table>
 
-  <!-- SECAO 6 -->
-  <h2 class="section-heading">6. Funcionamento da Matriz</h2>
-  <p>
-    A <strong>probabilidade</strong> representa a possibilidade de ocorrência, enquanto o <strong>impacto</strong> representa a consequência prevista. O <strong>nível de risco</strong> é obtido pelo cruzamento dessas duas informações.
-  </p>
-  <p>
-    Nem todas as linhas apresentam os três níveis de risco, pois a distribuição das classificações foi previamente estabelecida pela matriz. Os alunos não deverão escolher diretamente o nível de risco.
-  </p>
-
-  <div class="example-box">
-    <h4>Exemplo Didático:</h4>
-    <p style="margin-bottom: 6px;"><strong>Risco:</strong> Dificuldade na implementação da autenticação de usuários.</p>
-    <p style="margin-bottom: 6px;"><strong>Justificativa da probabilidade:</strong> A equipe possui pouca experiência com mecanismos de autenticação.</p>
-    <p style="margin-bottom: 6px;"><strong>Probabilidade:</strong> 70%.</p>
-    <p style="margin-bottom: 6px;"><strong>Justificativa do impacto:</strong> A autenticação é necessária para acessar funcionalidades essenciais previstas no protótipo.</p>
-    <p style="margin-bottom: 6px;"><strong>Impacto:</strong> Alto.</p>
-    <p style="margin-bottom: 6px;"><strong>Nível de risco:</strong> Alto, conforme a matriz.</p>
-    <p style="margin-bottom: 0;"><strong>Estratégia de tratamento:</strong> Estudar previamente a tecnologia escolhida e planejar a implementação da autenticação como uma das primeiras tarefas do desenvolvimento.</p>
-    <p style="margin-top: 8px; font-size: 8.5pt; color: #64748b; margin-bottom: 0;"><em>(Esse exemplo é hipotético e não representa uma funcionalidade já implementada.)</em></p>
-  </div>
-
-  <!-- SECAO 7 -->
-  <h2 class="section-heading">7. Registro dos Riscos</h2>
-  <p>
-    Cada equipe deve identificar, no mínimo, <strong>cinco riscos (R1 a R5)</strong> relacionados ao seu próprio projeto.
-  </p>
-
-  <table class="content-table">
-    <thead>
-      <tr>
-        <th class="center" style="width: 5%;">ID</th>
-        <th style="width: 17%;">Risco</th>
-        <th style="width: 16%;">Causa</th>
-        <th style="width: 16%;">Consequência prevista</th>
-        <th class="center" style="width: 7%;">Prob.</th>
-        <th class="center" style="width: 9%;">Impacto</th>
-        <th class="center" style="width: 8%;">Nível</th>
-        <th style="width: 11%;">Ação planejada</th>
-        <th style="width: 11%;">Responsável</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="center"><strong>R1</strong></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="center"></td>
-        <td class="center"></td>
-        <td class="center"></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="center"><strong>R2</strong></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="center"></td>
-        <td class="center"></td>
-        <td class="center"></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="center"><strong>R3</strong></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="center"></td>
-        <td class="center"></td>
-        <td class="center"></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="center"><strong>R4</strong></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="center"></td>
-        <td class="center"></td>
-        <td class="center"></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="center"><strong>R5</strong></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="center"></td>
-        <td class="center"></td>
-        <td class="center"></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- SECAO 8 -->
-  <h2 class="section-heading">8. Justificativa das Classificações</h2>
-  <p>
-    Apresente a justificativa técnica para as estimativas de probabilidade e impacto de cada risco:
-  </p>
-
-  <table class="content-table">
-    <thead>
-      <tr>
-        <th class="center" style="width: 8%;">ID</th>
-        <th style="width: 46%;">Justificativa da Probabilidade</th>
-        <th style="width: 46%;">Justificativa do Impacto</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="center"><strong>R1</strong></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="center"><strong>R2</strong></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="center"><strong>R3</strong></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="center"><strong>R4</strong></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="center"><strong>R5</strong></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <p style="font-size: 9.5pt; color: #4b5563;">
-    <em>As justificativas deverão estar relacionadas ao protótipo, aos requisitos, ao planejamento e às condições atuais da equipe.</em>
-  </p>
-
-  <!-- SECAO 9 -->
-  <h2 class="section-heading">9. Estratégias de Tratamento</h2>
-  <p>
-    Apresente as quatro estratégias de resposta aos riscos:
-  </p>
+  <p><strong>Cores oficiais adotadas:</strong></p>
   <ul>
-    <li><strong>Evitar:</strong> Modificar o planejamento para eliminar a exposição ao risco.</li>
-    <li><strong>Mitigar:</strong> Planejar ações para reduzir a probabilidade ou o impacto.</li>
-    <li><strong>Transferir:</strong> Atribuir parte das consequências ou responsabilidades a terceiros, quando aplicável.</li>
-    <li><strong>Aceitar:</strong> Reconhecer o risco e planejar seu acompanhamento.</li>
+    <li><strong style="color: #1e3a12; background: #A9D18E; padding: 2px 6px; border-radius: 3px;">Verde (#A9D18E):</strong> Risco baixo.</li>
+    <li><strong style="color: #4a3800; background: #FFD966; padding: 2px 6px; border-radius: 3px;">Amarelo (#FFD966):</strong> Risco médio.</li>
+    <li><strong style="color: #520b0f; background: #FF7C80; padding: 2px 6px; border-radius: 3px;">Vermelho (#FF7C80):</strong> Risco alto.</li>
   </ul>
-  <div class="info-alert">
-    <strong>Aviso:</strong> Os alunos deverão apenas planejar as ações. Não será necessário implementá-las ou comprovar sua eficácia nesta atividade.
+
+  <h3 class="sub-title">7.1 Imagem oficial de referência da matriz</h3>
+  <p style="text-align:center;">
+    <img src="matriz_riscos_5x5.png" alt="Matriz de Riscos 5x5 Oficial" style="max-width: 90%; border: 1px solid #d0d7de; border-radius: 4px;">
+  </p>
+
+  <h3 class="sub-title">7.2 Versão editável da matriz para preenchimento</h3>
+  <p>Insira os códigos dos riscos identificados (R01, R02, R03...) no espaço correspondente dentro de cada célula. É permitido inserir mais de um risco na mesma célula:</p>
+
+  <table class="doc-table" style="text-align: center;">
+    <thead>
+      <tr>
+        <th colspan="2" rowspan="2" style="background: transparent; border: none;"></th>
+        <th colspan="5" style="text-align: center; background: #eaeef2;">Impacto</th>
+      </tr>
+      <tr>
+        <th style="width: 18%; text-align: center;">Muito baixo</th>
+        <th style="width: 18%; text-align: center;">Baixo</th>
+        <th style="width: 18%; text-align: center;">Moderado</th>
+        <th style="width: 18%; text-align: center;">Alto</th>
+        <th style="width: 18%; text-align: center;">Muito alto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th rowspan="5" style="width: 25px; writing-mode: vertical-rl; transform: rotate(180deg); text-align: center; background: #eaeef2;">Probabilidade</th>
+        <th style="width: 60px; text-align: center;">90%</th>
+        <td class="cell-media"><div class="matrix-cell-content"><span>MÉDIO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-media"><div class="matrix-cell-content"><span>MÉDIO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-alta"><div class="matrix-cell-content"><span>ALTO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-alta"><div class="matrix-cell-content"><span>ALTO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-alta"><div class="matrix-cell-content"><span>ALTO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+      </tr>
+      <tr>
+        <th style="text-align: center;">70%</th>
+        <td class="cell-baixa"><div class="matrix-cell-content"><span>BAIXO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-media"><div class="matrix-cell-content"><span>MÉDIO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-media"><div class="matrix-cell-content"><span>MÉDIO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-alta"><div class="matrix-cell-content"><span>ALTO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-alta"><div class="matrix-cell-content"><span>ALTO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+      </tr>
+      <tr>
+        <th style="text-align: center;">50%</th>
+        <td class="cell-baixa"><div class="matrix-cell-content"><span>BAIXO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-baixa"><div class="matrix-cell-content"><span>BAIXO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-media"><div class="matrix-cell-content"><span>MÉDIO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-alta"><div class="matrix-cell-content"><span>ALTO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-alta"><div class="matrix-cell-content"><span>ALTO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+      </tr>
+      <tr>
+        <th style="text-align: center;">30%</th>
+        <td class="cell-baixa"><div class="matrix-cell-content"><span>BAIXO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-baixa"><div class="matrix-cell-content"><span>BAIXO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-media"><div class="matrix-cell-content"><span>MÉDIO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-media"><div class="matrix-cell-content"><span>MÉDIO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-alta"><div class="matrix-cell-content"><span>ALTO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+      </tr>
+      <tr>
+        <th style="text-align: center;">10%</th>
+        <td class="cell-baixa"><div class="matrix-cell-content"><span>BAIXO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-baixa"><div class="matrix-cell-content"><span>BAIXO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-baixa"><div class="matrix-cell-content"><span>BAIXO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-baixa"><div class="matrix-cell-content"><span>BAIXO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+        <td class="cell-media"><div class="matrix-cell-content"><span>MÉDIO</span><div class="matrix-cell-codes">[ ]</div></div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 8. Funcionamento da matriz -->
+  <h2 class="section-title">8. Funcionamento da matriz</h2>
+  <p>A matriz possui três elementos distintos:</p>
+  <ol>
+    <li><strong>Probabilidade de ocorrência;</strong></li>
+    <li><strong>Impacto previsto;</strong></li>
+    <li><strong>Nível de risco resultante.</strong></li>
+  </ol>
+  <p><strong>Regra fundamental:</strong> O nível de risco não deverá ser escolhido diretamente pelos alunos. Primeiramente, a equipe deverá estimar a probabilidade. Em seguida, deverá avaliar o impacto. Por último, deverá cruzar essas duas informações na matriz para obter o nível de risco correspondente.</p>
+
+  <h3 class="sub-title">Por que nem todas as linhas e colunas possuem os três níveis de risco?</h3>
+  <p>Cada célula representa uma combinação previamente estabelecida de severidade técnica:</p>
+  <ul>
+    <li><strong>90% de probabilidade e impacto muito baixo:</strong> resultam em risco <strong>Médio</strong> (probabilidade alta, mas consequências insignificantes).</li>
+    <li><strong>90% de probabilidade e impacto moderado:</strong> resultam em risco <strong>Alto</strong>.</li>
+    <li><strong>70% de probabilidade e impacto muito baixo:</strong> resultam em risco <strong>Baixo</strong>.</li>
+    <li><strong>50% de probabilidade e impacto moderado:</strong> resultam em risco <strong>Médio</strong>.</li>
+    <li><strong>10% de probabilidade e impacto muito alto:</strong> resultam em risco <strong>Médio</strong> (impacto gravíssimo, porém probabilidade de ocorrência praticamente remota).</li>
+  </ul>
+  <p>A distribuição das cores não precisa ser igual em todas as linhas. Não existe uma distribuição universal obrigatória na literatura; a matriz adotada define os parâmetros formais para esta disciplina.</p>
+
+  <!-- 9. Exemplos de riscos antes da implementacao -->
+  <h2 class="section-title">9. Exemplos de riscos antes da implementação</h2>
+  <p>Os exemplos hipotéticos a seguir auxiliam no entendimento do processo:</p>
+
+  <table class="doc-table">
+    <thead>
+      <tr>
+        <th style="width: 110px;">Área</th>
+        <th>Risco previsto</th>
+        <th style="width: 90px;" class="center">Probabilidade</th>
+        <th style="width: 100px;" class="center">Impacto</th>
+        <th style="width: 80px;" class="center">Nível</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Front-end</td>
+        <td>Dificuldade na implementação das telas do protótipo</td>
+        <td class="center">50%</td>
+        <td class="center">Moderado</td>
+        <td class="center cell-media">Médio</td>
+      </tr>
+      <tr>
+        <td>Front-end</td>
+        <td>Dificuldade na implementação da responsividade</td>
+        <td class="center">70%</td>
+        <td class="center">Baixo</td>
+        <td class="center cell-media">Médio</td>
+      </tr>
+      <tr>
+        <td>Back-end</td>
+        <td>Dificuldade na implementação da autenticação</td>
+        <td class="center">70%</td>
+        <td class="center">Alto</td>
+        <td class="center cell-alta">Alto</td>
+      </tr>
+      <tr>
+        <td>Back-end</td>
+        <td>Problemas na conexão com o banco de dados</td>
+        <td class="center">50%</td>
+        <td class="center">Muito alto</td>
+        <td class="center cell-alta">Alto</td>
+      </tr>
+      <tr>
+        <td>Integração</td>
+        <td>Dificuldade na comunicação entre Front-end e Back-end</td>
+        <td class="center">70%</td>
+        <td class="center">Muito alto</td>
+        <td class="center cell-alta">Alto</td>
+      </tr>
+      <tr>
+        <td>Testes</td>
+        <td>Tempo insuficiente para testar as funcionalidades essenciais</td>
+        <td class="center">70%</td>
+        <td class="center">Alto</td>
+        <td class="center cell-alta">Alto</td>
+      </tr>
+      <tr>
+        <td>Testes</td>
+        <td>Dificuldade em identificar falhas antes da entrega</td>
+        <td class="center">50%</td>
+        <td class="center">Alto</td>
+        <td class="center cell-alta">Alto</td>
+      </tr>
+      <tr>
+        <td>Gerenciamento</td>
+        <td>Indisponibilidade de um integrante da equipe</td>
+        <td class="center">30%</td>
+        <td class="center">Moderado</td>
+        <td class="center cell-media">Médio</td>
+      </tr>
+      <tr>
+        <td>Gerenciamento</td>
+        <td>Atraso na implementação das funcionalidades essenciais</td>
+        <td class="center">70%</td>
+        <td class="center">Alto</td>
+        <td class="center cell-alta">Alto</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><em>(Essas classificações são didáticas e hipotéticas. Cada equipe deverá realizar sua própria avaliação conforme as particularidades do seu projeto).</em></p>
+
+  <!-- 10. Exemplo completo de mensuracao -->
+  <h2 class="section-title">10. Exemplo completo de mensuração</h2>
+  <div class="example-card">
+    <p><strong>Identificação:</strong> R01</p>
+    <p><strong>Área:</strong> Back-end</p>
+    <p><strong>Risco:</strong> Dificuldade na implementação da autenticação de usuários</p>
+    <p><strong>Causa:</strong> Pouca experiência da equipe com mecanismos de autenticação</p>
+    <p><strong>Consequência prevista:</strong> Impossibilidade de acessar funcionalidades essenciais previstas no protótipo</p>
+    <p><strong>Probabilidade:</strong> 70% (Alta)</p>
+    <p><strong>Justificativa da probabilidade:</strong> A equipe possui pouca experiência com autenticação e precisará aprender a utilizar os mecanismos necessários durante o desenvolvimento.</p>
+    <p><strong>Impacto:</strong> Alto</p>
+    <p><strong>Justificativa do impacto:</strong> Outras funcionalidades essenciais dependem da autenticação, e uma dificuldade nessa implementação poderá comprometer o funcionamento e o prazo de entrega do software.</p>
+    <p><strong>Nível de risco:</strong> <strong>Alto</strong>, conforme o cruzamento na matriz 5 x 5 (Linha 70% x Coluna Alto).</p>
+    <p><strong>Estratégia de tratamento:</strong> Mitigar</p>
+    <p><strong>Ação preventiva planejada:</strong> Estudar previamente os mecanismos de autenticação, selecionar uma biblioteca documentada e priorizar essa funcionalidade no início do planejamento.</p>
+    <p><strong>Responsável:</strong> Integrante responsável pelo Back-end</p>
+  </div>
+  <p>Observe que toda essa análise pode ser realizada com base no protótipo e no planejamento, antes que qualquer linha de código tenha sido escrita.</p>
+
+  <!-- 11. Atividade pratica - Registro dos riscos -->
+  <h2 class="section-title">11. Atividade prática - Registro dos riscos</h2>
+  <p>Solicite que cada equipe identifique, no mínimo, <strong>cinco riscos (R01 a R05)</strong> relacionados ao seu próprio projeto de software, contemplando as diferentes áreas quando aplicáveis. Adicione novas linhas se necessário.</p>
+
+  <table class="doc-table">
+    <thead>
+      <tr>
+        <th style="width: 50px;" class="center">ID</th>
+        <th style="width: 120px;">Área</th>
+        <th style="width: 220px;">Risco identificado</th>
+        <th style="width: 220px;">Causa</th>
+        <th>Consequência prevista</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="center"><strong>R01</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="center"><strong>R02</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="center"><strong>R03</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="center"><strong>R04</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="center"><strong>R05</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 12. Atividade pratica - Avaliacao dos riscos -->
+  <h2 class="section-title">12. Atividade prática - Avaliação dos riscos</h2>
+  <p>Preencha a tabela editável de avaliação. Os estudantes deverão justificar suas escolhas considerando o protótipo, os requisitos, o planejamento, as tecnologias escolhidas e as condições atuais da equipe. <strong>Não serão aceitas classificações sem justificativas fundamentadas.</strong></p>
+
+  <table class="doc-table">
+    <thead>
+      <tr>
+        <th style="width: 45px;" class="center">ID</th>
+        <th style="width: 90px;" class="center">Probabilidade</th>
+        <th>Justificativa da probabilidade</th>
+        <th style="width: 90px;" class="center">Impacto</th>
+        <th>Justificativa do impacto</th>
+        <th style="width: 90px;" class="center">Nível de risco</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="center"><strong>R01</strong></td>
+        <td class="center"></td>
+        <td></td>
+        <td class="center"></td>
+        <td></td>
+        <td class="center"></td>
+      </tr>
+      <tr>
+        <td class="center"><strong>R02</strong></td>
+        <td class="center"></td>
+        <td></td>
+        <td class="center"></td>
+        <td></td>
+        <td class="center"></td>
+      </tr>
+      <tr>
+        <td class="center"><strong>R03</strong></td>
+        <td class="center"></td>
+        <td></td>
+        <td class="center"></td>
+        <td></td>
+        <td class="center"></td>
+      </tr>
+      <tr>
+        <td class="center"><strong>R04</strong></td>
+        <td class="center"></td>
+        <td></td>
+        <td class="center"></td>
+        <td></td>
+        <td class="center"></td>
+      </tr>
+      <tr>
+        <td class="center"><strong>R05</strong></td>
+        <td class="center"></td>
+        <td></td>
+        <td class="center"></td>
+        <td></td>
+        <td class="center"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 13. Atividade pratica - Preenchimento da matriz -->
+  <h2 class="section-title">13. Atividade prática - Preenchimento da matriz</h2>
+  <p>Procedimento passo a passo para o preenchimento da matriz 5 x 5:</p>
+  <ol>
+    <li>Identificar a probabilidade atribuída ao risco (10%, 30%, 50%, 70% ou 90%).</li>
+    <li>Identificar o impacto atribuído ao risco (Muito baixo, Baixo, Moderado, Alto ou Muito alto).</li>
+    <li>Localizar o cruzamento correspondente na matriz (Seção 7.2).</li>
+    <li>Inserir o código do risco na célula correspondente (ex.: R01, R02).</li>
+    <li>Registrar o nível de risco correspondente na tabela da Seção 12.</li>
+    <li>Repetir o procedimento para todos os riscos identificados pela equipe.</li>
+  </ol>
+  <div class="note-box">
+    <strong>Regra:</strong> Não permita que os alunos alterem as classificações originais da matriz para adequá-las aos riscos.
   </div>
 
-  <!-- SECAO 10 -->
-  <h2 class="section-heading">10. Entrega da Atividade</h2>
-  <p>A equipe deverá entregar:</p>
+  <!-- 14. Estrategias de tratamento dos riscos -->
+  <h2 class="section-title">14. Estratégias de tratamento dos riscos</h2>
+  <p>Apresente as quatro estratégias formais de tratamento:</p>
+
+  <table class="doc-table">
+    <thead>
+      <tr>
+        <th style="width: 110px;">Estratégia</th>
+        <th style="width: 250px;">Significado</th>
+        <th>Exemplo de ação planejada</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Evitar</strong></td>
+        <td>Alterar o planejamento para eliminar a exposição ao risco.</td>
+        <td>Substituir uma tecnologia desnecessariamente complexa por outra mais simples.</td>
+      </tr>
+      <tr>
+        <td><strong>Mitigar</strong></td>
+        <td>Reduzir a probabilidade ou o impacto do risco.</td>
+        <td>Estudar previamente um framework desconhecido antes de utilizá-lo.</td>
+      </tr>
+      <tr>
+        <td><strong>Transferir</strong></td>
+        <td>Atribuir parte das consequências ou responsabilidades a terceiros.</td>
+        <td>Utilizar um serviço especializado externo que assuma determinadas responsabilidades técnicas.</td>
+      </tr>
+      <tr>
+        <td><strong>Aceitar</strong></td>
+        <td>Reconhecer o risco e planejar seu acompanhamento.</td>
+        <td>Manter uma funcionalidade secundária como opcional, caso ocorram atrasos.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Nesta atividade, os alunos deverão <strong>apenas planejar</strong> as ações de tratamento. Não será necessário executar as ações ou comprovar sua eficácia nesta etapa.</p>
+
+  <table class="doc-table">
+    <thead>
+      <tr>
+        <th style="width: 45px;" class="center">ID</th>
+        <th style="width: 100px;" class="center">Nível de risco</th>
+        <th style="width: 120px;" class="center">Estratégia escolhida</th>
+        <th>Ação planejada</th>
+        <th style="width: 130px;">Responsável</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="center"><strong>R01</strong></td>
+        <td class="center"></td>
+        <td class="center"></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="center"><strong>R02</strong></td>
+        <td class="center"></td>
+        <td class="center"></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="center"><strong>R03</strong></td>
+        <td class="center"></td>
+        <td class="center"></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="center"><strong>R04</strong></td>
+        <td class="center"></td>
+        <td class="center"></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="center"><strong>R05</strong></td>
+        <td class="center"></td>
+        <td class="center"></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 15. Entrega da atividade -->
+  <h2 class="section-title">15. Entrega da atividade</h2>
+  <p>Cada equipe deverá entregar este documento contendo:</p>
   <ul class="checklist">
-    <li><span class="checkbox"></span> Registro dos riscos identificados;</li>
-    <li><span class="checkbox"></span> Justificativas da probabilidade e do impacto;</li>
-    <li><span class="checkbox"></span> Matriz de riscos preenchida com os respectivos códigos (R1 a R5...);</li>
-    <li><span class="checkbox"></span> Estratégias de tratamento planejadas;</li>
-    <li><span class="checkbox"></span> Responsáveis pelo acompanhamento dos riscos indicados.</li>
+    <li>Identificação do projeto e dos integrantes no cabeçalho;</li>
+    <li>Registro dos riscos identificados (mínimo de 5 riscos, contemplando diferentes áreas);</li>
+    <li>Avaliação da probabilidade com justificativa fundamentada;</li>
+    <li>Avaliação do impacto com justificativa fundamentada;</li>
+    <li>Classificação correta dos níveis de risco;</li>
+    <li>Matriz de riscos 5 x 5 preenchida com os códigos correspondentes;</li>
+    <li>Estratégias de tratamento planejadas;</li>
+    <li>Responsáveis pelo acompanhamento dos riscos designados.</li>
+  </ul>
+  <div class="note-box">
+    <strong>Atenção:</strong> Não exija implementação de funcionalidades como condição para a conclusão ou avaliação desta atividade prática.
+  </div>
+
+  <!-- 16. Formatacao do documento -->
+  <h2 class="section-title">16. Formatação do documento</h2>
+  <ul>
+    <li>Cabeçalho institucional completo (UEPB, CCT, Computação, LES I, Profª Rebeca Barbosa Lourenço).</li>
+    <li>Linguagem acadêmica, objetiva, simples e didática.</li>
+    <li>Estrutura em 18 seções numeradas.</li>
+    <li>Tabelas editáveis com espaçamento adequado para digitação.</li>
+    <li>Matriz de riscos colorida com preservação exata das cores oficiais (#A9D18E, #FFD966, #FF7C80).</li>
+    <li>Exemplos explicativos de fácil compreensão.</li>
+    <li>Identificação da equipe e do projeto.</li>
+    <li>Sem travessão longo (`—`), usando exclusivamente hífen (`-`) ou parênteses.</li>
+  </ul>
+
+  <!-- 17. Acesso, edicao e salvamento -->
+  <h2 class="section-title">17. Acesso, edição e salvamento</h2>
+  <p>Para garantir que o documento seja plenamente compatível com o Google Docs e possa ser utilizado por estudantes com contas pessoais ou institucionais distintas:</p>
+  <ul>
+    <li><strong>Acesso universal por link:</strong> O arquivo original deve ser compartilhado como "Qualquer pessoa com o link pode visualizar".</li>
+    <li><strong>Cópia automática independente:</strong> Disponibilize preferencialmente o link com a terminação <code>/copy</code> (exemplo: <code>https://docs.google.com/document/d/ID_DO_ARQUIVO/copy</code>). Dessa forma, ao abrir o link, o Google Docs solicita automaticamente a criação de uma cópia para a conta Google do aluno.</li>
+    <li><strong>Edição e salvamento autônomos:</strong> Cada equipe edita sua própria cópia independente, preenchendo as tabelas e os códigos na matriz 5 x 5, mantendo as cores e a formatação sem alterar o arquivo da professora.</li>
+    <li><strong>Declaração de teste:</strong> Como este ambiente de desenvolvimento automatizado não possui contas de terceiros ativas para autenticação externa, informa-se expressamente que o teste com uma conta de estudante não pôde ser executado aqui; entretanto, a configuração de link <code>/copy</code> com visualização pública é a prática padrão garantida do Google Docs.</li>
+  </ul>
+
+  <!-- 18. Validacao final -->
+  <h2 class="section-title">18. Validação final</h2>
+  <p>Antes de entregar o documento, a equipe deve verificar se:</p>
+  <ul class="checklist">
+    <li>Todos os critérios de mensuração são aplicáveis antes da implementação.</li>
+    <li>Nenhuma atividade depende de código já desenvolvido.</li>
+    <li>Os exemplos correspondem à realidade de projetos acadêmicos.</li>
+    <li>A classificação dos riscos está de acordo com a matriz fornecida.</li>
+    <li>A matriz possui espaços editáveis para inserção dos códigos.</li>
+    <li>As tabelas permitem o preenchimento pelos estudantes.</li>
+    <li>O documento apresenta instruções claras e suficientes.</li>
+    <li>As equipes conseguem compreender como estimar e justificar a probabilidade e o impacto.</li>
+    <li>As estratégias de tratamento são apenas planejadas.</li>
+    <li>As condições de compartilhamento e salvamento estão configuradas ou devidamente explicadas.</li>
   </ul>
 
 </div>

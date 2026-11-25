@@ -747,6 +747,19 @@
   </footer>
 </div>
 
+<!-- Modal de Exclusao de Risco -->
+<div id="delete-modal" class="modal-backdrop" style="display:none;" onclick="if(event.target===this) closeDeleteModal()" role="dialog" aria-modal="true" aria-labelledby="modal-delete-title">
+  <div class="modal-box">
+    <h3 class="modal-title" id="modal-delete-title">Excluir Risco</h3>
+    <div id="modal-delete-desc" class="modal-desc"></div>
+    <div class="modal-actions">
+      <button type="button" id="modal-btn-cancel" class="btn" onclick="closeDeleteModal()">Cancelar</button>
+      <a id="modal-btn-github" class="btn btn-secondary" target="_blank" rel="noopener" style="display:none;" onclick="onModalGithubClick()">Fechar Issue no GitHub ↗</a>
+      <button type="button" id="modal-btn-confirm" class="btn btn-danger-solid" onclick="confirmDelete()">Remover da matriz</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // EQUIPES E PROJETOS DA TURMA
 const TEAMS = {
@@ -893,8 +906,17 @@ function getTeamRisks(teamKey) {
     } catch (e) {}
   }
 
+  let deletedIssues = [];
+  try {
+    deletedIssues = JSON.parse(localStorage.getItem("taskmanager_deleted_issues") || "[]");
+  } catch (e) {}
+
   const fromGithub = allRisks
-    .filter(function(r) { return r.teamKey === teamKey; })
+    .filter(function(r) {
+      if (r.teamKey !== teamKey) return false;
+      if (r.issueNumber && deletedIssues.includes(Number(r.issueNumber))) return false;
+      return true;
+    })
     .sort(function(a, b) { return new Date(a.createdAt) - new Date(b.createdAt); });
 
   return fromGithub.map(function(r, idx) {
@@ -910,6 +932,7 @@ function saveTeamRisks(teamKey, risks) {
 
 function resetTeamRisks(teamKey) {
   localStorage.removeItem("taskmanager_risks_" + teamKey);
+  localStorage.removeItem("taskmanager_deleted_issues");
   renderApp();
 }
 
@@ -1363,7 +1386,20 @@ function confirmDelete() {
   if (!pendingDelete) return;
   const teamKey = pendingDelete.teamKey;
   const code = pendingDelete.code;
+  const issueNum = pendingDelete.issueNum;
   let risks = getTeamRisks(teamKey);
+
+  // Se o risco possui uma Issue vinculada, grava no registro de exclusoes
+  if (issueNum) {
+    let deletedIssues = [];
+    try {
+      deletedIssues = JSON.parse(localStorage.getItem("taskmanager_deleted_issues") || "[]");
+    } catch (e) {}
+    if (!deletedIssues.includes(Number(issueNum))) {
+      deletedIssues.push(Number(issueNum));
+      localStorage.setItem("taskmanager_deleted_issues", JSON.stringify(deletedIssues));
+    }
+  }
 
   risks = risks.filter(function(r) { return r.code !== code; });
 
@@ -1375,6 +1411,12 @@ function confirmDelete() {
   saveTeamRisks(teamKey, risks);
   closeDeleteModal();
   renderApp();
+}
+
+function onModalGithubClick() {
+  if (pendingDelete) {
+    confirmDelete();
+  }
 }
 
 function setupModalEvents() {
@@ -1390,11 +1432,7 @@ function setupModalEvents() {
 
   const btnGithub = document.getElementById("modal-btn-github");
   if (btnGithub) {
-    btnGithub.addEventListener("click", function() {
-      if (pendingDelete) {
-        confirmDelete();
-      }
-    });
+    btnGithub.addEventListener("click", onModalGithubClick);
   }
 
   const modal = document.getElementById("delete-modal");
@@ -1428,18 +1466,5 @@ window.addEventListener("popstate", function() {
 setupModalEvents();
 fetchIssues();
 </script>
-
-<!-- Modal de Exclusao -->
-<div id="delete-modal" class="modal-backdrop" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modal-delete-title">
-  <div class="modal-box">
-    <h3 class="modal-title" id="modal-delete-title">Excluir Risco</h3>
-    <div id="modal-delete-desc" class="modal-desc"></div>
-    <div class="modal-actions">
-      <button type="button" id="modal-btn-cancel" class="btn">Cancelar</button>
-      <a id="modal-btn-github" class="btn btn-secondary" target="_blank" rel="noopener" style="display:none;">Fechar Issue no GitHub ↗</a>
-      <button type="button" id="modal-btn-confirm" class="btn btn-danger-solid">Remover da matriz</button>
-    </div>
-  </div>
-</div>
 </body>
 </html>
