@@ -2,532 +2,591 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matriz de Riscos - LES I (UEPB)</title>
 <style>
-:root {
-  box-sizing: border-box;
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --ink: #0f172a;
-  --muted: #475569;
-  --line: #cbd5e1;
-  --accent: #0f766e;
-  --accent-hover: #115e59;
-  --accent-light: rgba(15, 118, 110, 0.1);
-  --baixa: #a9d18e;
-  --baixa-text: #1f3d12;
-  --media: #ffd966;
-  --media-text: #4a3800;
-  --alta: #ff7c80;
-  --alta-text: #4c0e11;
-  --radius: 8px;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-}
-@media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f172a;
-    --surface: #1e293b;
-    --ink: #f1f5f9;
-    --muted: #94a3b8;
-    --line: #334155;
-    --accent: #14b8a6;
-    --accent-hover: #2dd4bf;
-    --accent-light: rgba(20, 184, 166, 0.15);
-    --baixa: #4f7a3a;
-    --baixa-text: #e8f5e9;
-    --media: #8c6e14;
-    --media-text: #fff9c4;
-    --alta: #9e3639;
-    --alta-text: #ffebee;
+    --bg-page: #f6f8fa;
+    --bg-surface: #ffffff;
+    --text-main: #1f2328;
+    --text-muted: #656d76;
+    --border-color: #d0d7de;
+    --border-subtle: #eaeef2;
+    --primary: #0969da;
+    --primary-hover: #0856b5;
+    --btn-primary-bg: #1f883d;
+    --btn-primary-hover: #1a7f37;
+    --btn-sec-bg: #f6f8fa;
+    --btn-sec-border: #d0d7de;
+    --btn-sec-hover: #f3f4f6;
+    --baixa: #a9d18e;
+    --baixa-ink: #1e3a12;
+    --media: #ffd966;
+    --media-ink: #4a3800;
+    --alta: #ff7c80;
+    --alta-ink: #520b0f;
   }
-}
-*, *::before, *::after { box-sizing: inherit; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-}
-.container {
-  max-width: 1150px;
-  margin: 0 auto;
-  padding: 24px 16px 64px;
-}
-header.site-header {
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 18px;
-  margin-bottom: 24px;
-}
-.header-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.discipline-tag {
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--accent);
-  background: var(--accent-light);
-  padding: 3px 10px;
-  border-radius: 9999px;
-  margin-bottom: 6px;
-}
-h1.site-title {
-  font-size: 1.7rem;
-  margin: 0 0 4px;
-  font-weight: 800;
-}
-p.site-subtitle {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-.header-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  padding: 8px 14px;
-  border-radius: 6px;
-  border: 1px solid transparent;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.15s ease;
-  font-family: inherit;
-}
-.btn-primary {
-  background: var(--accent);
-  color: #ffffff;
-}
-.btn-primary:hover {
-  background: var(--accent-hover);
-}
-.btn-secondary {
-  background: var(--surface);
-  color: var(--ink);
-  border-color: var(--line);
-}
-.btn-secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-.btn-sm {
-  font-size: 0.8rem;
-  padding: 5px 10px;
-}
-.alert-box {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--accent);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  margin-bottom: 20px;
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-.alert-box.alert-success {
-  border-left-color: #10b981;
-}
 
-/* Grid de Projetos na Pagina Inicial */
-.teams-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
-  margin-bottom: 36px;
-}
-.team-card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 18px 20px;
-  box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-}
-.team-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-.team-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-.team-code {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--accent);
-  background: var(--accent-light);
-  padding: 2px 8px;
-  border-radius: 4px;
-}
-.team-risk-badge {
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: var(--bg);
-}
-.team-project-name {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin: 0 0 14px;
-  color: var(--ink);
-}
-.team-card-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-}
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 
-/* Painel da Equipe / Projeto */
-.team-panel {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 16px 20px;
-  margin-bottom: 20px;
-  box-shadow: var(--shadow);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.team-panel-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.team-panel-title {
-  font-size: 1.4rem;
-  font-weight: 800;
-  margin: 0;
-}
-.team-panel-actions {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
-}
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
 
-/* Matriz 5x5 */
-.section-title {
-  font-size: 1.2rem;
-  margin: 28px 0 12px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.matrix-wrapper {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 14px;
-  box-shadow: var(--shadow);
-  margin-bottom: 28px;
-  overflow-x: auto;
-}
-.matrix-table {
-  width: 100%;
-  min-width: 650px;
-  border-collapse: separate;
-  border-spacing: 4px;
-}
-.matrix-table th, .matrix-table td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 6px;
-  border-radius: 4px;
-}
-.matrix-y-axis {
-  width: 24px;
-  font-weight: 800;
-  font-size: 0.82rem;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  background: var(--accent-light);
-  color: var(--accent);
-  padding: 6px 4px !important;
-}
-.matrix-prob-label {
-  width: 65px;
-  font-weight: 700;
-  font-size: 0.88rem;
-  background: var(--bg);
-  color: var(--ink);
-  border: 1px solid var(--line);
-}
-.matrix-col-header {
-  font-weight: 700;
-  font-size: 0.85rem;
-  background: var(--bg);
-  color: var(--ink);
-  border: 1px solid var(--line);
-  padding: 8px 4px !important;
-}
-.matrix-x-title {
-  background: var(--accent-light);
-  color: var(--accent);
-  font-weight: 800;
-  font-size: 0.82rem;
-  padding: 6px !important;
-}
-.matrix-cell {
-  height: 80px;
-  min-width: 95px;
-  position: relative;
-  vertical-align: top !important;
-  padding: 6px !important;
-  transition: all 0.2s ease;
-}
-.matrix-cell.cell-baixa {
-  background: var(--baixa);
-  color: var(--baixa-text);
-}
-.matrix-cell.cell-media {
-  background: var(--media);
-  color: var(--media-text);
-}
-.matrix-cell.cell-alta {
-  background: var(--alta);
-  color: var(--alta-text);
-}
-.cell-level-label {
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  opacity: 0.9;
-  margin-bottom: 4px;
-  display: block;
-}
-.cell-risks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  justify-content: center;
-}
-.risk-tag {
-  display: inline-block;
-  background: var(--surface);
-  color: var(--ink);
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 800;
-  padding: 2px 8px;
-  cursor: pointer;
-  text-decoration: none;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-  transition: transform 0.15s ease;
-}
-.risk-tag:hover {
-  transform: scale(1.15);
-  border-color: #000;
-}
+  .site-wrapper {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
 
-/* Tabela de Registro de Riscos */
-.table-wrapper {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow-x: auto;
-  margin-bottom: 28px;
-}
-table.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 920px;
-  font-size: 0.86rem;
-}
-table.data-table th, table.data-table td {
-  padding: 10px 10px;
-  border-bottom: 1px solid var(--line);
-  text-align: left;
-  vertical-align: middle;
-}
-table.data-table th {
-  background: var(--bg);
-  font-weight: 700;
-  color: var(--muted);
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-table.data-table tr:last-child td {
-  border-bottom: none;
-}
-.select-prob, .select-imp {
-  font: inherit;
-  font-size: 0.84rem;
-  padding: 5px 6px;
-  border-radius: 4px;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  color: var(--ink);
-  cursor: pointer;
-  width: 100%;
-  min-width: 110px;
-}
-.select-prob:focus, .select-imp:focus {
-  outline: 2px solid var(--accent);
-}
-.badge-level {
-  display: inline-block;
-  font-weight: 800;
-  font-size: 0.75rem;
-  padding: 3px 10px;
-  border-radius: 9999px;
-  text-transform: uppercase;
-  text-align: center;
-  min-width: 65px;
-}
-.badge-level.baixa { background: var(--baixa); color: var(--baixa-text); }
-.badge-level.media { background: var(--media); color: var(--media-text); }
-.badge-level.alta { background: var(--alta); color: var(--alta-text); }
-.badge-level.vazio { background: var(--line); color: var(--muted); }
+  /* Cabecalho Institucional */
+  header.institutional-header {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
 
-.empty-state {
-  text-align: center;
-  padding: 36px 16px;
-  color: var(--muted);
-}
-.empty-state h3 {
-  margin: 0 0 6px;
-  color: var(--ink);
-}
-.empty-state p {
-  margin: 0 0 14px;
-}
+  .inst-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
 
-/* Escalas de Medicao */
-.scales-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 16px;
-  margin-top: 14px;
-}
-.scale-card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 16px 18px;
-  box-shadow: var(--shadow);
-}
-.scale-card h3 {
-  margin: 0 0 10px;
-  font-size: 0.96rem;
-  color: var(--accent);
-}
-.scale-list {
-  margin: 0;
-  padding-left: 18px;
-  font-size: 0.84rem;
-  color: var(--muted);
-}
-.scale-list li {
-  margin-bottom: 6px;
-}
-.scale-list strong {
-  color: var(--ink);
-}
+  .inst-info h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    color: var(--text-main);
+  }
 
-/* Footer */
-footer.site-footer {
-  border-top: 1px solid var(--line);
-  padding-top: 20px;
-  margin-top: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  font-size: 0.82rem;
-  color: var(--muted);
-}
-footer.site-footer a {
-  color: var(--accent);
-  text-decoration: none;
-}
+  .inst-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
 
-@media print {
-  body { background: #fff; color: #000; }
-  .btn, .header-actions, .noprint, select { display: none !important; }
-  .container { max-width: 100%; padding: 0; }
-  .team-card, .matrix-wrapper, .table-wrapper, .scale-card { box-shadow: none; border-color: #999; }
-}
+  .inst-meta strong {
+    color: var(--text-main);
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* Botoes estilo limpo e funcional */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+    line-height: 20px;
+    background-color: var(--btn-sec-bg);
+    color: var(--text-main);
+  }
+
+  .btn:hover {
+    background-color: var(--btn-sec-hover);
+    border-color: #b0b7be;
+  }
+
+  .btn-primary {
+    background-color: var(--btn-primary-bg);
+    border-color: rgba(31, 35, 40, 0.15);
+    color: #ffffff;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--btn-primary-hover);
+    color: #ffffff;
+  }
+
+  .btn-sm {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  /* Status Bar */
+  .status-message {
+    background-color: #f6f8fa;
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--primary);
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* Catalogo de Projetos (Home) */
+  .projects-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: var(--text-main);
+  }
+
+  .projects-table-wrapper {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+
+  table.projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  table.projects-table th, table.projects-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  table.projects-table th {
+    background-color: #f6f8fa;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  table.projects-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  table.projects-table tr:hover td {
+    background-color: #fbfcfd;
+  }
+
+  .code-badge {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: #24292f;
+    background-color: #eff1f3;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #d0d7de;
+  }
+
+  .project-name-cell {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-main);
+  }
+
+  /* Painel do Projeto Selecionado */
+  .team-bar {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .team-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .team-bar-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* Matriz 5x5 */
+  .matrix-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+  }
+
+  .matrix-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .matrix-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .matrix-legend {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
+  table.matrix-table {
+    width: 100%;
+    min-width: 660px;
+    border-collapse: collapse;
+    border: 1px solid var(--border-color);
+  }
+
+  table.matrix-table th, table.matrix-table td {
+    border: 1px solid var(--border-color);
+    text-align: center;
+    vertical-align: middle;
+    padding: 8px 6px;
+  }
+
+  .matrix-axis-y-label {
+    width: 24px;
+    font-size: 11px;
+    font-weight: 700;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    background-color: #f6f8fa;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .matrix-prob-th {
+    width: 70px;
+    background-color: #f6f8fa;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-main);
+  }
+
+  .matrix-axis-x-label {
+    background-color: #f6f8fa;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 6px !important;
+  }
+
+  .matrix-imp-th {
+    background-color: #f6f8fa;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-main);
+    padding: 8px 4px !important;
+  }
+
+  .matrix-cell {
+    height: 76px;
+    min-width: 100px;
+    vertical-align: top !important;
+    padding: 6px !important;
+    position: relative;
+  }
+
+  .matrix-cell.cell-baixa {
+    background-color: var(--baixa);
+    color: var(--baixa-ink);
+  }
+
+  .matrix-cell.cell-media {
+    background-color: var(--media);
+    color: var(--media-ink);
+  }
+
+  .matrix-cell.cell-alta {
+    background-color: var(--alta);
+    color: var(--alta-ink);
+  }
+
+  .cell-level-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    display: block;
+    margin-bottom: 4px;
+    opacity: 0.85;
+  }
+
+  .cell-codes-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+  }
+
+  .risk-badge-tag {
+    display: inline-block;
+    background: #ffffff;
+    color: #1f2328;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 6px;
+    text-decoration: none;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.06);
+  }
+
+  .risk-badge-tag:hover {
+    border-color: #000;
+  }
+
+  /* Tabela de Registro de Riscos */
+  .table-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+
+  .table-card-header {
+    background-color: #f6f8fa;
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .table-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 900px;
+  }
+
+  table.data-table th, table.data-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-subtle);
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  table.data-table th {
+    background-color: #fafbfc;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 12px;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+  }
+
+  table.data-table tr:hover td {
+    background-color: #fbfcfd;
+  }
+
+  select.select-criteria {
+    font-family: inherit;
+    font-size: 12.5px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: #ffffff;
+    color: var(--text-main);
+    cursor: pointer;
+    width: 100%;
+  }
+
+  select.select-criteria:focus {
+    outline: 2px solid var(--primary);
+    border-color: var(--primary);
+  }
+
+  .level-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .level-badge.baixa { background-color: var(--baixa); color: var(--baixa-ink); }
+  .level-badge.media { background-color: var(--media); color: var(--media-ink); }
+  .level-badge.alta { background-color: var(--alta); color: var(--alta-ink); }
+  .level-badge.vazio { background-color: #e5e7eb; color: #6b7280; font-weight: normal; }
+
+  /* Escalas de Medicao */
+  .scales-section {
+    margin-top: 32px;
+  }
+
+  .scales-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .scale-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px 18px;
+  }
+
+  .scale-box h3 {
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 6px;
+  }
+
+  .scale-box ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+  }
+
+  .scale-box li {
+    margin-bottom: 6px;
+  }
+
+  .scale-box strong {
+    color: var(--text-main);
+  }
+
+  /* Rodape */
+  footer.site-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  @media print {
+    body { background: #fff; color: #000; font-size: 11pt; }
+    .btn, .header-actions, .noprint, select { display: none !important; }
+    .site-wrapper { max-width: 100%; padding: 0; }
+    header.institutional-header, .matrix-card, .table-card, .scale-box { box-shadow: none; border-color: #999; }
+  }
 </style>
 </head>
 <body>
-<div class="container">
-  <header class="site-header">
-    <div class="header-top">
-      <div>
-        <span class="discipline-tag">UEPB - Laboratório de Engenharia de Software I</span>
-        <h1 class="site-title" id="page-title">Matriz de Riscos dos Projetos</h1>
-        <p class="site-subtitle" id="page-subtitle">Prática da Unidade 1: análise e gestão de riscos (Probabilidade × Impacto) antes da implementação.</p>
+
+<div class="site-wrapper">
+  <!-- Cabecalho Institucional -->
+  <header class="institutional-header">
+    <div class="inst-top">
+      <div class="inst-info">
+        <h1>Laboratório de Engenharia de Software I</h1>
+        <p class="inst-meta">
+          <strong>Universidade Estadual da Paraíba</strong> | Professora: Rebeca Barbosa Lourenço | Gestão de Riscos de Software
+        </p>
       </div>
-      <div class="header-actions">
-        <button id="btn-refresh" class="btn btn-secondary btn-sm" title="Recarregar dados do GitHub">Atualizar dados</button>
-        <a id="btn-github-issues" class="btn btn-secondary btn-sm" target="_blank" rel="noopener">Ver Issues no GitHub</a>
-        <a id="btn-new-risk-header" class="btn btn-primary btn-sm" target="_blank" rel="noopener">+ Registrar novo risco</a>
+      <div class="header-actions noprint">
+        <button id="btn-refresh" class="btn" title="Recarregar dados do repositório">Atualizar dados</button>
+        <a id="btn-github-issues" class="btn" target="_blank" rel="noopener">Repositório no GitHub</a>
+        <a id="btn-new-risk-header" class="btn btn-primary" target="_blank" rel="noopener">Registrar risco</a>
       </div>
     </div>
   </header>
 
-  <div id="status-bar" style="display:none;" class="alert-box"></div>
+  <div id="status-bar" style="display:none;" class="status-message"></div>
 
-  <!-- CONTEUDO PRINCIPAL (Alterna entre Lista de Projetos e Matriz do Projeto) -->
+  <!-- Conteudo Principal -->
   <main id="app-content"></main>
 
-  <!-- ESCALAS DE MEDICAO -->
-  <section class="scales-section" style="margin-top: 36px;">
-    <h2 class="section-title">Critérios e Escalas de Medição</h2>
+  <!-- Escalas de Referencia -->
+  <section class="scales-section">
+    <h2 class="projects-section-title">Critérios e Escalas de Medição</h2>
     <div class="scales-grid">
-      <div class="scale-card">
+      <div class="scale-box">
         <h3>Escala de Probabilidade</h3>
-        <ul class="scale-list">
-          <li><strong>10% (Muito Baixa):</strong> É muito improvável que o problema aconteça. Existem condições adequadas para evitá-lo.</li>
-          <li><strong>30% (Baixa):</strong> Existe possibilidade de ocorrência, mas poucos fatores favorecem o problema.</li>
-          <li><strong>50% (Moderada):</strong> Existem incertezas ou dificuldades que tornam possível a ocorrência do problema.</li>
-          <li><strong>70% (Alta):</strong> Existem dificuldades técnicas, limitações ou dependências que tornam provável a ocorrência do problema.</li>
-          <li><strong>90% (Muito Alta):</strong> Existem fortes indícios de que o problema poderá acontecer.</li>
+        <ul>
+          <li><strong>10% (Muito baixa):</strong> Não foram identificados fatores relevantes que favoreçam a ocorrência do risco.</li>
+          <li><strong>30% (Baixa):</strong> Existem poucas dificuldades previstas, e a equipe possui condições para lidar com elas.</li>
+          <li><strong>50% (Moderada):</strong> Existem incertezas sobre a implementação, a tecnologia ou a capacidade da equipe.</li>
+          <li><strong>70% (Alta):</strong> Existem limitações relevantes, funcionalidades complexas ou dependências externas.</li>
+          <li><strong>90% (Muito alta):</strong> Existem fortes indícios de que o risco poderá ocorrer.</li>
         </ul>
       </div>
 
-      <div class="scale-card">
-        <h3>Escala de Impacto (Critérios de Avaliação)</h3>
-        <ul class="scale-list">
-          <li><strong>Muito Baixo:</strong> Exige pequenos ajustes, que podem ser resolvidos em algumas horas, sem comprometer funcionalidades importantes.</li>
-          <li><strong>Baixo:</strong> Exige correções simples, podendo consumir até um dia de trabalho.</li>
-          <li><strong>Moderado:</strong> Exige retrabalho de dois a três dias ou compromete parcialmente uma funcionalidade importante.</li>
-          <li><strong>Alto:</strong> Exige mudanças significativas, podendo consumir de quatro a cinco dias ou comprometer uma funcionalidade essencial.</li>
-          <li><strong>Muito Alto:</strong> Pode inviabilizar o funcionamento do software ou comprometer a entrega final do projeto.</li>
+      <div class="scale-box">
+        <h3>Escala de Impacto</h3>
+        <ul>
+          <li><strong>Muito baixo:</strong> Poderá exigir pequenos ajustes, sem comprometer funcionalidades ou planejamento.</li>
+          <li><strong>Baixo:</strong> Poderá exigir alterações pontuais em funcionalidades secundárias.</li>
+          <li><strong>Moderado:</strong> Poderá exigir mudanças no planejamento, retrabalho ou alterações em funcionalidades importantes.</li>
+          <li><strong>Alto:</strong> Poderá comprometer funcionalidades essenciais, exigir mudanças técnicas ou prejudicar o prazo.</li>
+          <li><strong>Muito alto:</strong> Poderá inviabilizar a implementação ou impedir a entrega de um software funcional.</li>
         </ul>
       </div>
     </div>
@@ -535,37 +594,22 @@ footer.site-footer a {
 
   <footer class="site-footer">
     <div>
-      <strong>Disciplina:</strong> Laboratório de Engenharia de Software I (UEPB)
+      Disciplina: Laboratório de Engenharia de Software I (UEPB)
     </div>
     <div>
-      Tema: Tecnologia para conectar pessoas a oportunidades de trabalho
+      Repositório de Práticas de Riscos
     </div>
   </footer>
 </div>
 
 <script>
-// NOMES DOS PROJETOS POR EQUIPE
+// EQUIPES E PROJETOS DA TURMA
 const TEAMS = {
-  E1: {
-    id: "E1",
-    name: "Sertão Ágil"
-  },
-  E2: {
-    id: "E2",
-    name: "DuckTrampos"
-  },
-  E3: {
-    id: "E3",
-    name: "VagaCerta"
-  },
-  E4: {
-    id: "E4",
-    name: "Primeira Oportunidade"
-  },
-  E5: {
-    id: "E5",
-    name: "StarTI"
-  }
+  E1: { id: "E1", name: "Sertão Ágil" },
+  E2: { id: "E2", name: "DuckTrampos" },
+  E3: { id: "E3", name: "VagaCerta" },
+  E4: { id: "E4", name: "Primeira Oportunidade" },
+  E5: { id: "E5", name: "StarTI" }
 };
 
 // REGRAS DA MATRIZ (5x5)
@@ -573,20 +617,14 @@ const PROB_ROWS = ["90%", "70%", "50%", "30%", "10%"];
 const IMP_COLS = ["Muito Baixo", "Baixo", "Moderado", "Alto", "Muito Alto"];
 
 const MATRIX_LEVELS = {
-  "90%": { "Muito Baixo": "Média", "Baixo": "Média", "Moderado": "Alta", "Alto": "Alta", "Muito Alto": "Alta" },
-  "70%": { "Muito Baixo": "Baixa", "Baixo": "Média", "Moderado": "Média", "Alto": "Alta", "Muito Alto": "Alta" },
-  "50%": { "Muito Baixo": "Baixa", "Baixo": "Baixa", "Moderado": "Média", "Alto": "Alta", "Muito Alto": "Alta" },
-  "30%": { "Muito Baixo": "Baixa", "Baixo": "Baixa", "Moderado": "Média", "Alto": "Média", "Muito Alto": "Alta" },
-  "10%": { "Muito Baixo": "Baixa", "Baixo": "Baixa", "Moderado": "Baixa", "Alto": "Baixa", "Muito Alto": "Média" }
+  "90%": { "Muito Baixo": "Médio", "Baixo": "Médio", "Moderado": "Alto", "Alto": "Alto", "Muito Alto": "Alto" },
+  "70%": { "Muito Baixo": "Baixo", "Baixo": "Médio", "Moderado": "Médio", "Alto": "Alto", "Muito Alto": "Alto" },
+  "50%": { "Muito Baixo": "Baixo", "Baixo": "Baixo", "Moderado": "Médio", "Alto": "Alto", "Muito Alto": "Alto" },
+  "30%": { "Muito Baixo": "Baixo", "Baixo": "Baixo", "Moderado": "Médio", "Médio": "Médio", "Alto": "Alto" },
+  "10%": { "Muito Baixo": "Baixo", "Baixo": "Baixo", "Moderado": "Baixo", "Alto": "Baixo", "Muito Alto": "Médio" }
 };
 
-const LEVEL_CLASSES = {
-  "Baixa": "cell-baixa",
-  "Média": "cell-media",
-  "Alta": "cell-alta"
-};
-
-// DETECCAO DE DONO E REPOSITORIO
+// DETECCAO DO DONO E REPOSITORIO
 function getRepoInfo() {
   const urlParams = new URLSearchParams(window.location.search);
   const paramOwner = urlParams.get("owner");
@@ -608,7 +646,7 @@ function getRepoInfo() {
 
 const REPO_INFO = getRepoInfo();
 
-// PARSER ROBUSTO DO CORPO DA ISSUE
+// PARSER DAS ISSUES
 function parseIssueBody(body) {
   if (!body) return {};
   const sections = {};
@@ -623,11 +661,10 @@ function parseIssueBody(body) {
   return sections;
 }
 
-// FORMATADOR DE RISCO A PARTIR DA ISSUE
 function formatRiskFromIssue(issue) {
   const sections = parseIssueBody(issue.body);
   
-  // 1. Deteccao da equipe: via campo do formulario, titulo [E1]..[E5] ou labels
+  // Deteccao de equipe
   let teamKey = null;
   const rawEquipe = (sections["Equipe"] || "").trim();
   const equipeMatch = rawEquipe.match(/E[1-5]/i);
@@ -645,23 +682,23 @@ function formatRiskFromIssue(issue) {
     }
   }
 
-  // 2. Deteccao do risco
+  // Deteccao de risco
   let risco = sections["Risco"];
   if (!risco || risco === "_No response_") {
     const cleanTitle = (issue.title || "").replace(/^\[.*?\]\s*/, "").trim();
     risco = cleanTitle || issue.body || "Risco sem título";
   }
 
-  const causaConsequencia = sections["Causa e consequência"] || "-";
+  const causaConsequencia = sections["Causa e consequência"] || sections["Causa"] || "-";
 
-  // 3. Deteccao de Probabilidade
+  // Deteccao de probabilidade
   let probabilidade = (sections["Probabilidade"] || "").trim();
   if (!PROB_ROWS.includes(probabilidade)) {
     const pMatch = (issue.body || "").match(/(10%|30%|50%|70%|90%)/);
     if (pMatch) probabilidade = pMatch[1];
   }
 
-  // 4. Deteccao de Impacto
+  // Deteccao de impacto
   let impacto = (sections["Impacto"] || "").trim();
   if (!IMP_COLS.includes(impacto)) {
     const bLower = (issue.body || "").toLowerCase();
@@ -672,8 +709,8 @@ function formatRiskFromIssue(issue) {
     else if (bLower.includes("alto")) impacto = "Alto";
   }
 
-  const justificativa = sections["Justificativa da classificação"] || "-";
-  const resposta = sections["Resposta ao risco"] || "-";
+  const justificativa = sections["Justificativa da classificação"] || sections["Justificativa da probabilidade"] || "-";
+  const resposta = sections["Resposta ao risco"] || sections["Ação planejada"] || "-";
   const responsavel = sections["Responsável"] || (issue.user ? issue.user.login : "-");
 
   const nivel = (MATRIX_LEVELS[probabilidade] && MATRIX_LEVELS[probabilidade][impacto])
@@ -699,12 +736,10 @@ function formatRiskFromIssue(issue) {
 
 let allRisks = [];
 
-// BUSCA DE ISSUES VIA API DO GITHUB (Nao ignora nenhuma issue aberta)
 async function fetchIssues() {
   const statusBar = document.getElementById("status-bar");
   statusBar.style.display = "block";
-  statusBar.className = "alert-box";
-  statusBar.innerHTML = "Carregando riscos do repositório <strong>" + REPO_INFO.owner + "/" + REPO_INFO.repo + "</strong>...";
+  statusBar.innerHTML = "Atualizando riscos do repositório...";
 
   try {
     const apiUrl = "https://api.github.com/repos/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues?state=open&per_page=100";
@@ -712,14 +747,14 @@ async function fetchIssues() {
 
     if (!response.ok) {
       if (response.status === 403) {
-        throw new Error("Limite de requisições públicas da API atingido temporariamente. Aguarde alguns minutos ou visualize diretamente no GitHub.");
+        throw new Error("Limite de requisições públicas da API atingido temporariamente. Aguarde alguns minutos.");
       }
-      throw new Error("Erro na API do GitHub (Status " + response.status + ")");
+      throw new Error("Erro de comunicação com a API do GitHub (Status " + response.status + ")");
     }
 
     const issues = await response.json();
     const riskIssues = issues.filter(function(issue) {
-      return !issue.pull_request; // apenas issues normais
+      return !issue.pull_request;
     });
 
     allRisks = riskIssues.map(formatRiskFromIssue);
@@ -732,7 +767,6 @@ async function fetchIssues() {
   }
 }
 
-// RENDERIZACAO GERAL
 function renderApp() {
   const params = new URLSearchParams(window.location.search);
   const selectedTeam = params.get("equipe") ? params.get("equipe").toUpperCase() : null;
@@ -743,10 +777,10 @@ function renderApp() {
   const btnNewRiskHeader = document.getElementById("btn-new-risk-header");
   if (selectedTeam && TEAMS[selectedTeam]) {
     btnNewRiskHeader.href = "https://github.com/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues/new?template=registrar-risco.yml&equipe=" + selectedTeam + "&title=%5B" + selectedTeam + "%5D+";
-    btnNewRiskHeader.textContent = "+ Registrar risco (" + selectedTeam + ")";
+    btnNewRiskHeader.textContent = "Registrar risco (" + selectedTeam + ")";
   } else {
     btnNewRiskHeader.href = "https://github.com/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues/new?template=registrar-risco.yml";
-    btnNewRiskHeader.textContent = "+ Registrar novo risco";
+    btnNewRiskHeader.textContent = "Registrar novo risco";
   }
 
   const appContent = document.getElementById("app-content");
@@ -758,43 +792,46 @@ function renderApp() {
   }
 }
 
-// RENDERIZA A LISTA DE PROJETOS COM SEUS LINKS
 function renderHomeView(container) {
-  document.getElementById("page-title").textContent = "Matriz de Riscos dos Projetos";
-  document.getElementById("page-subtitle").textContent = "Laboratório de Engenharia de Software I (UEPB) - Selecione o projeto para abrir a matriz de riscos correspondente.";
-
-  let html = '<div class="teams-grid">';
+  let html = '';
+  html += '<h2 class="projects-section-title">Projetos da Turma</h2>';
+  html += '<div class="projects-table-wrapper">';
+  html += '  <table class="projects-table">';
+  html += '    <thead>';
+  html += '      <tr>';
+  html += '        <th style="width: 80px;">Equipe</th>';
+  html += '        <th>Nome do Projeto</th>';
+  html += '        <th style="width: 140px; text-align: center;">Riscos Registrados</th>';
+  html += '        <th style="width: 200px; text-align: right;">Ações</th>';
+  html += '      </tr>';
+  html += '    </thead>';
+  html += '    <tbody>';
 
   Object.keys(TEAMS).forEach(function(teamKey) {
     const team = TEAMS[teamKey];
     const teamRisks = allRisks.filter(function(r) { return r.teamKey === teamKey; });
     const count = teamRisks.length;
-    const countText = count === 1 ? "1 risco" : count + " riscos";
 
-    html += '<div class="team-card">';
-    html += '  <div>';
-    html += '    <div class="team-card-top">';
-    html += '      <span class="team-code">' + team.id + '</span>';
-    html += '      <span class="team-risk-badge">' + countText + '</span>';
-    html += '    </div>';
-    html += '    <h3 class="team-project-name">' + team.name + '</h3>';
-    html += '  </div>';
-    html += '  <div class="team-card-actions">';
-    html += '    <a href="?equipe=' + team.id + '" class="btn btn-primary btn-sm">Abrir Matriz do Projeto →</a>';
-    html += '    <a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues/new?template=registrar-risco.yml&equipe=' + team.id + '&title=%5B' + team.id + '%5D+" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">+ Registrar</a>';
-    html += '  </div>';
-    html += '</div>';
+    html += '      <tr>';
+    html += '        <td><span class="code-badge">' + team.id + '</span></td>';
+    html += '        <td class="project-name-cell">' + team.name + '</td>';
+    html += '        <td style="text-align: center;">' + count + '</td>';
+    html += '        <td style="text-align: right;">';
+    html += '          <a href="?equipe=' + team.id + '" class="btn btn-sm">Abrir Matriz</a> ';
+    html += '          <a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues/new?template=registrar-risco.yml&equipe=' + team.id + '&title=%5B' + team.id + '%5D+" target="_blank" rel="noopener" class="btn btn-sm btn-primary">Registrar</a>';
+    html += '        </td>';
+    html += '      </tr>';
   });
 
+  html += '    </tbody>';
+  html += '  </table>';
   html += '</div>';
+
   container.innerHTML = html;
 }
 
-// RENDERIZA A MATRIZ E A TABELA INTERATIVA DO PROJETO SELECIONADO
 function renderTeamView(teamKey, container) {
   const team = TEAMS[teamKey];
-  document.getElementById("page-title").textContent = team.name + " (" + team.id + ")";
-  document.getElementById("page-subtitle").textContent = "Matriz de Probabilidade x Impacto e Registro de Riscos do Projeto";
 
   const teamRisks = allRisks
     .filter(function(r) { return r.teamKey === teamKey; })
@@ -806,37 +843,37 @@ function renderTeamView(teamKey, container) {
 
   let html = '';
 
-  html += '<div class="team-panel">';
-  html += '  <div class="team-panel-left">';
-  html += '    <a href="index.html" class="btn btn-secondary btn-sm noprint">← Todos os Projetos</a>';
-  html += '    <h2 class="team-panel-title">' + team.name + ' <span class="team-code">' + team.id + '</span></h2>';
+  html += '<div class="team-bar">';
+  html += '  <div class="team-bar-left">';
+  html += '    <a href="index.html" class="btn btn-sm noprint">← Todos os Projetos</a>';
+  html += '    <h2 class="team-bar-title">' + team.name + ' <span class="code-badge">' + team.id + '</span></h2>';
   html += '  </div>';
-  html += '  <div class="team-panel-actions">';
-  html += '    <span id="risk-count-badge" style="font-size: 0.88rem; color: var(--muted); margin-right: 6px;"><strong>' + teamRisks.length + '</strong> riscos registrados</span>';
-  html += '    <a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues/new?template=registrar-risco.yml&equipe=' + team.id + '&title=%5B' + team.id + '%5D+" target="_blank" rel="noopener" class="btn btn-primary btn-sm noprint">+ Registrar novo risco no GitHub</a>';
+  html += '  <div style="display:flex; gap:8px; align-items:center;">';
+  html += '    <span style="font-size: 13px; color: var(--text-muted);">' + teamRisks.length + ' riscos registrados</span>';
+  html += '    <a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues/new?template=registrar-risco.yml&equipe=' + team.id + '&title=%5B' + team.id + '%5D+" target="_blank" rel="noopener" class="btn btn-sm btn-primary noprint">Registrar risco no GitHub</a>';
   html += '  </div>';
   html += '</div>';
 
   // Matriz 5x5
-  html += '<h3 class="section-title">';
-  html += '  <span>Matriz 5x5 (Probabilidade × Impacto)</span>';
-  html += '  <span style="font-size: 0.8rem; font-weight: normal; color: var(--muted);">';
-  html += '    Legenda: <span style="display:inline-block;width:12px;height:12px;background:var(--baixa);border-radius:2px;vertical-align:middle;"></span> Baixa ';
-  html += '    <span style="display:inline-block;width:12px;height:12px;background:var(--media);border-radius:2px;vertical-align:middle;margin-left:6px;"></span> Média ';
-  html += '    <span style="display:inline-block;width:12px;height:12px;background:var(--alta);border-radius:2px;vertical-align:middle;margin-left:6px;"></span> Alta';
-  html += '  </span>';
-  html += '</h3>';
+  html += '<div class="matrix-card">';
+  html += '  <div class="matrix-card-header">';
+  html += '    <h3 class="matrix-card-title">Matriz de Probabilidade x Impacto (5x5)</h3>';
+  html += '    <div class="matrix-legend">';
+  html += '      <span class="legend-item"><span class="legend-dot" style="background-color:var(--baixa);"></span> Baixo</span>';
+  html += '      <span class="legend-item"><span class="legend-dot" style="background-color:var(--media);"></span> Médio</span>';
+  html += '      <span class="legend-item"><span class="legend-dot" style="background-color:var(--alta);"></span> Alto</span>';
+  html += '    </div>';
+  html += '  </div>';
 
-  html += '<div class="matrix-wrapper">';
-  html += '  <table class="matrix-table" id="matrix-table" role="table" aria-label="Matriz de Probabilidade e Impacto">';
+  html += '  <table class="matrix-table" role="table" aria-label="Matriz de Probabilidade e Impacto">';
   html += '    <thead>';
   html += '      <tr>';
-  html += '        <th colspan="2" rowspan="2" style="background: transparent; border: none;"></th>';
-  html += '        <th colspan="5" class="matrix-x-title">Impacto</th>';
+  html += '        <th colspan="2" rowspan="2" style="background-color: transparent; border: none;"></th>';
+  html += '        <th colspan="5" class="matrix-axis-x-label">Impacto</th>';
   html += '      </tr>';
   html += '      <tr>';
   IMP_COLS.forEach(function(col) {
-    html += '      <th class="matrix-col-header">' + col + '</th>';
+    html += '      <th class="matrix-imp-th">' + col + '</th>';
   });
   html += '      </tr>';
   html += '    </thead>';
@@ -845,22 +882,25 @@ function renderTeamView(teamKey, container) {
   PROB_ROWS.forEach(function(prob, rowIndex) {
     html += '    <tr>';
     if (rowIndex === 0) {
-      html += '    <th rowspan="5" class="matrix-y-axis">Probabilidade</th>';
+      html += '    <th rowspan="5" class="matrix-axis-y-label">Probabilidade</th>';
     }
-    html += '      <th class="matrix-prob-label">' + prob + '</th>';
+    html += '      <th class="matrix-prob-th">' + prob + '</th>';
 
     IMP_COLS.forEach(function(imp) {
       const level = MATRIX_LEVELS[prob][imp];
-      const cellClass = LEVEL_CLASSES[level];
+      let cellColorClass = "cell-baixa";
+      if (level === "Médio") cellColorClass = "cell-media";
+      if (level === "Alto") cellColorClass = "cell-alta";
+
       const matchingRisks = teamRisks.filter(function(r) {
         return r.probabilidade === prob && r.impacto === imp;
       });
 
-      html += '    <td class="matrix-cell ' + cellClass + '" data-prob="' + prob + '" data-imp="' + imp + '">';
-      html += '      <span class="cell-level-label">' + level + '</span>';
-      html += '      <div class="cell-risks" id="cell-risks-' + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '') + '">';
+      html += '    <td class="matrix-cell ' + cellColorClass + '" data-prob="' + prob + '" data-imp="' + imp + '">';
+      html += '      <span class="cell-level-title">' + level + '</span>';
+      html += '      <div class="cell-codes-list" id="cell-risks-' + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '') + '">';
       matchingRisks.forEach(function(r) {
-        html += '      <a href="#row-' + r.code + '" class="risk-tag" title="' + escapeHtml(r.risco) + '">' + r.code + '</a>';
+        html += '      <a href="#row-' + r.code + '" class="risk-badge-tag" title="' + escapeHtml(r.risco) + '">' + r.code + '</a>';
       });
       html += '      </div>';
       html += '    </td>';
@@ -872,35 +912,35 @@ function renderTeamView(teamKey, container) {
   html += '  </table>';
   html += '</div>';
 
-  // Tabela de Registro de Riscos Interativa
-  html += '<h3 class="section-title">';
-  html += '  <span>Registro de Riscos</span>';
-  html += '  <div class="header-actions noprint">';
-  html += '    <button id="btn-add-row" class="btn btn-secondary btn-sm">+ Adicionar linha na tabela</button>';
-  html += '    <button onclick="window.print()" class="btn btn-secondary btn-sm">Imprimir / Salvar PDF</button>';
+  // Tabela de Registro de Riscos
+  html += '<div class="table-card">';
+  html += '  <div class="table-card-header">';
+  html += '    <h3 class="table-card-title">Registro de Riscos</h3>';
+  html += '    <div style="display:flex; gap:6px;">';
+  html += '      <button id="btn-add-row" class="btn btn-sm noprint">+ Linha manual</button>';
+  html += '      <button onclick="window.print()" class="btn btn-sm noprint">Imprimir / PDF</button>';
+  html += '    </div>';
   html += '  </div>';
-  html += '</h3>';
 
-  html += '<div class="table-wrapper">';
   html += '  <table class="data-table" id="risks-table">';
   html += '    <thead>';
   html += '      <tr>';
-  html += '        <th style="width: 50px;">ID</th>';
+  html += '        <th style="width: 45px;">ID</th>';
   html += '        <th style="min-width: 170px;">Risco</th>';
-  html += '        <th style="min-width: 170px;">Causa e consequência</th>';
+  html += '        <th style="min-width: 170px;">Causa e Consequência</th>';
   html += '        <th style="width: 120px;">Probabilidade</th>';
   html += '        <th style="width: 130px;">Impacto</th>';
-  html += '        <th style="width: 90px; text-align:center;">Nível</th>';
-  html += '        <th style="min-width: 160px;">Resposta ao risco</th>';
-  html += '        <th style="width: 110px;">Responsável</th>';
-  html += '        <th style="width: 80px;" class="noprint">Issue</th>';
+  html += '        <th style="width: 80px; text-align:center;">Nível</th>';
+  html += '        <th style="min-width: 160px;">Ação planejada</th>';
+  html += '        <th style="width: 100px;">Responsável</th>';
+  html += '        <th style="width: 70px;" class="noprint">Issue</th>';
   html += '      </tr>';
   html += '    </thead>';
   html += '    <tbody id="risks-tbody">';
 
   if (teamRisks.length === 0) {
-    html += '      <tr id="empty-row"><td colspan="9" style="text-align:center; padding: 24px; color: var(--muted);">';
-    html += '        Nenhum risco cadastrado ainda. Clique em <strong>+ Registrar novo risco no GitHub</strong> ou em <strong>+ Adicionar linha na tabela</strong> acima.';
+    html += '      <tr id="empty-row"><td colspan="9" style="text-align:center; padding: 24px; color: var(--text-muted);">';
+    html += '        Nenhum risco registrado ainda. Clique em <strong>Registrar risco no GitHub</strong> para preencher.';
     html += '      </td></tr>';
   } else {
     teamRisks.forEach(function(r) {
@@ -914,7 +954,6 @@ function renderTeamView(teamKey, container) {
 
   container.innerHTML = html;
 
-  // Associa eventos nos dropdowns de probabilidade e impacto para atualizacao instantanea
   attachTableEventListeners(teamKey);
 
   const btnAddRow = document.getElementById("btn-add-row");
@@ -925,12 +964,11 @@ function renderTeamView(teamKey, container) {
   }
 }
 
-// GERA HTML DE UMA LINHA DA TABELA COM SELECTS INTERATIVOS
 function renderRiskRowHtml(r) {
   let levelClass = "vazio";
-  if (r.nivel === "Baixa") levelClass = "baixa";
-  if (r.nivel === "Média") levelClass = "media";
-  if (r.nivel === "Alta") levelClass = "alta";
+  if (r.nivel === "Baixo") levelClass = "baixa";
+  if (r.nivel === "Médio") levelClass = "media";
+  if (r.nivel === "Alto") levelClass = "alta";
 
   let probOptions = '<option value="">Escolher</option>';
   PROB_ROWS.forEach(function(p) {
@@ -946,17 +984,17 @@ function renderRiskRowHtml(r) {
 
   let issueLink = '-';
   if (r.issueUrl) {
-    issueLink = '<a href="' + r.issueUrl + '" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">#' + r.issueNumber + '</a>';
+    issueLink = '<a href="' + r.issueUrl + '" target="_blank" rel="noopener" class="code-badge">#' + r.issueNumber + '</a>';
   }
 
   let html = '';
-  html += '<tr id="row-' + r.code + '" data-code="' + r.code + '" data-issue="' + (r.issueNumber || '') + '">';
-  html += '  <td><strong>' + r.code + '</strong></td>';
+  html += '<tr id="row-' + r.code + '" data-code="' + r.code + '">';
+  html += '  <td><span class="code-badge">' + r.code + '</span></td>';
   html += '  <td>' + escapeHtml(r.risco) + '</td>';
   html += '  <td>' + escapeHtml(r.causaConsequencia) + '</td>';
-  html += '  <td><select class="select-prob" data-code="' + r.code + '">' + probOptions + '</select></td>';
-  html += '  <td><select class="select-imp" data-code="' + r.code + '">' + impOptions + '</select></td>';
-  html += '  <td style="text-align:center;"><span class="badge-level ' + levelClass + '" id="badge-' + r.code + '">' + (r.nivel || '-') + '</span></td>';
+  html += '  <td><select class="select-criteria select-prob" data-code="' + r.code + '">' + probOptions + '</select></td>';
+  html += '  <td><select class="select-criteria select-imp" data-code="' + r.code + '">' + impOptions + '</select></td>';
+  html += '  <td style="text-align:center;"><span class="level-badge ' + levelClass + '" id="badge-' + r.code + '">' + (r.nivel || '-') + '</span></td>';
   html += '  <td>' + escapeHtml(r.resposta) + '</td>';
   html += '  <td>' + escapeHtml(r.responsavel) + '</td>';
   html += '  <td class="noprint">' + issueLink + '</td>';
@@ -964,7 +1002,6 @@ function renderRiskRowHtml(r) {
   return html;
 }
 
-// ADICIONA NOVA LINHA EDITAVEL NA TABELA
 function addNewRow(teamKey) {
   const tbody = document.getElementById("risks-tbody");
   const emptyRow = document.getElementById("empty-row");
@@ -977,11 +1014,11 @@ function addNewRow(teamKey) {
   const newRisk = {
     code: newCode,
     teamKey: teamKey,
-    risco: "Novo risco a definir",
+    risco: "Novo risco a identificar",
     causaConsequencia: "-",
     probabilidade: "50%",
     impacto: "Alto",
-    nivel: "Alta",
+    nivel: "Alto",
     resposta: "Mitigar",
     responsavel: "Equipe",
     createdAt: new Date()
@@ -999,7 +1036,6 @@ function addNewRow(teamKey) {
   recalculateMatrix(teamKey);
 }
 
-// ASSOCIA OS EVENTOS NOS SELECTS PARA ATUALIZACAO AUTOMATICA INSTANTANEA
 function attachTableEventListeners(teamKey) {
   const tbody = document.getElementById("risks-tbody");
   if (!tbody) return;
@@ -1020,7 +1056,6 @@ function attachTableEventListeners(teamKey) {
   });
 }
 
-// QUANDO O USUARIO ESCOLHE PROBABILIDADE OU IMPACTO NA TABELA
 function onRiskCriteriaChange(code, teamKey) {
   const row = document.getElementById("row-" + code);
   if (!row) return;
@@ -1029,13 +1064,12 @@ function onRiskCriteriaChange(code, teamKey) {
   const imp = row.querySelector(".select-imp").value;
   const badge = document.getElementById("badge-" + code);
 
-  // Atualiza objeto em memoria
   const riskObj = allRisks.find(function(r) { return r.code === code && r.teamKey === teamKey; });
 
   if (prob && imp && MATRIX_LEVELS[prob] && MATRIX_LEVELS[prob][imp]) {
     const nivel = MATRIX_LEVELS[prob][imp];
     badge.textContent = nivel;
-    badge.className = "badge-level " + (nivel === "Baixa" ? "baixa" : (nivel === "Média" ? "media" : "alta"));
+    badge.className = "level-badge " + (nivel === "Baixo" ? "baixa" : (nivel === "Médio" ? "media" : "alta"));
     if (riskObj) {
       riskObj.probabilidade = prob;
       riskObj.impacto = imp;
@@ -1043,7 +1077,7 @@ function onRiskCriteriaChange(code, teamKey) {
     }
   } else {
     badge.textContent = "-";
-    badge.className = "badge-level vazio";
+    badge.className = "level-badge vazio";
     if (riskObj) {
       riskObj.probabilidade = prob;
       riskObj.impacto = imp;
@@ -1051,13 +1085,10 @@ function onRiskCriteriaChange(code, teamKey) {
     }
   }
 
-  // Atualiza posicoes na matriz 5x5 imediatamente
   recalculateMatrix(teamKey);
 }
 
-// RECALCULA E REDESENHA OS CODIGOS (R1, R2...) NAS CELULAS DA MATRIZ 5x5
 function recalculateMatrix(teamKey) {
-  // Limpa todas as celulas da matriz
   PROB_ROWS.forEach(function(prob) {
     IMP_COLS.forEach(function(imp) {
       const containerId = "cell-risks-" + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '');
@@ -1066,7 +1097,6 @@ function recalculateMatrix(teamKey) {
     });
   });
 
-  // Percorre todas as linhas da tabela e aloca nas celulas
   const tbody = document.getElementById("risks-tbody");
   if (!tbody) return;
 
@@ -1083,7 +1113,7 @@ function recalculateMatrix(teamKey) {
         if (container) {
           const a = document.createElement("a");
           a.href = "#row-" + code;
-          a.className = "risk-tag";
+          a.className = "risk-badge-tag";
           a.textContent = code;
           container.appendChild(a);
         }
