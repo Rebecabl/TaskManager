@@ -244,6 +244,226 @@
     color: #ffffff;
   }
 
+  /* Atalhos Rapidos de Equipe */
+  .quick-team-shortcuts {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .quick-shortcuts-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary-navy);
+    white-space: nowrap;
+  }
+
+  .quick-shortcuts-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .shortcut-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #212529;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background-color 0.15s, border-color 0.15s;
+  }
+
+  .shortcut-btn:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+  }
+
+  .shortcut-code {
+    font-weight: 700;
+    color: var(--primary-navy);
+    background-color: #e2e8f0;
+    padding: 1px 5px;
+    border-radius: 2px;
+    font-size: 11.5px;
+  }
+
+  /* Guia Rapido / Passos Didaticos */
+  .quick-guide-panel {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-left: 4px solid var(--primary-navy);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+
+  .quick-guide-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--primary-navy);
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .quick-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+  }
+
+  .quick-step-item {
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 12px 14px;
+  }
+
+  .step-num-badge {
+    display: inline-block;
+    background-color: var(--primary-navy);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+
+  .step-text {
+    font-size: 12.5px;
+    color: var(--text-main);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  /* Grid de Cards dos Projetos */
+  .projects-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .project-card {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-top: 4px solid var(--primary-navy);
+    border-radius: 4px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .project-card:hover {
+    border-color: #adb5bd;
+    border-top-color: var(--primary-navy);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  .project-card-top {
+    margin-bottom: 14px;
+  }
+
+  .project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .project-card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+  }
+
+  .project-card-scope {
+    font-size: 12.8px;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .project-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-top: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 14px;
+    font-size: 12px;
+  }
+
+  .project-card-risks-count {
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  .project-card-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-open-matrix {
+    flex: 1;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: var(--primary-navy);
+    border: 1px solid #142c4c;
+    border-radius: 3px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .btn-open-matrix:hover {
+    background-color: var(--primary-navy-hover);
+    color: #ffffff;
+  }
+
+  .btn-register-risk {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #212529;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .btn-register-risk:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+  }
+
   .btn-action-add {
     background-color: #198754;
     border-color: #157347;
@@ -786,90 +1006,6 @@
   <!-- Conteudo Principal -->
   <main id="app-content"></main>
 
-  <!-- Escalas e Criterios Didaticos de Referencia -->
-  <section class="scales-section">
-    <div class="panel-header-block">
-      <h2 class="panel-title">Critérios e Escalas de Medição (Fase Pré-Implementação)</h2>
-      <p class="panel-desc">Parâmetros qualitativos adotados para avaliação preventiva dos riscos identificados no protótipo e planejamento.</p>
-    </div>
-
-    <div class="scales-tables-grid">
-      <div>
-        <h3 class="scale-table-title">Tabela 1 — Escala de Probabilidade</h3>
-        <table class="reference-table">
-          <thead>
-            <tr>
-              <th style="width: 70px;">Prob.</th>
-              <th style="width: 100px;">Nível</th>
-              <th>Critério de Avaliação Antes da Implementação</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>10%</strong></td>
-              <td>Muito baixa</td>
-              <td>A equipe possui conhecimento e recursos adequados, sem fatores que favoreçam a ocorrência do risco.</td>
-            </tr>
-            <tr>
-              <td><strong>30%</strong></td>
-              <td>Baixa</td>
-              <td>Poucas dificuldades previstas; a equipe possui condições adequadas para lidar com elas.</td>
-            </tr>
-            <tr>
-              <td><strong>50%</strong></td>
-              <td>Moderada</td>
-              <td>Incertezas relevantes sobre a implementação, a tecnologia ou a capacidade técnica da equipe.</td>
-            </tr>
-            <tr>
-              <td><strong>70%</strong></td>
-              <td>Alta</td>
-              <td>Limitações técnicas significativas, funcionalidades complexas ou dependências externas importantes.</td>
-            </tr>
-            <tr>
-              <td><strong>90%</strong></td>
-              <td>Muito alta</td>
-              <td>Fortes indícios de ocorrência, considerando limitações conhecidas e ausência de medidas preventivas.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div>
-        <h3 class="scale-table-title">Tabela 2 — Escala de Impacto</h3>
-        <table class="reference-table">
-          <thead>
-            <tr>
-              <th style="width: 100px;">Impacto</th>
-              <th>Critério de Avaliação Antes da Implementação</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Muito baixo</strong></td>
-              <td>Poderá exigir pequenos ajustes pontuais, sem comprometer funcionalidades ou o planejamento geral.</td>
-            </tr>
-            <tr>
-              <td><strong>Baixo</strong></td>
-              <td>Poderá comprometer funcionalidades secundárias, sem prejudicar os objetivos centrais do software.</td>
-            </tr>
-            <tr>
-              <td><strong>Moderado</strong></td>
-              <td>Poderá comprometer funcionalidade importante, gerar retrabalho ou exigir alterações no planejamento.</td>
-            </tr>
-            <tr>
-              <td><strong>Alto</strong></td>
-              <td>Poderá comprometer funcionalidades essenciais, etapas subsequentes ou o prazo de entrega final.</td>
-            </tr>
-            <tr>
-              <td><strong>Muito alto</strong></td>
-              <td>Poderá inviabilizar a implementação ou impedir a entrega de um software funcional.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
   <!-- Rodape Institucional -->
   <footer class="site-footer">
     <div>
@@ -1217,45 +1353,71 @@ function renderApp() {
 
 function renderHomeView(container) {
   let html = '';
-  html += '<div class="home-panel">';
-  html += '  <div class="panel-header-block">';
-  html += '    <h2 class="panel-title">Projetos Acadêmicos da Turma</h2>';
-  html += '    <p class="panel-desc">Selecione uma equipe abaixo para acessar a Matriz de Probabilidade x Impacto (5x5) e o quadro de riscos.</p>';
+
+  // 1. Barra de Acesso Rapido por Equipe (1 clique)
+  html += '<div class="quick-team-shortcuts noprint">';
+  html += '  <span class="quick-shortcuts-label">Acesso Rápido:</span>';
+  html += '  <div class="quick-shortcuts-list">';
+  Object.keys(TEAMS).forEach(function(teamKey) {
+    const team = TEAMS[teamKey];
+    html += '    <a href="?equipe=' + team.id + '" class="shortcut-btn" title="Abrir Matriz da Equipe ' + team.id + '">';
+    html += '      <span class="shortcut-code">' + team.id + '</span> ' + team.name;
+    html += '    </a>';
+  });
   html += '  </div>';
+  html += '</div>';
 
-  html += '  <div class="table-responsive">';
-  html += '    <table class="academic-table">';
-  html += '      <thead>';
-  html += '        <tr>';
-  html += '          <th style="width: 80px; text-align: center;">Código</th>';
-  html += '          <th style="width: 200px;">Nome do Projeto</th>';
-  html += '          <th>Proposta do Software / Escopo Previsto</th>';
-  html += '          <th style="width: 130px; text-align: center;">Riscos Atuais</th>';
-  html += '          <th style="width: 210px; text-align: right;" class="noprint">Ações</th>';
-  html += '        </tr>';
-  html += '      </thead>';
-  html += '      <tbody>';
+  // 2. Guia Didatico de Uso em 3 Passos (Simples e Intuitivo)
+  html += '<div class="quick-guide-panel noprint">';
+  html += '  <div class="quick-guide-title">Como Utilizar a Plataforma:</div>';
+  html += '  <div class="quick-steps-grid">';
+  html += '    <div class="quick-step-item">';
+  html += '      <span class="step-num-badge">Passo 1</span>';
+  html += '      <p class="step-text"><strong>Selecione a sua Equipe:</strong> Localize o projeto do seu grupo nos cards abaixo e clique no botão azul <strong>Abrir Matriz da Equipe</strong>.</p>';
+  html += '    </div>';
+  html += '    <div class="quick-step-item">';
+  html += '      <span class="step-num-badge">Passo 2</span>';
+  html += '      <p class="step-text"><strong>Analise a Matriz 5x5:</strong> Visualize os riscos distribuídos pelo cruzamento entre Probabilidade (10% a 90%) e Impacto (Muito Baixo a Muito Alto).</p>';
+  html += '    </div>';
+  html += '    <div class="quick-step-item">';
+  html += '      <span class="step-num-badge">Passo 3</span>';
+  html += '      <p class="step-text"><strong>Registre os Riscos da Equipe:</strong> Clique em <strong>Registrar</strong> para abrir o formulário no GitHub e salvar os dados de forma permanente.</p>';
+  html += '    </div>';
+  html += '  </div>';
+  html += '</div>';
 
+  // 3. Grid de Cards dos Projetos (Visualmente Intuitivo)
+  html += '<div class="panel-header-block">';
+  html += '  <h2 class="panel-title">Projetos Acadêmicos da Turma</h2>';
+  html += '  <p class="panel-desc">Selecione o projeto do seu grupo para visualizar e gerenciar a Matriz de Riscos 5x5.</p>';
+  html += '</div>';
+
+  html += '<div class="projects-cards-grid">';
   Object.keys(TEAMS).forEach(function(teamKey) {
     const team = TEAMS[teamKey];
     const teamRisks = getTeamRisks(teamKey);
     const count = teamRisks.length;
 
-    html += '        <tr>';
-    html += '          <td style="text-align: center;"><span class="team-code-tag">' + team.id + '</span></td>';
-    html += '          <td><strong>' + team.name + '</strong></td>';
-    html += '          <td class="text-muted">' + team.description + '</td>';
-    html += '          <td style="text-align: center; font-weight: bold;">' + count + '</td>';
-    html += '          <td style="text-align: right;" class="noprint">';
-    html += '            <a href="?equipe=' + team.id + '" class="btn-action">Abrir Matriz</a> ';
-    html += '            <a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues/new?template=registrar-risco.yml&equipe=' + team.id + '&title=%5B' + team.id + '%5D+" target="_blank" rel="noopener" class="btn-action btn-action-primary">Registrar</a>';
-    html += '          </td>';
-    html += '        </tr>';
+    html += '<div class="project-card">';
+    html += '  <div class="project-card-top">';
+    html += '    <div class="project-card-header">';
+    html += '      <span class="team-code-tag">' + team.id + '</span>';
+    html += '      <h3 class="project-card-title">' + team.name + '</h3>';
+    html += '    </div>';
+    html += '    <p class="project-card-scope">' + team.description + '</p>';
+    html += '  </div>';
+    html += '  <div>';
+    html += '    <div class="project-card-meta">';
+    html += '      <span class="project-card-risks-count">Riscos na Matriz: <strong>' + count + '</strong></span>';
+    html += '      <span class="text-muted">Fase: Pré-implementação</span>';
+    html += '    </div>';
+    html += '    <div class="project-card-actions noprint">';
+    html += '      <a href="?equipe=' + team.id + '" class="btn-open-matrix">Abrir Matriz da Equipe</a>';
+    html += '      <a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues/new?template=registrar-risco.yml&equipe=' + team.id + '&title=%5B' + team.id + '%5D+" target="_blank" rel="noopener" class="btn-register-risk" title="Registrar novo risco no repositório">Registrar</a>';
+    html += '    </div>';
+    html += '  </div>';
+    html += '</div>';
   });
-
-  html += '      </tbody>';
-  html += '    </table>';
-  html += '  </div>';
   html += '</div>';
 
   container.innerHTML = html;
@@ -1433,6 +1595,53 @@ function renderTeamView(teamKey, container) {
   html += '    </table>';
   html += '  </div>';
   html += '</div>';
+
+  // Criterios e Escalas de Medicao (Exibido dentro de cada projeto para consulta da equipe)
+  html += '<section class="scales-section">';
+  html += '  <div class="panel-header-block">';
+  html += '    <h3 class="panel-title">Critérios e Escalas de Medição (Referência para Avaliação)</h3>';
+  html += '    <p class="panel-desc">Utilize as escalas qualitativas abaixo como referência para estimar a probabilidade e o impacto de cada risco.</p>';
+  html += '  </div>';
+  html += '  <div class="scales-tables-grid">';
+  html += '    <div>';
+  html += '      <h4 class="scale-table-title">Tabela 1 — Escala de Probabilidade</h4>';
+  html += '      <table class="reference-table">';
+  html += '        <thead>';
+  html += '          <tr>';
+  html += '            <th style="width: 70px;">Prob.</th>';
+  html += '            <th style="width: 100px;">Nível</th>';
+  html += '            <th>Critério de Avaliação Antes da Implementação</th>';
+  html += '          </tr>';
+  html += '        </thead>';
+  html += '        <tbody>';
+  html += '          <tr><td><strong>10%</strong></td><td>Muito baixa</td><td>A equipe possui conhecimento e recursos adequados, sem fatores que favoreçam a ocorrência do risco.</td></tr>';
+  html += '          <tr><td><strong>30%</strong></td><td>Baixa</td><td>Poucas dificuldades previstas; a equipe possui condições adequadas para lidar com elas.</td></tr>';
+  html += '          <tr><td><strong>50%</strong></td><td>Moderada</td><td>Incertezas relevantes sobre a implementação, a tecnologia ou a capacidade técnica da equipe.</td></tr>';
+  html += '          <tr><td><strong>70%</strong></td><td>Alta</td><td>Limitações técnicas significativas, funcionalidades complexas ou dependências externas importantes.</td></tr>';
+  html += '          <tr><td><strong>90%</strong></td><td>Muito alta</td><td>Fortes indícios de ocorrência, considerando limitações conhecidas e ausência de medidas preventivas.</td></tr>';
+  html += '        </tbody>';
+  html += '      </table>';
+  html += '    </div>';
+  html += '    <div>';
+  html += '      <h4 class="scale-table-title">Tabela 2 — Escala de Impacto</h4>';
+  html += '      <table class="reference-table">';
+  html += '        <thead>';
+  html += '          <tr>';
+  html += '            <th style="width: 100px;">Impacto</th>';
+  html += '            <th>Critério de Avaliação Antes da Implementação</th>';
+  html += '          </tr>';
+  html += '        </thead>';
+  html += '        <tbody>';
+  html += '          <tr><td><strong>Muito baixo</strong></td><td>Poderá exigir pequenos ajustes pontuais, sem comprometer funcionalidades ou o planejamento geral.</td></tr>';
+  html += '          <tr><td><strong>Baixo</strong></td><td>Poderá comprometer funcionalidades secundárias, sem prejudicar os objetivos centrais do software.</td></tr>';
+  html += '          <tr><td><strong>Moderado</strong></td><td>Poderá comprometer funcionalidade importante, gerar retrabalho ou exigir alterações no planejamento.</td></tr>';
+  html += '          <tr><td><strong>Alto</strong></td><td>Poderá comprometer funcionalidades essenciais, etapas subsequentes ou o prazo de entrega final.</td></tr>';
+  html += '          <tr><td><strong>Muito alto</strong></td><td>Poderá inviabilizar a implementação ou impedir a entrega de um software funcional.</td></tr>';
+  html += '        </tbody>';
+  html += '      </table>';
+  html += '    </div>';
+  html += '  </div>';
+  html += '</section>';
 
   container.innerHTML = html;
 
