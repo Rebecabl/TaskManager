@@ -11,7 +11,7 @@ Clique no link da sua equipe abaixo para visualizar a Matriz 5x5, a tabela de ri
 - **Página Inicial (Todos os Projetos):** [https://rebecabl.github.io/TaskManager/](https://rebecabl.github.io/TaskManager/)
 - **Formulário para Cadastrar Risco:** [Abrir Formulário no GitHub](https://github.com/Rebecabl/TaskManager/issues/new?template=registrar-risco.yml)
 
-### Acesso Direto por Equipe
+### Projetos da Turma
 
 1. **Sertão Ágil (E1):** [https://rebecabl.github.io/TaskManager/?equipe=E1](https://rebecabl.github.io/TaskManager/?equipe=E1)
 2. **DuckTrampos (E2):** [https://rebecabl.github.io/TaskManager/?equipe=E2](https://rebecabl.github.io/TaskManager/?equipe=E2)
