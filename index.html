@@ -1209,18 +1209,8 @@ function formatRiskFromIssue(issue) {
 
 let allRisks = [];
 
-// PERSISTENCIA LOCAL
+// PERSISTENCIA E SINCRONIZACAO COM GITHUB
 function getTeamRisks(teamKey) {
-  const localRaw = localStorage.getItem("taskmanager_risks_" + teamKey);
-  if (localRaw) {
-    try {
-      const parsed = JSON.parse(localRaw);
-      if (Array.isArray(parsed)) {
-        return parsed;
-      }
-    } catch (e) {}
-  }
-
   let deletedIssues = [];
   try {
     deletedIssues = JSON.parse(localStorage.getItem("taskmanager_deleted_issues") || "[]");
@@ -1234,13 +1224,53 @@ function getTeamRisks(teamKey) {
     })
     .sort(function(a, b) { return new Date(a.createdAt) - new Date(b.createdAt); });
 
+  let localRisks = [];
+  const localRaw = localStorage.getItem("taskmanager_risks_" + teamKey);
+  if (localRaw) {
+    try {
+      const parsed = JSON.parse(localRaw);
+      if (Array.isArray(parsed)) localRisks = parsed;
+    } catch (e) {}
+  }
+
+  // Se temos issues oficiais vindas do GitHub para esta equipe
   if (fromGithub.length > 0) {
-    return fromGithub.map(function(r, idx) {
+    const result = fromGithub.map(function(ghRisk) {
+      // Se houver edicao local pendente para essa issue, aplica
+      const localEdit = localRisks.find(function(lr) { return lr.issueNumber === ghRisk.issueNumber; });
+      if (localEdit) {
+        return Object.assign({}, ghRisk, {
+          risco: localEdit.risco || ghRisk.risco,
+          causaConsequencia: localEdit.causaConsequencia || ghRisk.causaConsequencia,
+          probabilidade: localEdit.probabilidade || ghRisk.probabilidade,
+          impacto: localEdit.impacto || ghRisk.impacto,
+          nivel: localEdit.nivel || ghRisk.nivel,
+          resposta: localEdit.resposta || ghRisk.resposta,
+          responsavel: localEdit.responsavel || ghRisk.responsavel
+        });
+      }
+      return Object.assign({}, ghRisk);
+    });
+
+    // Adiciona linhas extras criadas localmente nesta tela (que ainda nao estao no GitHub)
+    const extraLocal = localRisks.filter(function(lr) {
+      return !lr.issueNumber && !lr.isExample;
+    });
+    extraLocal.forEach(function(el) { result.push(el); });
+
+    return result.map(function(r, idx) {
       return Object.assign({}, r, { code: "R" + (idx + 1) });
     });
   }
 
-  // Se nao houver issues abertas no GitHub, exibe o exemplo pedagogico inicial
+  // Se nao ha issues no GitHub mas ha linhas salvas localmente
+  if (localRisks.length > 0) {
+    return localRisks.map(function(r, idx) {
+      return Object.assign({}, r, { code: "R" + (idx + 1) });
+    });
+  }
+
+  // Se nao ha issues no GitHub nem dados locais, exibe o exemplo inicial
   if (DEFAULT_EXAMPLES[teamKey]) {
     return [Object.assign({}, DEFAULT_EXAMPLES[teamKey])];
   }
@@ -1266,8 +1296,8 @@ async function fetchIssues() {
   statusBar.innerHTML = "Atualizando riscos do repositório...";
 
   try {
-    const apiUrl = "https://api.github.com/repos/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues?state=open&per_page=100";
-    const response = await fetch(apiUrl);
+    const apiUrl = "https://api.github.com/repos/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues?state=open&per_page=100&_t=" + Date.now();
+    const response = await fetch(apiUrl, { cache: "no-store" });
 
     if (!response.ok) {
       if (response.status === 403) {
@@ -1767,6 +1797,7 @@ function attachTableEventListeners(teamKey) {
     btnReset.addEventListener("click", function() {
       if (confirm("Deseja restaurar os dados originais desta equipe? As alterações feitas apenas nesta tela serão canceladas.")) {
         resetTeamRisks(teamKey);
+        fetchIssues();
       }
     });
   }
