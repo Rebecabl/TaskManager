@@ -244,6 +244,40 @@
     color: #ffffff;
   }
 
+  .btn-action-save {
+    background-color: #198754;
+    border-color: #157347;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .btn-action-save:hover {
+    background-color: #146c43;
+    border-color: #13653f;
+    color: #ffffff;
+  }
+
+  .team-save-hint {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin: 6px 0 0;
+  }
+
+  .save-feedback-banner {
+    background-color: #d1e7dd;
+    border: 1px solid #badbcc;
+    color: #0f5132;
+    padding: 9px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: opacity 0.3s;
+  }
+
 
 
   /* Grid de Cards dos Projetos */
@@ -746,6 +780,39 @@
 
   .btn-delete-row:hover {
     background-color: #dc3545;
+    color: #ffffff;
+  }
+
+  .btn-save-row {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 2px;
+    border: 1px solid #198754;
+    background-color: #ffffff;
+    color: #198754;
+    cursor: pointer;
+  }
+
+  .btn-save-row:hover {
+    background-color: #198754;
+    color: #ffffff;
+  }
+
+  .btn-publish-github {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 2px;
+    border: 1px solid var(--primary-navy);
+    background-color: #ffffff;
+    color: var(--primary-navy);
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-publish-github:hover {
+    background-color: var(--primary-navy);
     color: #ffffff;
   }
 
@@ -1424,11 +1491,13 @@ function renderTeamView(teamKey, container) {
   html += '  <div class="table-panel-header">';
   html += '    <h3 class="panel-title">Tabela de Riscos da Equipe</h3>';
   html += '    <div class="table-panel-actions noprint">';
+  html += '      <button id="btn-save-team" class="btn-action btn-action-save" title="Salva os dados digitados na tabela">Salvar Alterações</button>';
   html += '      <button id="btn-add-row" class="btn-action btn-action-add">+ Adicionar Linha</button>';
   html += '      <button id="btn-reset-team" class="btn-action" title="Recarrega os dados salvos no GitHub">Recarregar Dados</button>';
   html += '      <button onclick="window.print()" class="btn-action">Imprimir / Salvar PDF</button>';
   html += '    </div>';
   html += '  </div>';
+  html += '  <div id="save-feedback" class="save-feedback-banner" style="display:none;"></div>';
 
   html += '  <div class="table-responsive">';
   html += '    <table class="academic-table" id="risks-table">';
@@ -1535,12 +1604,10 @@ function renderRiskRowHtml(r) {
   let actionsCol = '';
   if (r.issueUrl) {
     actionsCol += '<a href="' + r.issueUrl + '" target="_blank" rel="noopener" class="issue-link" title="Abrir Issue no GitHub">#' + r.issueNumber + '</a> ';
+    actionsCol += '<button type="button" class="btn-save-row" data-code="' + r.code + '" title="Salvar alterações">Salvar</button> ';
     actionsCol += '<button type="button" class="btn-delete-row" data-code="' + r.code + '" data-issue="' + (r.issueNumber || '') + '" data-url="' + (r.issueUrl || '') + '" title="Excluir risco">Excluir</button>';
-  } else if (r.isExample) {
-    actionsCol += '<span class="tag-example" title="Exemplo preenchido como referência pedagógica">Exemplo</span> ';
-    actionsCol += '<button type="button" class="btn-delete-row" data-code="' + r.code + '" title="Excluir risco">Excluir</button>';
   } else {
-    actionsCol += '<span class="tag-local" title="Risco inserido localmente">Local</span> ';
+    actionsCol += '<button type="button" class="btn-save-row" data-code="' + r.code + '" title="Salvar alterações">Salvar</button> ';
     actionsCol += '<button type="button" class="btn-delete-row" data-code="' + r.code + '" title="Excluir risco">Excluir</button>';
   }
 
@@ -1567,13 +1634,13 @@ function addNewRow(teamKey) {
   const newRisk = {
     code: newCode,
     teamKey: teamKey,
-    risco: "Novo risco identificado",
-    causaConsequencia: "Por que pode acontecer e impacto no projeto",
+    risco: "",
+    causaConsequencia: "",
     probabilidade: "50%",
     impacto: "Moderado",
     nivel: "Médio",
-    resposta: "Ação preventiva planejada",
-    responsavel: "Integrante da equipe",
+    resposta: "",
+    responsavel: "",
     createdAt: new Date().toISOString()
   };
 
@@ -1581,13 +1648,62 @@ function addNewRow(teamKey) {
   saveTeamRisks(teamKey, risks);
   renderApp();
 
+  showSaveFeedback("Nova linha " + newCode + " adicionada! Preencha os campos e clique no botão verde 'Salvar Alterações'.");
+
   setTimeout(function() {
     const newRowInput = document.querySelector('#row-' + newCode + ' [data-field="risco"]');
     if (newRowInput) {
       newRowInput.focus();
-      newRowInput.select();
     }
   }, 80);
+}
+
+function manualSaveTeam(teamKey) {
+  const tbody = document.getElementById("risks-tbody");
+  if (!tbody) return;
+
+  const risks = getTeamRisks(teamKey);
+
+  tbody.querySelectorAll("tr[data-code]").forEach(function(row) {
+    const code = row.dataset.code;
+    const item = risks.find(function(r) { return r.code === code; });
+    if (!item) return;
+
+    const riscoInput = row.querySelector('[data-field="risco"]');
+    const causaInput = row.querySelector('[data-field="causaConsequencia"]');
+    const probSelect = row.querySelector('.select-prob');
+    const impSelect = row.querySelector('.select-imp');
+    const respTextarea = row.querySelector('[data-field="resposta"]');
+    const responsavelInput = row.querySelector('[data-field="responsavel"]');
+
+    if (riscoInput) item.risco = riscoInput.value;
+    if (causaInput) item.causaConsequencia = causaInput.value;
+    if (probSelect) item.probabilidade = probSelect.value;
+    if (impSelect) item.impacto = impSelect.value;
+    if (respTextarea) item.resposta = respTextarea.value;
+    if (responsavelInput) item.responsavel = responsavelInput.value;
+
+    if (item.probabilidade && item.impacto && MATRIX_LEVELS[item.probabilidade] && MATRIX_LEVELS[item.probabilidade][item.impacto]) {
+      item.nivel = MATRIX_LEVELS[item.probabilidade][item.impacto];
+    }
+  });
+
+  saveTeamRisks(teamKey, risks);
+  recalculateMatrix(teamKey);
+  showSaveFeedback("Riscos da equipe " + teamKey + " salvos com sucesso no navegador!");
+}
+
+function showSaveFeedback(message) {
+  const banner = document.getElementById("save-feedback");
+  if (!banner) return;
+  banner.style.display = "flex";
+  banner.innerHTML = '<span>' + message + '</span><button type="button" style="background:none;border:none;cursor:pointer;font-size:16px;font-weight:bold;color:#0f5132;" onclick="this.parentElement.style.display=\'none\'">×</button>';
+
+  clearTimeout(window.__saveTimeout);
+  window.__saveTimeout = setTimeout(function() {
+    const b = document.getElementById("save-feedback");
+    if (b) b.style.display = "none";
+  }, 4000);
 }
 
 function attachTableEventListeners(teamKey) {
@@ -1623,6 +1739,21 @@ function attachTableEventListeners(teamKey) {
       openDeleteModal(teamKey, code, issueNum, issueUrl);
     });
   });
+
+  tbody.querySelectorAll(".btn-save-row").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      const code = this.dataset.code;
+      manualSaveTeam(teamKey);
+      showSaveFeedback("Risco " + code + " salvo com sucesso no navegador!");
+    });
+  });
+
+  const btnSave = document.getElementById("btn-save-team");
+  if (btnSave) {
+    btnSave.addEventListener("click", function() {
+      manualSaveTeam(teamKey);
+    });
+  }
 
   const btnAdd = document.getElementById("btn-add-row");
   if (btnAdd) {
