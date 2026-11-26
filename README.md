@@ -1,19 +1,19 @@
-# Laboratorio de Engenharia de Software I (UEPB) - Matriz de Riscos dos Projetos
+# Laboratório de Engenharia de Software I (UEPB) - Matriz de Riscos dos Projetos
 
-Portal para realizacao da atividade pratica de analise e gestao de riscos (Probabilidade x Impacto) da disciplina **Laboratorio de Engenharia de Software I (Turma da Noite - UEPB)**.
+Painel prático para análise de riscos (Probabilidade x Impacto) dos projetos da disciplina **Laboratório de Engenharia de Software I (UEPB)**.
 
 ---
 
-## Links dos Projetos e Matrizes de Riscos
+## Links dos Projetos
 
-Acesse o link direto do seu projeto abaixo para visualizar a matriz de riscos 5x5, a tabela de registro e cadastrar novos riscos:
+Clique no link da sua equipe abaixo para visualizar a Matriz 5x5, a tabela de riscos e cadastrar novos riscos:
 
-- **Site Principal (Todos os Projetos):** [https://rebecabl.github.io/TaskManager/](https://rebecabl.github.io/TaskManager/)
-- **Formulario Geral de Registro:** [Abrir Formulario no GitHub](https://github.com/Rebecabl/TaskManager/issues/new?template=registrar-risco.yml)
+- **Página Inicial (Todos os Projetos):** [https://rebecabl.github.io/TaskManager/](https://rebecabl.github.io/TaskManager/)
+- **Formulário para Cadastrar Risco:** [Abrir Formulário no GitHub](https://github.com/Rebecabl/TaskManager/issues/new?template=registrar-risco.yml)
 
-### Links Diretos por Projeto
+### Acesso Direto por Equipe
 
-1. **Sertao Agil (E1):** [https://rebecabl.github.io/TaskManager/?equipe=E1](https://rebecabl.github.io/TaskManager/?equipe=E1)
+1. **Sertão Ágil (E1):** [https://rebecabl.github.io/TaskManager/?equipe=E1](https://rebecabl.github.io/TaskManager/?equipe=E1)
 2. **DuckTrampos (E2):** [https://rebecabl.github.io/TaskManager/?equipe=E2](https://rebecabl.github.io/TaskManager/?equipe=E2)
 3. **VagaCerta (E3):** [https://rebecabl.github.io/TaskManager/?equipe=E3](https://rebecabl.github.io/TaskManager/?equipe=E3)
 4. **Primeira Oportunidade (E4):** [https://rebecabl.github.io/TaskManager/?equipe=E4](https://rebecabl.github.io/TaskManager/?equipe=E4)
@@ -23,27 +23,27 @@ Acesse o link direto do seu projeto abaixo para visualizar a matriz de riscos 5x
 
 ## Como Funciona
 
-- O preenchimento e feito pelos formularios de Issues do proprio GitHub.
-- Nao ha uso de banco de dados, servidores ou servicos externos.
-- O site publicado no GitHub Pages le as issues abertas pela API publica do GitHub e atualiza a matriz 5x5 e a tabela de cada projeto automaticamente.
+- O cadastro de riscos é feito diretamente pelas Issues do GitHub da disciplina.
+- Não é necessário instalar nenhum banco de dados ou servidor.
+- O site no GitHub Pages lê as issues abertas e atualiza a matriz 5x5 e a tabela de cada equipe automaticamente.
 
 ---
 
-## Passo a Passo para os Alunos
+## Como a Equipe Deve Fazer
 
-1. Acesse o link do seu projeto na lista acima.
-2. Clique no botao **"+ Registrar novo risco"** para abrir o formulario da sua equipe no GitHub.
-3. Preencha todos os campos:
-   - **Equipe:** Selecione sua equipe (E1, E2, E3, E4 ou E5).
-   - **Risco:** Descreva o risco identificado.
-   - **Causa e consequencia:** Explique as causas e os impactos.
-   - **Probabilidade:** 10%, 30%, 50%, 70% ou 90%.
-   - **Impacto:** Muito Baixo, Baixo, Moderado, Alto ou Muito Alto.
-   - **Justificativa da classificacao:** Justifique com base nos criterios da escala (prazo, funcionalidade, retrabalho, banco de dados, seguranca, integracao e recursos).
-   - **Resposta ao risco:** Estrategia e acoes planejadas.
-   - **Responsavel:** Nome do integrante encarregado.
-4. Clique em **"Submit new issue"**.
-5. Retorne para a pagina do seu projeto e clique em **"Atualizar dados"** para ver o risco na matriz e na tabela.
+1. Acesse o link da sua equipe na lista acima.
+2. Clique no botão **"+ Cadastrar Risco no GitHub"** para abrir o formulário.
+3. Preencha os campos solicitados:
+   - **Equipe:** Escolha a sua equipe (E1 a E5).
+   - **Risco:** O que pode dar errado no desenvolvimento.
+   - **Causa e consequência:** Por que pode acontecer e o impacto no projeto.
+   - **Probabilidade:** Chance estimada (10% a 90%).
+   - **Impacto:** Gravidade caso ocorra (Muito Baixo a Muito Alto).
+   - **Justificativa da escolha:** Breve explicação do motivo da probabilidade e do impacto.
+   - **Ação preventiva:** O que a equipe vai fazer para evitar ou resolver.
+   - **Responsável:** Nome ou papel de quem vai acompanhar esse risco.
+4. Clique em **"Submit new issue"** no GitHub.
+5. Volte para a página do seu projeto e clique em **"Atualizar Dados"** para visualizar o risco na matriz e na tabela.
 
 ---
 

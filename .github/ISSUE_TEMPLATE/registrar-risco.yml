@@ -1,42 +1,42 @@
-name: Registrar Novo Risco
-description: Formulario para registro de riscos de projeto da disciplina LES I.
+name: Cadastrar Novo Risco
+description: Formulário para cadastrar os riscos do projeto da equipe.
 title: "[Risco] "
 labels: ["risco"]
 body:
   - type: markdown
     attributes:
       value: |
-        ## Pratica de Laboratorio - Analise de Riscos de Software
-        Preencha os campos abaixo com base no prototipo e artefatos de planejamento do projeto da sua equipe.
+        ## Cadastro de Riscos do Projeto
+        Preencha os campos abaixo com base no planejamento e no protótipo da sua equipe.
 
-        ### Escala de Probabilidade (Pre-implementacao)
-        - **10% (Muito baixa)**: A equipe possui conhecimento e recursos adequados, sem fatores que favorecam a ocorrencia.
-        - **30% (Baixa)**: Poucas dificuldades previstas; a equipe possui condicoes adequadas para lidar com elas.
-        - **50% (Moderada)**: Incertezas relevantes sobre a implementacao, tecnologia ou capacidade tecnica.
-        - **70% (Alta)**: Limitacoes significativas, funcionalidades complexas ou dependencias externas.
-        - **90% (Muito alta)**: Fortes indicios de ocorrencia, considerando limitacoes e ausencia de medidas preventivas.
+        ### Chance de acontecer (Probabilidade)
+        - **10% (Muito baixa)**: A equipe domina o assunto e quase não há chance de dar errado.
+        - **30% (Baixa)**: Podem surgir pequenas dúvidas, mas a equipe resolve facilmente.
+        - **50% (Média)**: A equipe tem incertezas sobre a tecnologia ou como implementar.
+        - **70% (Alta)**: Tarefa difícil, tecnologia pouco conhecida ou depende de serviços externos.
+        - **90% (Muito alta)**: É quase certeza de que vai dar problema se nada for planejado antes.
 
-        ### Escala de Impacto (Pre-implementacao)
-        - **Muito Baixo**: Podera exigir pequenos ajustes pontuais, sem comprometer funcionalidades ou o planejamento geral.
-        - **Baixo**: Podera comprometer funcionalidades secundarias, sem prejudicar os objetivos centrais do software.
-        - **Moderado**: Podera comprometer funcionalidade importante, gerar retrabalho ou exigir alteracoes no planejamento.
-        - **Alto**: Podera comprometer funcionalidades essenciais, etapas subsequentes ou o prazo de entrega final.
-        - **Muito Alto**: Podera inviabilizar a implementacao ou impedir a entrega de um software funcional.
+        ### Gravidade para o projeto (Impacto)
+        - **Muito Baixo**: Ajuste simples e rápido, sem atrapalhar o andamento do projeto.
+        - **Baixo**: Afeta apenas detalhes visuais ou funções secundárias do sistema.
+        - **Moderado**: Atrasa uma função importante ou gera retrabalho para a equipe.
+        - **Alto**: Prejudica uma parte essencial do sistema ou compromete a data de entrega.
+        - **Muito Alto**: Impede o funcionamento do sistema ou inviabiliza a entrega do projeto.
 
-        ### Exemplo de Preenchimento para Referencia
-        - **Risco**: Dificuldade na integracao com API externa de geolocalizacao
-        - **Causa e consequencia**: Pouca familiaridade com a biblioteca de mapas. Pode inviabilizar a busca de vagas por proximidade geografica.
+        ### Exemplo de Preenchimento
+        - **Risco**: Dificuldade para integrar a API de mapas
+        - **Causa e consequência**: A equipe ainda não usou a biblioteca de mapas. Isso pode impedir a busca de serviços por proximidade.
         - **Probabilidade**: 50%
         - **Impacto**: Alto
-        - **Justificativa**: A equipe nunca utilizou essa biblioteca na stack (50%). A localizacao geografica e requisito essencial do prototipo (Alto).
-        - **Resposta ao risco**: Mitigar: Desenvolver prova de conceito tecnica na primeira semana e consultar a documentacao oficial.
-        - **Responsavel**: Integrante do Front-end
+        - **Justificativa**: A equipe nunca usou essa biblioteca antes (50%). A localização no mapa é essencial no protótipo (Alto).
+        - **Ação preventiva**: Testar a API logo na primeira semana e estudar a documentação oficial.
+        - **Responsável**: Desenvolvedor Front-end
 
   - type: dropdown
     id: equipe
     attributes:
       label: Equipe
-      description: Selecione a equipe responsavel pelo projeto.
+      description: Selecione a sua equipe.
       options:
         - E1
         - E2
@@ -49,9 +49,9 @@ body:
   - type: textarea
     id: risco
     attributes:
-      label: Risco
-      description: Descreva o risco de forma clara e objetiva.
-      placeholder: "Exemplo: Dificuldade na integracao com API externa de mapas"
+      label: Risco (O que pode dar errado)
+      description: Diga de forma simples o que pode dar errado.
+      placeholder: "Exemplo: Dificuldade para integrar a API de mapas e geolocalização"
     validations:
       required: true
 
@@ -59,16 +59,16 @@ body:
     id: causa_consequencia
     attributes:
       label: Causa e consequência
-      description: Explique o que pode causar esse risco e quais as consequencias caso ocorra.
-      placeholder: "Exemplo: Causa: Pouca experiencia com a biblioteca. Consequencia: Pode impedir a busca de vagas por proximidade geografica no prototipo."
+      description: Por que isso pode acontecer e qual o problema se acontecer?
+      placeholder: "Exemplo: A equipe ainda não conhece a biblioteca. Se der errado, não vamos conseguir mostrar os serviços por proximidade."
     validations:
       required: true
 
   - type: dropdown
     id: probabilidade
     attributes:
-      label: Probabilidade
-      description: Selecione a probabilidade de acordo com a escala qualitativa.
+      label: Probabilidade (Chance de acontecer)
+      description: Escolha a chance estimada de acontecer.
       options:
         - 10%
         - 30%
@@ -81,8 +81,8 @@ body:
   - type: dropdown
     id: impacto
     attributes:
-      label: Impacto
-      description: Selecione o impacto previsto caso o risco se concretize.
+      label: Impacto (Gravidade para o projeto)
+      description: Se acontecer, o quanto atrapalha o projeto?
       options:
         - Muito Baixo
         - Baixo
@@ -95,26 +95,26 @@ body:
   - type: textarea
     id: justificativa
     attributes:
-      label: Justificativa da classificação
-      description: Justifique por que essa probabilidade e esse impacto foram atribuidos ao risco.
-      placeholder: "Exemplo: A equipe nunca utilizou essa biblioteca na stack (50%). A localizacao geografica e requisito essencial do prototipo (Alto)."
+      label: Justificativa da escolha
+      description: Explique brevemente o motivo da escolha de probabilidade e impacto.
+      placeholder: "Exemplo: Nunca usamos essa ferramenta antes (50%), e essa função é o ponto central do aplicativo (Alto)."
     validations:
       required: true
 
   - type: textarea
     id: resposta
     attributes:
-      label: Resposta ao risco
-      description: Estrategia de resposta (mitigar, evitar, transferir ou aceitar) e acao preventiva planejada.
-      placeholder: "Exemplo: Mitigar: Desenvolver prova de conceito tecnica na primeira semana e consultar a documentacao oficial."
+      label: Ação preventiva / Resposta ao risco
+      description: O que a equipe planeja fazer para evitar o problema ou diminuir o impacto.
+      placeholder: "Exemplo: Fazer um teste prático com a biblioteca na primeira semana e estudar a documentação."
     validations:
       required: true
 
   - type: input
     id: responsavel
     attributes:
-      label: Responsável
-      description: Integrante encarregado de acompanhar o risco.
-      placeholder: "Exemplo: Integrante responsavel pelo Front-end"
+      label: Responsável pelo acompanhamento
+      description: Nome ou função de quem vai acompanhar esse risco.
+      placeholder: "Exemplo: Desenvolvedor Front-end / Nome do aluno"
     validations:
       required: true
