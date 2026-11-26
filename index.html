@@ -1330,11 +1330,16 @@ function renderApp() {
 
   const btnNewRiskHeader = document.getElementById("btn-new-risk-header");
   if (selectedTeam && TEAMS[selectedTeam]) {
-    btnNewRiskHeader.href = "https://github.com/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues/new?template=registrar-risco.yml&equipe=" + selectedTeam + "&title=%5B" + selectedTeam + "%5D+";
-    btnNewRiskHeader.textContent = "Cadastrar Risco (" + selectedTeam + ")";
+    btnNewRiskHeader.style.display = "inline-flex";
+    btnNewRiskHeader.textContent = "+ Adicionar Risco na Tabela";
+    btnNewRiskHeader.removeAttribute("href");
+    btnNewRiskHeader.removeAttribute("target");
+    btnNewRiskHeader.onclick = function(e) {
+      e.preventDefault();
+      addNewRow(selectedTeam);
+    };
   } else {
-    btnNewRiskHeader.href = "https://github.com/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues/new?template=registrar-risco.yml";
-    btnNewRiskHeader.textContent = "Cadastrar Risco";
+    btnNewRiskHeader.style.display = "none";
   }
 
   const appContent = document.getElementById("app-content");
@@ -1376,7 +1381,6 @@ function renderHomeView(container) {
     html += '    </div>';
     html += '    <div class="project-card-actions noprint">';
     html += '      <a href="?equipe=' + team.id + '" class="btn-open-matrix">Abrir Matriz da Equipe</a>';
-    html += '      <a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues/new?template=registrar-risco.yml&equipe=' + team.id + '&title=%5B' + team.id + '%5D+" target="_blank" rel="noopener" class="btn-register-risk" title="Cadastrar novo risco no repositório">+ Novo Risco</a>';
     html += '    </div>';
     html += '  </div>';
     html += '</div>';
@@ -1404,7 +1408,7 @@ function renderTeamView(teamKey, container) {
   html += '  </div>';
   html += '  <div class="team-banner-right noprint">';
   html += '    <span class="count-tag">' + teamRisks.length + (teamRisks.length === 1 ? ' risco cadastrado' : ' riscos cadastrados') + '</span>';
-  html += '    <a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues/new?template=registrar-risco.yml&equipe=' + team.id + '&title=%5B' + team.id + '%5D+" target="_blank" rel="noopener" class="btn-action btn-action-primary">+ Cadastrar Risco no GitHub</a>';
+  html += '    <button type="button" class="btn-action btn-action-primary" onclick="addNewRow(\'' + team.id + '\')">+ Adicionar Risco na Tabela</button>';
   html += '  </div>';
   html += '</div>';
 
@@ -1548,7 +1552,7 @@ function renderTeamView(teamKey, container) {
 
   if (teamRisks.length === 0) {
     html += '        <tr id="empty-row"><td colspan="9" style="text-align:center; padding: 24px; color: #6c757d;">';
-    html += '          Nenhum risco adicionado ainda. Clique em <strong>+ Adicionar Linha</strong> para preencher aqui na tela ou em <strong>+ Cadastrar Risco no GitHub</strong> para salvar diretamente no repositório.';
+    html += '          Nenhum risco adicionado ainda. Clique em <strong>+ Adicionar Linha</strong> para preencher os riscos na tabela e clique em <strong>Salvar Alterações</strong>.';
     html += '        </td></tr>';
   } else {
     teamRisks.forEach(function(r) {
@@ -1681,11 +1685,15 @@ function addNewRow(teamKey) {
   showSaveFeedback("Nova linha " + newCode + " adicionada! Preencha os campos e clique no botão verde 'Salvar Alterações'.");
 
   setTimeout(function() {
-    const newRowInput = document.querySelector('#row-' + newCode + ' [data-field="risco"]');
-    if (newRowInput) {
-      newRowInput.focus();
+    const newRow = document.getElementById('row-' + newCode);
+    if (newRow) {
+      newRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const newRowInput = newRow.querySelector('[data-field="risco"]');
+      if (newRowInput) {
+        newRowInput.focus();
+      }
     }
-  }, 80);
+  }, 100);
 }
 
 function manualSaveTeam(teamKey) {
