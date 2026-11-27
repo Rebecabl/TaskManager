@@ -927,7 +927,7 @@ function renderApp() {
 
 // TELA: LISTAGEM DE PROJETOS DA TURMA
 function renderHomeView(container) {
-  const countTurma = getTotalRisksCount();
+  const totalProjects = Object.keys(TEAMS).length;
 
   let html = '';
 
@@ -938,7 +938,7 @@ function renderHomeView(container) {
   html += '      <p class="panel-desc">Escolha a equipe do seu grupo para ver a Matriz de Riscos e acompanhar as ações planejadas.</p>';
   html += '    </div>';
   html += '    <div class="noprint">';
-  html += '      <span class="count-tag">Total da turma: ' + countTurma + (countTurma === 1 ? ' risco' : ' riscos') + '</span>';
+  html += '      <span class="count-tag">Total: ' + totalProjects + ' projetos</span>';
   html += '    </div>';
   html += '  </div>';
   html += '</div>';
