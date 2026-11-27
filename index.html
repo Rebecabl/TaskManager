@@ -2111,8 +2111,7 @@ function manualSaveTeam(turma, teamKey) {
 
   saveTeamRisks(turma, teamKey, risks);
   recalculateMatrix(turma, teamKey);
-  const turmaLabel = (turma === "manha") ? "Lab Manhã" : "Lab Noite";
-  showSaveFeedback("Riscos da equipe " + teamKey + " (" + turmaLabel + ") salvos com sucesso no navegador!");
+  showSaveFeedback("Riscos salvos com sucesso!");
 }
 
 function showSaveFeedback(message) {
@@ -2166,7 +2165,7 @@ function attachTableEventListeners(turma, teamKey) {
     btn.addEventListener("click", function() {
       const code = this.dataset.code;
       manualSaveTeam(turma, teamKey);
-      showSaveFeedback("Risco " + code + " salvo com sucesso no navegador!");
+      showSaveFeedback("Riscos salvos com sucesso!");
     });
   });
 
