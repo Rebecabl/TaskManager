@@ -1569,6 +1569,17 @@ async function fetchIssues(isManualClick) {
   }
 }
 
+function getOtherTurmaUrl(otherTurma) {
+  if (window.location.hostname.endsWith(".github.io")) {
+    if (otherTurma === "manha") {
+      return "https://rebecabl.github.io/TaskManager-Manha/?turma=manha";
+    } else {
+      return "https://rebecabl.github.io/TaskManager/?turma=noite";
+    }
+  }
+  return "?turma=" + otherTurma;
+}
+
 // ATUALIZAÇÃO DO CABEÇALHO E NAVEGAÇÃO
 function updateHeaderNavigation(currentTurma, selectedTeam) {
   const instBadge = document.getElementById("inst-badge");
@@ -1580,9 +1591,9 @@ function updateHeaderNavigation(currentTurma, selectedTeam) {
     if (instSubtitle) instSubtitle.textContent = "Central de Ambientes e Matrizes de Riscos - Seleção de Turma";
     if (navBar) {
       navBar.innerHTML = 
-        '<a href="?turma=manha" class="nav-btn">Painel Lab Manhã</a>' +
-        '<a href="?turma=noite" class="nav-btn">Painel Lab Noite</a>' +
-        '<button id="btn-refresh" class="nav-btn" onclick="fetchIssues()">Atualizar Dados</button>';
+        '<a href="' + getOtherTurmaUrl("manha") + '" class="nav-btn">Painel Lab Manhã</a>' +
+        '<a href="' + getOtherTurmaUrl("noite") + '" class="nav-btn">Painel Lab Noite</a>' +
+        '<button id="btn-refresh" class="nav-btn" onclick="fetchIssues(true)">Atualizar Dados</button>';
     }
     return;
   }
@@ -1599,9 +1610,9 @@ function updateHeaderNavigation(currentTurma, selectedTeam) {
   if (navBar) {
     let navHtml = '';
     navHtml += '<a href="?turma=' + currentTurma + '" class="nav-btn' + (!selectedTeam ? ' nav-btn-primary' : '') + '">Ver Projetos (' + thisLabel + ')</a>';
-    navHtml += '<a href="?turma=' + otherTurma + '" class="nav-btn">Alternar para ' + otherLabel + '</a>';
+    navHtml += '<a href="' + getOtherTurmaUrl(otherTurma) + '" class="nav-btn">Alternar para ' + otherLabel + '</a>';
     navHtml += '<a href="index.html" class="nav-btn">Trocar de Turma</a>';
-    navHtml += '<button id="btn-refresh" class="nav-btn" onclick="fetchIssues()">Atualizar Dados</button>';
+    navHtml += '<button id="btn-refresh" class="nav-btn" onclick="fetchIssues(true)">Atualizar Dados</button>';
 
     if (selectedTeam && TEAMS[selectedTeam]) {
       navHtml += '<button id="btn-new-risk-header" class="nav-btn nav-btn-primary">+ Adicionar Risco na Tabela</button>';
@@ -1631,10 +1642,10 @@ function renderApp() {
     turmaParam = null;
   }
 
-  let currentTurma = turmaParam;
-  if (!currentTurma && selectedTeam) {
-    currentTurma = localStorage.getItem("taskmanager_last_turma") || "manha";
-  }
+  const isManhaRepo = (REPO_INFO.repo || "").toLowerCase().includes("manha");
+  const defaultTurma = isManhaRepo ? "manha" : null;
+
+  let currentTurma = turmaParam || (selectedTeam ? (localStorage.getItem("taskmanager_last_turma") || (isManhaRepo ? "manha" : "noite")) : defaultTurma);
 
   if (currentTurma) {
     try { localStorage.setItem("taskmanager_last_turma", currentTurma); } catch (e) {}
@@ -1689,7 +1700,7 @@ function renderTurmaSelectorView(container) {
   html += '      <span>Projetos: <strong>5 equipes</strong></span>';
   html += '      <span>Riscos: <strong>' + countManha + '</strong></span>';
   html += '    </div>';
-  html += '    <a href="?turma=manha" class="turma-card-btn turma-btn-manha">Acessar Painel da Manhã</a>';
+  html += '    <a href="' + getOtherTurmaUrl("manha") + '" class="turma-card-btn turma-btn-manha">Acessar Painel da Manhã</a>';
   html += '  </div>';
   html += '</div>';
 
@@ -1705,7 +1716,7 @@ function renderTurmaSelectorView(container) {
   html += '      <span>Projetos: <strong>5 equipes</strong></span>';
   html += '      <span>Riscos: <strong>' + countNoite + '</strong></span>';
   html += '    </div>';
-  html += '    <a href="?turma=noite" class="turma-card-btn turma-btn-noite">Acessar Painel da Noite</a>';
+  html += '    <a href="' + getOtherTurmaUrl("noite") + '" class="turma-card-btn turma-btn-noite">Acessar Painel da Noite</a>';
   html += '  </div>';
   html += '</div>';
 
