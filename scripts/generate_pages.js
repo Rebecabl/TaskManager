@@ -569,7 +569,7 @@ function getTeamRisks(teamKey) {
     });
 
     const extraLocal = localRisks.filter(function(lr) {
-      return (!lr.issueNumber && !lr.isExample) || lr.isUserEdited;
+      return !lr.issueNumber && !lr.isExample;
     });
     extraLocal.forEach(function(el) { result.push(el); });
 
@@ -1074,8 +1074,6 @@ function manualSaveTeam(teamKey) {
     const code = row.dataset.code;
     const item = risks.find(function(r) { return r.code === code; });
     if (!item) return;
-
-    item.isUserEdited = true;
 
     const riscoInput = row.querySelector('[data-field="risco"]');
     const causaInput = row.querySelector('[data-field="causaConsequencia"]');
