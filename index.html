@@ -1131,8 +1131,7 @@
     <nav class="nav-bar noprint" id="main-nav-bar">
       <a href="?turma=manha" class="nav-btn">Painel Lab Manhã</a>
       <a href="?turma=noite" class="nav-btn">Painel Lab Noite</a>
-      <button id="btn-refresh" class="nav-btn" title="Recarregar dados do repositório">Atualizar Dados</button>
-      <a id="btn-github-issues" class="nav-btn" target="_blank" rel="noopener">Repositório no GitHub</a>
+      <button id="btn-refresh" class="nav-btn" title="Recarregar dados">Atualizar Dados</button>
       <button id="btn-new-risk-header" class="nav-btn nav-btn-primary" style="display:none;">+ Adicionar Risco na Tabela</button>
     </nav>
   </header>
@@ -1566,11 +1565,6 @@ function updateHeaderNavigation(currentTurma, selectedTeam) {
   const instBadge = document.getElementById("inst-badge");
   const instSubtitle = document.getElementById("inst-subtitle");
   const navBar = document.getElementById("main-nav-bar");
-  const btnGithubIssues = document.getElementById("btn-github-issues");
-
-  if (btnGithubIssues) {
-    btnGithubIssues.href = "https://github.com/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues";
-  }
 
   if (!currentTurma) {
     if (instBadge) instBadge.textContent = "Laboratórios Ativos";
@@ -1579,8 +1573,7 @@ function updateHeaderNavigation(currentTurma, selectedTeam) {
       navBar.innerHTML = 
         '<a href="?turma=manha" class="nav-btn">Painel Lab Manhã</a>' +
         '<a href="?turma=noite" class="nav-btn">Painel Lab Noite</a>' +
-        '<button id="btn-refresh" class="nav-btn" onclick="fetchIssues()">Atualizar Dados</button>' +
-        '<a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues" class="nav-btn" target="_blank" rel="noopener">Repositório no GitHub</a>';
+        '<button id="btn-refresh" class="nav-btn" onclick="fetchIssues()">Atualizar Dados</button>';
     }
     return;
   }
@@ -1600,7 +1593,6 @@ function updateHeaderNavigation(currentTurma, selectedTeam) {
     navHtml += '<a href="?turma=' + otherTurma + '" class="nav-btn">Alternar para ' + otherLabel + '</a>';
     navHtml += '<a href="index.html" class="nav-btn">Trocar de Turma</a>';
     navHtml += '<button id="btn-refresh" class="nav-btn" onclick="fetchIssues()">Atualizar Dados</button>';
-    navHtml += '<a href="https://github.com/' + REPO_INFO.owner + '/' + REPO_INFO.repo + '/issues" class="nav-btn" target="_blank" rel="noopener">Repositório no GitHub</a>';
 
     if (selectedTeam && TEAMS[selectedTeam]) {
       navHtml += '<button id="btn-new-risk-header" class="nav-btn nav-btn-primary">+ Adicionar Risco na Tabela</button>';
