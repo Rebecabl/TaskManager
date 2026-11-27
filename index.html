@@ -204,6 +204,11 @@
     background-color: #fafbfc;
   }
 
+  table.academic-table tr:target td {
+    background-color: #fff3cd !important;
+    transition: background-color 0.3s;
+  }
+
   .team-code-tag {
     font-weight: 700;
     color: var(--primary-navy);
@@ -1434,7 +1439,7 @@ function getStorageKey(turma, teamKey) {
 function getTeamRisks(turma, teamKey) {
   let deletedIssues = [];
   try {
-    deletedIssues = JSON.parse(localStorage.getItem("taskmanager_deleted_issues") || "[]");
+    deletedIssues = JSON.parse(localStorage.getItem("taskmanager_deleted_issues_" + turma) || "[]");
   } catch (e) {}
 
   const fromGithub = allRisks
@@ -1517,7 +1522,7 @@ function saveTeamRisks(turma, teamKey, risks) {
 
 function resetTeamRisks(turma, teamKey) {
   localStorage.removeItem(getStorageKey(turma, teamKey));
-  localStorage.removeItem("taskmanager_deleted_issues");
+  localStorage.removeItem("taskmanager_deleted_issues_" + turma);
   renderApp();
 }
 
@@ -1529,33 +1534,37 @@ function getTotalRisksCount(turma) {
   return count;
 }
 
-async function fetchIssues() {
+async function fetchIssues(isManualClick) {
   const statusBar = document.getElementById("status-bar");
-  statusBar.style.display = "block";
-  statusBar.innerHTML = "Atualizando riscos do repositório...";
+  if (isManualClick && statusBar) {
+    statusBar.style.display = "block";
+    statusBar.innerHTML = "Atualizando dados...";
+  }
 
   try {
     const apiUrl = "https://api.github.com/repos/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues?state=open&per_page=100&_t=" + Date.now();
     const response = await fetch(apiUrl, { cache: "no-store" });
 
-    if (!response.ok) {
-      if (response.status === 403) {
-        throw new Error("Limite de requisições públicas da API atingido temporariamente. Aguarde alguns minutos.");
-      }
-      throw new Error("Erro de comunicação com a API do GitHub (Status " + response.status + ")");
+    if (response.ok) {
+      const issues = await response.json();
+      const riskIssues = issues.filter(function(issue) {
+        return !issue.pull_request;
+      });
+      allRisks = riskIssues.map(formatRiskFromIssue);
     }
-
-    const issues = await response.json();
-    const riskIssues = issues.filter(function(issue) {
-      return !issue.pull_request;
-    });
-
-    allRisks = riskIssues.map(formatRiskFromIssue);
-    statusBar.style.display = "none";
+    if (statusBar) statusBar.style.display = "none";
+    if (isManualClick) {
+      showSaveFeedback("Dados atualizados com sucesso!");
+    }
   } catch (error) {
-    statusBar.style.display = "block";
-    statusBar.innerHTML = "<strong>Aviso:</strong> " + error.message;
+    if (statusBar) statusBar.style.display = "none";
+    if (isManualClick) {
+      showSaveFeedback("Dados locais prontos e atualizados!");
+    }
   } finally {
+    if (statusBar && !isManualClick) {
+      statusBar.style.display = "none";
+    }
     renderApp();
   }
 }
@@ -2010,14 +2019,8 @@ function renderRiskRowHtml(r) {
   });
 
   let actionsCol = '';
-  if (r.issueUrl) {
-    actionsCol += '<a href="' + r.issueUrl + '" target="_blank" rel="noopener" class="issue-link" title="Abrir Issue no GitHub">#' + r.issueNumber + '</a> ';
-    actionsCol += '<button type="button" class="btn-save-row" data-code="' + r.code + '" title="Salvar alterações">Salvar</button> ';
-    actionsCol += '<button type="button" class="btn-delete-row" data-code="' + r.code + '" data-issue="' + (r.issueNumber || '') + '" data-url="' + (r.issueUrl || '') + '" title="Excluir risco">Excluir</button>';
-  } else {
-    actionsCol += '<button type="button" class="btn-save-row" data-code="' + r.code + '" title="Salvar alterações">Salvar</button> ';
-    actionsCol += '<button type="button" class="btn-delete-row" data-code="' + r.code + '" title="Excluir risco">Excluir</button>';
-  }
+  actionsCol += '<button type="button" class="btn-save-row" data-code="' + r.code + '" title="Salvar alterações">Salvar</button> ';
+  actionsCol += '<button type="button" class="btn-delete-row" data-code="' + r.code + '" title="Excluir risco">Excluir</button>';
 
   let html = '';
   html += '<tr id="row-' + r.code + '" data-code="' + r.code + '">';
@@ -2035,6 +2038,7 @@ function renderRiskRowHtml(r) {
 }
 
 function addNewRow(turma, teamKey) {
+  manualSaveTeam(turma, teamKey);
   const risks = getTeamRisks(turma, teamKey);
   const nextNumber = risks.length + 1;
   const newCode = "R" + nextNumber;
@@ -2255,17 +2259,8 @@ function openDeleteModal(turma, teamKey, code, issueNum, issueUrl) {
   const btnGithub = document.getElementById("modal-btn-github");
 
   title.textContent = "Remover Risco " + code;
-
-  if (issueNum) {
-    desc.innerHTML = "Este risco veio da <strong>Issue #" + issueNum + "</strong> no GitHub.<br><br>" +
-      "• <strong>Remover da tela:</strong> Oculta o risco da tabela e recalcula a matriz agora.<br>" +
-      "• <strong>Fechar no GitHub:</strong> Abre a issue para você encerrá-la no repositório.";
-    btnGithub.style.display = "inline-flex";
-    btnGithub.href = issueUrl || ("https://github.com/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues/" + issueNum);
-  } else {
-    desc.innerHTML = "Deseja remover o risco <strong>" + code + "</strong>? A linha será excluída e a matriz atualizada.";
-    btnGithub.style.display = "none";
-  }
+  desc.innerHTML = "Deseja remover o risco <strong>" + code + "</strong>? A linha será excluída e a matriz atualizada.";
+  if (btnGithub) btnGithub.style.display = "none";
 
   modal.style.display = "flex";
 }
@@ -2287,11 +2282,11 @@ function confirmDelete() {
   if (issueNum) {
     let deletedIssues = [];
     try {
-      deletedIssues = JSON.parse(localStorage.getItem("taskmanager_deleted_issues") || "[]");
+      deletedIssues = JSON.parse(localStorage.getItem("taskmanager_deleted_issues_" + turma) || "[]");
     } catch (e) {}
     if (!deletedIssues.includes(Number(issueNum))) {
       deletedIssues.push(Number(issueNum));
-      localStorage.setItem("taskmanager_deleted_issues", JSON.stringify(deletedIssues));
+      localStorage.setItem("taskmanager_deleted_issues_" + turma, JSON.stringify(deletedIssues));
     }
   }
 
