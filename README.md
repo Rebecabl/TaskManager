@@ -1,49 +1,54 @@
-# Laboratório de Engenharia de Software I (UEPB) - Matriz de Riscos dos Projetos
+# Laboratório de Engenharia de Software I (UEPB) - Matriz de Riscos (Turma da Noite)
 
-Painel prático para análise de riscos (Probabilidade x Impacto) dos projetos da disciplina **Laboratório de Engenharia de Software I (UEPB)**.
+Painel prático para análise e acompanhamento da Matriz de Riscos (Probabilidade x Impacto) dos projetos da disciplina **Laboratório de Engenharia de Software I (UEPB) - Turma da Noite**.
 
 ---
 
-## Links dos Projetos
+## Acesso aos Projetos da Turma da Noite
 
-Clique no link da sua equipe abaixo para visualizar a Matriz 5x5, a tabela de riscos e cadastrar novos riscos:
+Acesse o painel geral ou clique diretamente no link da sua equipe para visualizar a Matriz 5x5 interativa, a tabela de riscos e cadastrar novos itens:
 
-- **Página Inicial (Todos os Projetos):** [https://rebecabl.github.io/TaskManager/](https://rebecabl.github.io/TaskManager/)
-- **Formulário para Cadastrar Risco:** [Abrir Formulário no GitHub](https://github.com/Rebecabl/TaskManager/issues/new?template=registrar-risco.yml)
+- **Painel Geral (Todos os Projetos da Noite):** [https://rebecabl.github.io/TaskManager/](https://rebecabl.github.io/TaskManager/)
+- **Cadastrar Novo Risco no Repositório:** [Abrir Formulário no GitHub](https://github.com/Rebecabl/TaskManager/issues/new?template=registrar-risco.yml)
 
-### Projetos da Turma
+### Equipes e Projetos Oficiais (Noite)
 
 1. **Sertão Ágil (E1):** [https://rebecabl.github.io/TaskManager/?equipe=E1](https://rebecabl.github.io/TaskManager/?equipe=E1)
+   - **Proposta:** Conecta trabalhadores autônomos e prestadores de serviços da região a oportunidades locais de trabalho.
+
 2. **DuckTrampos (E2):** [https://rebecabl.github.io/TaskManager/?equipe=E2](https://rebecabl.github.io/TaskManager/?equipe=E2)
+   - **Proposta:** Aplicativo para contratação rápida e segura de serviços pontuais e freelancers na comunidade.
+
 3. **VagaCerta (E3):** [https://rebecabl.github.io/TaskManager/?equipe=E3](https://rebecabl.github.io/TaskManager/?equipe=E3)
+   - **Proposta:** Sistema para ajudar pequenas e médias empresas a divulgar vagas e selecionar candidatos.
+
 4. **Primeira Oportunidade (E4):** [https://rebecabl.github.io/TaskManager/?equipe=E4](https://rebecabl.github.io/TaskManager/?equipe=E4)
+   - **Proposta:** Portal para ajudar jovens e estudantes a encontrar vagas de estágio e primeiro emprego.
+
 5. **StarTI (E5):** [https://rebecabl.github.io/TaskManager/?equipe=E5](https://rebecabl.github.io/TaskManager/?equipe=E5)
+   - **Proposta:** Plataforma para conectar estudantes de tecnologia a projetos práticos e vagas de estágio.
 
 ---
 
 ## Como Funciona
 
-- O cadastro de riscos é feito diretamente pelas Issues do GitHub da disciplina.
+- O cadastro de riscos pode ser feito diretamente na própria tabela pelo botão **"+ Adicionar Linha"** e salvo com **"Salvar Alterações"**, ou por meio de Issues no GitHub da turma.
+- O painel calcula automaticamente a posição dos riscos na Matriz 5x5 e define o nível de criticidade (Baixo, Médio, Alto).
 - Não é necessário instalar nenhum banco de dados ou servidor.
-- O site no GitHub Pages lê as issues abertas e atualiza a matriz 5x5 e a tabela de cada equipe automaticamente.
 
 ---
 
-## Como a Equipe Deve Fazer
+## Como a Equipe Deve Avaliar os Riscos
 
 1. Acesse o link da sua equipe na lista acima.
-2. Clique no botão **"+ Cadastrar Risco no GitHub"** para abrir o formulário.
-3. Preencha os campos solicitados:
-   - **Equipe:** Escolha a sua equipe (E1 a E5).
+2. Identifique o risco e preencha os campos na tabela:
    - **Risco:** O que pode dar errado no desenvolvimento.
    - **Causa e consequência:** Por que pode acontecer e o impacto no projeto.
    - **Probabilidade:** Chance estimada (10% a 90%).
    - **Impacto:** Gravidade caso ocorra (Muito Baixo a Muito Alto).
-   - **Justificativa da escolha:** Breve explicação do motivo da probabilidade e do impacto.
    - **Ação preventiva:** O que a equipe vai fazer para evitar ou resolver.
-   - **Responsável:** Nome ou papel de quem vai acompanhar esse risco.
-4. Clique em **"Submit new issue"** no GitHub.
-5. Volte para a página do seu projeto e clique em **"Atualizar Dados"** para visualizar o risco na matriz e na tabela.
+   - **Responsável:** Quem vai acompanhar esse risco.
+3. Clique em **"Salvar Alterações"** na tabela.
 
 ---
 
@@ -55,6 +60,6 @@ Clique no link da sua equipe abaixo para visualizar a Matriz 5x5, a tabela de ri
 │   └── ISSUE_TEMPLATE/
 │       ├── config.yml            # Desabilita issues em branco
 │       └── registrar-risco.yml   # Formulario padronizado de registro de riscos
-├── index.html                    # Site estatico (HTML, CSS e JS puros) com matriz 5x5
-└── README.md                     # Instrucoes e links de acesso
+├── index.html                    # Painel estatico oficial da Turma da Noite
+└── README.md                     # Instrucoes e links de acesso da Turma da Noite
 ```
