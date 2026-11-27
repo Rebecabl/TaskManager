@@ -8,6 +8,7 @@
 
 
 
+
   :root {
     --bg-page: #f8f9fa;
     --bg-surface: #ffffff;
@@ -1114,6 +1115,7 @@
 
 
 
+
 </style>
 </head>
 <body>
@@ -1490,7 +1492,7 @@ function getTeamRisks(teamKey) {
     });
 
     const extraLocal = localRisks.filter(function(lr) {
-      return !lr.issueNumber && !lr.isExample;
+      return lr.isCustom === true && !lr.issueNumber;
     });
     extraLocal.forEach(function(el) { result.push(el); });
 
@@ -1500,7 +1502,14 @@ function getTeamRisks(teamKey) {
   }
 
   if (localRisks.length > 0) {
-    return localRisks.map(function(r, idx) {
+    const seen = new Set();
+    const cleanLocal = localRisks.filter(function(r) {
+      const key = (r.issueNumber ? 'issue_' + r.issueNumber : '') + '|' + (r.risco || '').trim();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+    return cleanLocal.map(function(r, idx) {
       return Object.assign({}, r, { code: "R" + (idx + 1) });
     });
   }
@@ -1934,7 +1943,7 @@ function renderRiskRowHtml(r) {
   actionsCol += '<button type="button" class="btn-delete-row" data-code="' + r.code + '" data-issue="' + (r.issueNumber || '') + '" data-url="' + (r.issueUrl || '') + '" title="Excluir risco">Excluir</button>';
 
   let html = '';
-  html += '<tr id="row-' + r.code + '" data-code="' + r.code + '">';
+  html += '<tr id="row-' + r.code + '" data-code="' + r.code + '" data-issue="' + (r.issueNumber || '') + '" data-url="' + (r.issueUrl || '') + '" data-custom="' + (r.isCustom ? 'true' : 'false') + '" data-created="' + (r.createdAt || '') + '">';
   html += '  <td style="text-align: center;"><strong>' + r.code + '</strong></td>';
   html += '  <td><textarea class="cell-input input-field" data-code="' + r.code + '" data-field="risco" rows="2" placeholder="Qual é o risco...">' + escapeHtml(r.risco) + '</textarea></td>';
   html += '  <td><textarea class="cell-input input-field" data-code="' + r.code + '" data-field="causaConsequencia" rows="2" placeholder="Por que pode acontecer e qual a consequência...">' + escapeHtml(r.causaConsequencia) + '</textarea></td>';
@@ -1957,6 +1966,7 @@ function addNewRow(teamKey) {
   const newRisk = {
     code: newCode,
     teamKey: teamKey,
+    isCustom: true,
     risco: "",
     causaConsequencia: "",
     probabilidade: "50%",
@@ -1989,12 +1999,14 @@ function manualSaveTeam(teamKey) {
   const tbody = document.getElementById("risks-tbody");
   if (!tbody) return;
 
-  const risks = getTeamRisks(teamKey);
+  const rows = tbody.querySelectorAll("tr[data-code]");
+  const risks = [];
 
-  tbody.querySelectorAll("tr[data-code]").forEach(function(row) {
-    const code = row.dataset.code;
-    const item = risks.find(function(r) { return r.code === code; });
-    if (!item) return;
+  rows.forEach(function(row, idx) {
+    const code = "R" + (idx + 1);
+    const issueNum = row.dataset.issue ? Number(row.dataset.issue) : undefined;
+    const issueUrl = row.dataset.url || "";
+    const isCustom = row.dataset.custom === "true";
 
     const riscoInput = row.querySelector('[data-field="risco"]');
     const causaInput = row.querySelector('[data-field="causaConsequencia"]');
@@ -2003,16 +2015,28 @@ function manualSaveTeam(teamKey) {
     const respTextarea = row.querySelector('[data-field="resposta"]');
     const responsavelInput = row.querySelector('[data-field="responsavel"]');
 
-    if (riscoInput) item.risco = riscoInput.value;
-    if (causaInput) item.causaConsequencia = causaInput.value;
-    if (probSelect) item.probabilidade = probSelect.value;
-    if (impSelect) item.impacto = impSelect.value;
-    if (respTextarea) item.resposta = respTextarea.value;
-    if (responsavelInput) item.responsavel = responsavelInput.value;
-
-    if (item.probabilidade && item.impacto && MATRIX_LEVELS[item.probabilidade] && MATRIX_LEVELS[item.probabilidade][item.impacto]) {
-      item.nivel = MATRIX_LEVELS[item.probabilidade][item.impacto];
+    const prob = probSelect ? probSelect.value : "50%";
+    const imp = impSelect ? impSelect.value : "Moderado";
+    let nivel = "-";
+    if (prob && imp && MATRIX_LEVELS[prob] && MATRIX_LEVELS[prob][imp]) {
+      nivel = MATRIX_LEVELS[prob][imp];
     }
+
+    risks.push({
+      code: code,
+      teamKey: teamKey,
+      issueNumber: issueNum,
+      issueUrl: issueUrl,
+      isCustom: isCustom,
+      risco: riscoInput ? riscoInput.value : "",
+      causaConsequencia: causaInput ? causaInput.value : "",
+      probabilidade: prob,
+      impacto: imp,
+      nivel: nivel,
+      resposta: respTextarea ? respTextarea.value : "",
+      responsavel: responsavelInput ? responsavelInput.value : "",
+      createdAt: row.dataset.created || new Date().toISOString()
+    });
   });
 
   saveTeamRisks(teamKey, risks);
