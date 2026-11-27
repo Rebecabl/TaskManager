@@ -10,6 +10,7 @@
 
 
 
+
   :root {
     --bg-page: #f8f9fa;
     --bg-surface: #ffffff;
@@ -1118,6 +1119,225 @@
 
 
 
+
+
+  /* =========================================================
+     CABECALHO INSTITUCIONAL LIMPO (SEM FAIXA AZUL)
+     ========================================================= */
+  header.institutional-header {
+    background-color: var(--bg-surface);
+    border: 1px solid #d0d7de !important;
+    border-top: 1px solid #d0d7de !important;
+    border-radius: 8px !important;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  .inst-top-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .inst-semester {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #495057;
+    background-color: #f1f3f5;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* =========================================================
+     MATRIZ DE PROBABILIDADE X IMPACTO (5x5) AMPLA E MODERNA
+     ========================================================= */
+  .matrix-wrapper {
+    background-color: var(--bg-surface);
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 22px 24px 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  .matrix-legend-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 10px 0 16px;
+    font-size: 12.5px;
+    color: #495057;
+  }
+
+  .matrix-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+  }
+
+  .legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    display: inline-block;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .legend-dot.dot-baixa { background-color: #c8e6c9; }
+  .legend-dot.dot-media { background-color: #fff176; }
+  .legend-dot.dot-alta  { background-color: #ff8a80; }
+
+  .matrix-table-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 4px 0 12px;
+  }
+
+  table.matrix-grid {
+    width: 100%;
+    min-width: 700px;
+    max-width: 960px;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 5px;
+    table-layout: fixed;
+    background-color: transparent;
+  }
+
+  /* Celula do canto (Eixo Y / Eixo X) */
+  .matrix-grid th.matrix-corner-header {
+    background-color: #f1f3f5;
+    color: #495057;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 8px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    width: 110px;
+  }
+
+  /* Cabecalho do Eixo X (Impacto) */
+  .matrix-grid th.matrix-axis-x-title {
+    background-color: #e9ecef;
+    color: #111827;
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: center;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+  }
+
+  /* Cabecalhos de Colunas de Impacto */
+  .matrix-grid th.matrix-col-header {
+    background-color: #f8f9fa;
+    color: #212529;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px 6px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    width: 17.6%;
+    line-height: 1.3;
+  }
+
+  /* Cabecalhos de Linhas de Probabilidade */
+  .matrix-grid th.matrix-prob-label {
+    background-color: #f8f9fa;
+    color: #1a365d;
+    font-size: 15px;
+    font-weight: 800;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 8px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    width: 110px;
+  }
+
+  /* Celulas da Matriz 5x5 */
+  .matrix-grid td {
+    height: 76px;
+    min-height: 76px;
+    vertical-align: middle;
+    text-align: center;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+  }
+
+  .matrix-grid td.cell-baixa {
+    background-color: #c8e6c9 !important;
+  }
+
+  .matrix-grid td.cell-media {
+    background-color: #fff176 !important;
+  }
+
+  .matrix-grid td.cell-alta {
+    background-color: #ff8a80 !important;
+  }
+
+  /* Conteudo dentro da celula */
+  .matrix-cell-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 56px;
+    width: 100%;
+    padding: 2px;
+    box-sizing: border-box;
+  }
+
+  /* Badges de Riscos na Matriz */
+  .matrix-risk-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 30px;
+    padding: 2px 8px;
+    background-color: #ffffff;
+    color: #111827;
+    border: 2px solid #1a365d;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    line-height: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.18);
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .matrix-risk-tag:hover {
+    background-color: #1a365d;
+    color: #ffffff;
+    border-color: #1a365d;
+    transform: translateY(-2px) scale(1.12);
+    box-shadow: 0 4px 10px rgba(26, 54, 93, 0.35);
+  }
+
 </style>
 </head>
 <body>
@@ -1794,24 +2014,29 @@ function renderTeamView(teamKey, container) {
   html += '    <h3 class="panel-title">Matriz de Probabilidade x Impacto</h3>';
   html += '    <p class="panel-desc">Visualização gráfica dos riscos da equipe ' + team.id + '. Os riscos se movem automaticamente conforme a probabilidade e o impacto definidos na tabela abaixo.</p>';
   html += '  </div>';
-  html += '  <div class="table-responsive">';
+  html += '  <div class="matrix-legend-bar noprint">';
+  html += '    <span class="matrix-legend-item"><span class="legend-dot dot-baixa"></span> Baixo Risco (Monitorar)</span>';
+  html += '    <span class="matrix-legend-item"><span class="legend-dot dot-media"></span> Médio Risco (Ação preventiva)</span>';
+  html += '    <span class="matrix-legend-item"><span class="legend-dot dot-alta"></span> Alto Risco (Prioridade máxima)</span>';
+  html += '  </div>';
+  html += '  <div class="matrix-table-container">';
   html += '    <table class="matrix-grid">';
   html += '      <thead>';
   html += '        <tr>';
-  html += '          <th rowspan="2" class="y-axis-label">Probabilidade</th>';
-  html += '          <th colspan="5" style="border-bottom: 1px solid var(--border-light); font-size: 13px; font-weight: 700; color: #111827;">Impacto</th>';
+  html += '          <th rowspan="2" class="matrix-corner-header">Probabilidade</th>';
+  html += '          <th colspan="5" class="matrix-axis-x-title">Impacto (Gravidade para o Projeto)</th>';
   html += '        </tr>';
   html += '        <tr>';
   IMP_COLS.forEach(function(imp) {
-    html += '      <th>' + imp + '</th>';
+    html += '          <th class="matrix-col-header">' + imp + '</th>';
   });
   html += '        </tr>';
   html += '      </thead>';
   html += '      <tbody>';
 
   PROB_ROWS.forEach(function(prob) {
-    html += '    <tr>';
-    html += '      <th class="matrix-prob-label">' + prob + '</th>';
+    html += '        <tr>';
+    html += '          <th class="matrix-prob-label">' + prob + '</th>';
     IMP_COLS.forEach(function(imp) {
       const level = MATRIX_LEVELS[prob][imp];
       let levelClass = "cell-media";
@@ -1822,15 +2047,15 @@ function renderTeamView(teamKey, container) {
         return r.probabilidade === prob && r.impacto === imp;
       });
 
-      html += '    <td class="' + levelClass + '">';
-      html += '      <div class="matrix-cell-content" id="cell-' + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '') + '">';
+      html += '          <td class="' + levelClass + '">';
+      html += '            <div class="matrix-cell-content" id="cell-' + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '') + '">';
       cellRisks.forEach(function(r) {
         html += '<a href="#row-' + r.code + '" class="matrix-risk-tag" title="' + escapeHtml(r.code + ': ' + r.risco) + '"><strong>' + r.code + '</strong></a>';
       });
-      html += '      </div>';
-      html += '    </td>';
+      html += '            </div>';
+      html += '          </td>';
     });
-    html += '    </tr>';
+    html += '        </tr>';
   });
 
   html += '      </tbody>';
