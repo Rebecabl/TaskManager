@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Matriz de Riscos - LES I (UEPB)</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratório de Engenharia de Software I - Turma da Noite</title>
 <style>
+
   :root {
     --bg-page: #f8f9fa;
     --bg-surface: #ffffff;
@@ -1108,6 +1109,7 @@
     header.institutional-header, .matrix-panel, .table-panel, .scales-section { border-color: #999; box-shadow: none; margin-bottom: 16px; padding: 10px; }
     .cell-input { border: none !important; background: transparent !important; padding: 0 !important; resize: none !important; }
   }
+
 </style>
 </head>
 <body>
@@ -1123,9 +1125,8 @@
       Painel de Riscos dos Projetos de Software
     </p>
     <nav class="nav-bar noprint" id="main-nav-bar">
-      <a href="?turma=noite" class="nav-btn nav-btn-primary">Ver Todos os Projetos</a>
-      <a href="https://rebecabl.github.io/TaskManager-Manha/?turma=manha" class="nav-btn">Alternar para Lab Manhã</a>
-      <button id="btn-refresh" class="nav-btn" title="Recarregar dados">Atualizar Dados</button>
+      <a href="index.html" class="nav-btn nav-btn-primary" id="btn-home-nav">Ver Todos os Projetos</a>
+      <button id="btn-refresh" class="nav-btn" title="Recarregar dados" onclick="fetchIssues(true)">Atualizar Dados</button>
       <button id="btn-new-risk-header" class="nav-btn nav-btn-primary" style="display:none;">+ Adicionar Risco na Tabela</button>
     </nav>
   </header>
@@ -1141,7 +1142,7 @@
       UNIVERSIDADE ESTADUAL DA PARAÍBA (UEPB)
     </div>
     <div>
-      Laboratório de Engenharia de Software I
+      Laboratório de Engenharia de Software I · Turma da Noite
     </div>
   </footer>
 </div>
@@ -1153,325 +1154,134 @@
     <div id="modal-delete-desc" class="modal-desc"></div>
     <div class="modal-actions">
       <button type="button" id="modal-btn-cancel" class="nav-btn" onclick="closeDeleteModal()">Cancelar</button>
-      <a id="modal-btn-github" class="nav-btn" target="_blank" rel="noopener" style="display:none;" onclick="onModalGithubClick()">Fechar no GitHub</a>
       <button type="button" id="modal-btn-confirm" class="btn-danger-solid" onclick="confirmDelete()">Remover da tela</button>
     </div>
   </div>
 </div>
 
 <script>
+// CONFIGURAÇÕES EXCLUSIVAS DA TURMA
+const TURMA_KEY = "noite";
+const TURMA_LABEL = "Turma da Noite";
+const STORAGE_PREFIX = "taskmanager_noite_";
 
-// TURMAS DO LABORATÓRIO (ISOLAMENTO DE PAINÉIS E DADOS)
-const TURMAS = {
-  manha: {
-    id: "manha",
-    label: "Lab Manhã",
-    fullName: "Turma da Manhã (Lab Manhã)",
-    shift: "Turno Matutino"
+// EQUIPES E PROJETOS ACADÊMICOS
+const TEAMS = {
+  "E1": {
+    "id": "E1",
+    "name": "Sertão Ágil",
+    "description": "Conecta trabalhadores autônomos e prestadores de serviços da região a oportunidades locais de trabalho.",
+    "po": "PO da Equipe E1",
+    "integrantes": "Equipe E1 - Turma da Noite"
   },
-  noite: {
-    id: "noite",
-    label: "Lab Noite",
-    fullName: "Turma da Noite (Lab Noite)",
-    shift: "Turno Noturno"
+  "E2": {
+    "id": "E2",
+    "name": "DuckTrampos",
+    "description": "Aplicativo para contratação rápida e segura de serviços pontuais e freelancers na comunidade.",
+    "po": "PO da Equipe E2",
+    "integrantes": "Equipe E2 - Turma da Noite"
+  },
+  "E3": {
+    "id": "E3",
+    "name": "VagaCerta",
+    "description": "Sistema para ajudar pequenas e médias empresas a divulgar vagas e selecionar candidatos.",
+    "po": "PO da Equipe E3",
+    "integrantes": "Equipe E3 - Turma da Noite"
+  },
+  "E4": {
+    "id": "E4",
+    "name": "Primeira Oportunidade",
+    "description": "Portal para ajudar jovens e estudantes a encontrar vagas de estágio e primeiro emprego.",
+    "po": "PO da Equipe E4",
+    "integrantes": "Equipe E4 - Turma da Noite"
+  },
+  "E5": {
+    "id": "E5",
+    "name": "StarTI",
+    "description": "Plataforma para conectar estudantes de tecnologia a projetos práticos e vagas de estágio.",
+    "po": "PO da Equipe E5",
+    "integrantes": "Equipe E5 - Turma da Noite"
   }
 };
 
-// EQUIPES E PROJETOS ACADÊMICOS SEPARADOS POR TURMA (ESPECIFICAÇÕES OFICIAIS UEPB)
-const TEAMS_BY_TURMA = {
-  manha: {
-    E1: {
-      id: "E1",
-      name: "ConectaPro",
-      description: "Plataforma acessível para conectar pessoas em situação de vulnerabilidade e grupos desfavorecidos (PCDs, 1º emprego, baixa renda) a oportunidades de trabalho centralizadas.",
-      po: "Alexander Gabriel da Silva Nascimento",
-      integrantes: "Alexander Gabriel (PO), Erika Tainá (UX), Lorranny Keylla (UX), Lucas Medeiros (Requisitos), Marina Pereira (Qualidade e Doc), Zaqueu Dos Santos (Qualidade e Doc)"
-    },
-    E2: {
-      id: "E2",
-      name: "Veil",
-      description: "Plataforma de recrutamento às cegas focada em mitigar vieses inconscientes e promover oportunidades equitativas no mercado de tecnologia, avaliando puramente competências técnicas e comportamentais.",
-      po: "Jhulia Medeiros de Queiroz",
-      integrantes: "Jhulia Medeiros (PO), Alessandro Viana (Requisitos e UX), Laryssa Albuquerque (Requisitos e UX), Bárbara Alves (Qualidade e Doc), Davi Argemiro (Qualidade e Doc), Rafaela Bezerra (Qualidade e Doc)"
-    },
-    E3: {
-      id: "E3",
-      name: "ConnectLAB",
-      description: "Conexão entre pessoas em início de carreira e empresas por meio de microexperiências profissionais orientadas (Labs práticos) com avaliação e feedback de competências.",
-      po: "Luan Alves do Nascimento",
-      integrantes: "Luan Alves (PO), Kayke Ryan (Requisitos e UX), Vilmar Gomes (Requisitos), Dinaldo do Nascimento (Qualidade e Doc), Luís Felipe Gonçalves (Qualidade e Doc)"
-    },
-    E4: {
-      id: "E4",
-      name: "Conecta Estágio Patos",
-      description: "Conexão entre estudantes universitários de Patos-PB e oportunidades de estágio locais compatíveis com seu curso, suas habilidades e a disponibilidade de horário.",
-      po: "Abdon Werner",
-      integrantes: "Abdon Werner (PO), Gustavo Barbosa (Requisitos e UX), Filipe Medeiros (Requisitos e UX), Júlio César (Qualidade e Doc), Tarcísio Fontes (Qualidade e Doc)"
-    },
-    E5: {
-      id: "E5",
-      name: "ConectaCarreiras",
-      description: "Tecnologia com situações simuladas do mercado de trabalho para autodescoberta de habilidades, identificação de pontos fortes e orientação vocacional de jovens.",
-      po: "Marcos Gustavo de Andrade Ferreira",
-      integrantes: "Marcos Gustavo (PO e Doc), Alef William (Requisitos e UX), Joel Feitosa (Requisitos e UX), Kayky Gomes (Qualidade e Doc)"
+// EXEMPLOS DIDÁTICOS DE RISCOS
+const DEFAULT_EXAMPLES = {
+  "E1": [
+    {
+      "code": "R1",
+      "teamKey": "E1",
+      "risco": "Dificuldade para integrar a API de mapas e localização",
+      "causaConsequencia": "A equipe ainda não usou a biblioteca de mapas. Isso pode impedir a busca de serviços por proximidade.",
+      "probabilidade": "50%",
+      "impacto": "Alto",
+      "nivel": "Alto",
+      "resposta": "Testar a API logo na primeira semana e tirar dúvidas com a documentação oficial.",
+      "responsavel": "Desenvolvedor Front-end",
+      "isExample": true,
+      "createdAt": "2026-11-25T10:00:00Z"
     }
-  },
-  noite: {
-    E1: {
-      id: "E1",
-      name: "Sertão Ágil",
-      description: "Conecta trabalhadores autônomos e prestadores de serviços da região a oportunidades locais de trabalho.",
-      po: "PO da Equipe E1",
-      integrantes: "Equipe E1 - Turma da Noite"
-    },
-    E2: {
-      id: "E2",
-      name: "DuckTrampos",
-      description: "Aplicativo para contratação rápida e segura de serviços pontuais e freelancers na comunidade.",
-      po: "PO da Equipe E2",
-      integrantes: "Equipe E2 - Turma da Noite"
-    },
-    E3: {
-      id: "E3",
-      name: "VagaCerta",
-      description: "Sistema para ajudar pequenas e médias empresas a divulgar vagas e selecionar candidatos.",
-      po: "PO da Equipe E3",
-      integrantes: "Equipe E3 - Turma da Noite"
-    },
-    E4: {
-      id: "E4",
-      name: "Primeira Oportunidade",
-      description: "Portal para ajudar jovens e estudantes a encontrar vagas de estágio e primeiro emprego.",
-      po: "PO da Equipe E4",
-      integrantes: "Equipe E4 - Turma da Noite"
-    },
-    E5: {
-      id: "E5",
-      name: "StarTI",
-      description: "Plataforma para conectar estudantes de tecnologia a projetos práticos e vagas de estágio.",
-      po: "PO da Equipe E5",
-      integrantes: "Equipe E5 - Turma da Noite"
+  ],
+  "E2": [
+    {
+      "code": "R1",
+      "teamKey": "E2",
+      "risco": "Problemas na criação do login e níveis de acesso",
+      "causaConsequencia": "Pouca experiência com autenticação de usuários. Pode deixar o sistema vulnerável ou atrasar as telas principais.",
+      "probabilidade": "70%",
+      "impacto": "Alto",
+      "nivel": "Alto",
+      "resposta": "Escolher uma biblioteca pronta de login e implementar essa parte primeiro.",
+      "responsavel": "Desenvolvedor Back-end",
+      "isExample": true,
+      "createdAt": "2026-11-25T10:00:00Z"
     }
-  }
+  ],
+  "E3": [
+    {
+      "code": "R1",
+      "teamKey": "E3",
+      "risco": "Dúvidas na modelagem do banco de dados das vagas",
+      "causaConsequencia": "Incerteza em como relacionar candidatos, empresas e vagas. Pode gerar retrabalho nas tabelas do banco.",
+      "probabilidade": "50%",
+      "impacto": "Moderado",
+      "nivel": "Médio",
+      "resposta": "Revisar o diagrama do banco com a professora antes de começar a criar as tabelas.",
+      "responsavel": "Responsável pelo Banco",
+      "isExample": true,
+      "createdAt": "2026-11-25T10:00:00Z"
+    }
+  ],
+  "E4": [
+    {
+      "code": "R1",
+      "teamKey": "E4",
+      "risco": "Telas e formulários desconfigurados no celular",
+      "causaConsequencia": "Formulários de cadastro longos podem ficar ruins de preencher em telas pequenas de celular.",
+      "probabilidade": "70%",
+      "impacto": "Baixo",
+      "nivel": "Médio",
+      "resposta": "Desenvolver pensando primeiro na tela do celular e usar componentes prontos de interface.",
+      "responsavel": "Desenvolvedor Front-end",
+      "isExample": true,
+      "createdAt": "2026-11-25T10:00:00Z"
+    }
+  ],
+  "E5": [
+    {
+      "code": "R1",
+      "teamKey": "E5",
+      "risco": "Baixa adesão inicial de empresas parceiras com vagas de tecnologia",
+      "causaConsequencia": "Estudantes não encontrarem projetos práticos suficientes cadastrados na plataforma.",
+      "probabilidade": "50%",
+      "impacto": "Alto",
+      "nivel": "Alto",
+      "resposta": "Cadastrar projetos pilotos da própria universidade e parcerias acadêmicas antes do lançamento.",
+      "responsavel": "Product Owner",
+      "isExample": true,
+      "createdAt": "2026-11-25T10:00:00Z"
+    }
+  ]
 };
-
-function getTeamsForTurma(turma) {
-  if (turma === "manha") {
-    return TEAMS_BY_TURMA.manha;
-  }
-  return TEAMS_BY_TURMA.noite;
-}
-
-const TEAMS = TEAMS_BY_TURMA.noite;
-
-// EXEMPLOS DE RISCOS POR PROJETO E TURMA
-const DEFAULT_EXAMPLES_BY_TURMA = {
-  manha: {
-    E1: [
-      {
-        code: "R1",
-        teamKey: "E1",
-        risco: "Dificuldade na centralização e filtragem correta das vagas dispersas",
-        causaConsequencia: "As oportunidades de emprego estão distribuídas em múltiplos canais informais. Pode dificultar a localização de vagas compatíveis com a realidade do candidato.",
-        probabilidade: "50%",
-        impacto: "Alto",
-        nivel: "Alto",
-        resposta: "Definir campos padronizados para curso, habilidades e localização, e validar os filtros prioritários logo no primeiro ciclo.",
-        responsavel: "Lucas Medeiros (Requisitos)",
-        isExample: true,
-        createdAt: new Date("2026-11-25T10:00:00Z")
-      }
-    ],
-    E2: [
-      {
-        code: "R1",
-        teamKey: "E2",
-        risco: "Vazamento acidental de dados sensíveis na triagem às cegas",
-        causaConsequencia: "Nome, e-mail, foto ou dados de identificação aparecendo na tela ou resposta da triagem às cegas, quebrando a proposta de anonimato do processo.",
-        probabilidade: "50%",
-        impacto: "Muito Alto",
-        nivel: "Alto",
-        resposta: "Separar claramente os dados privados da conta dos dados públicos da triagem e testar o retorno das rotas/telas antes de fechar cada tarefa.",
-        responsavel: "Jhulia Medeiros (PO) e QA",
-        isExample: true,
-        createdAt: new Date("2026-11-25T10:00:00Z")
-      },
-      {
-        code: "R2",
-        teamKey: "E2",
-        risco: "Inconsistência no cálculo de compatibilidade por falta de padronização nas habilidades",
-        causaConsequencia: "Escrita não padronizada de habilidades (ex: Node, NodeJS, Node.js) prejudicando o cruzamento de compatibilidade entre candidato e vaga.",
-        probabilidade: "70%",
-        impacto: "Moderado",
-        nivel: "Médio",
-        resposta: "Implementar catálogo controlado de skills com autocomplete e normalização de sinônimos no backend antes do matchmaking.",
-        responsavel: "Alessandro Viana (Requisitos e UX)",
-        isExample: true,
-        createdAt: new Date("2026-11-25T10:00:00Z")
-      },
-      {
-        code: "R3",
-        teamKey: "E2",
-        risco: "Quebra de anonimato por inferência indireta em campos de texto livre",
-        causaConsequencia: "Candidatos citando nomes de empresas, projetos ou faculdades nas descrições de experiência.",
-        probabilidade: "70%",
-        impacto: "Muito Alto",
-        nivel: "Alto",
-        resposta: "Estruturar o perfil prioritariamente por tags padronizadas de hard/soft skills e aplicar sanitização nos campos descritivos.",
-        responsavel: "Bárbara Alves e Davi Argemiro (QA)",
-        isExample: true,
-        createdAt: new Date("2026-11-25T10:00:00Z")
-      },
-      {
-        code: "R4",
-        teamKey: "E2",
-        risco: "Análise de linguagem excludente genérica ou com falsos positivos",
-        causaConsequencia: "Errar sugestões de termos capacitistas, etaristas ou de gênero nas descrições de vagas cadastradas pelas empresas.",
-        probabilidade: "50%",
-        impacto: "Moderado",
-        nivel: "Médio",
-        resposta: "Começar com lista objetiva de termos mais comuns em português para apoiar a revisão humana do recrutador.",
-        responsavel: "Laryssa Albuquerque e Rafaela Bezerra",
-        isExample: true,
-        createdAt: new Date("2026-11-25T10:00:00Z")
-      }
-    ],
-    E3: [
-      {
-        code: "R1",
-        teamKey: "E3",
-        risco: "Empresas cadastrarem Labs com duração ou exigências desproporcionais",
-        causaConsequencia: "Falta de limitação clara no escopo dos desafios práticos pode desvirtuar a proposta pedagógica e sobrecarregar os estudantes.",
-        probabilidade: "50%",
-        impacto: "Alto",
-        nivel: "Alto",
-        resposta: "Limitar o tempo de duração e exigir objetivos e entregas bem definidos no formulário de criação de Labs.",
-        responsavel: "Kayke Ryan (Requisitos e UX)",
-        isExample: true,
-        createdAt: new Date("2026-11-25T10:00:00Z")
-      }
-    ],
-    E4: [
-      {
-        code: "R1",
-        teamKey: "E4",
-        risco: "Incompatibilidade entre horários das vagas e turnos de aulas dos estudantes",
-        causaConsequencia: "Ausência de informação clara sobre turnos de trabalho pode levar a candidaturas inviáveis e desistência precoce dos universitários.",
-        probabilidade: "70%",
-        impacto: "Alto",
-        nivel: "Alto",
-        resposta: "Tornar obrigatória a indicação de horário/turno no cadastro da vaga e no perfil do estudante para permitir filtragem direta.",
-        responsavel: "Gustavo Barbosa e Filipe Medeiros (Requisitos e UX)",
-        isExample: true,
-        createdAt: new Date("2026-11-25T10:00:00Z")
-      }
-    ],
-    E5: [
-      {
-        code: "R1",
-        teamKey: "E5",
-        risco: "Usuários confundirem catálogo de orientação vocacional com painel de vagas imediatas",
-        causaConsequencia: "Nomenclatura ambígua na interface pode gerar frustração no estudante que procura contratação direta em vez de simulação prática.",
-        probabilidade: "50%",
-        impacto: "Moderado",
-        nivel: "Médio",
-        resposta: "Ajustar o nome da seção para 'Catálogo de Carreiras / Trilhas' e esclarecer no topo da tela o objetivo didático de autoavaliação.",
-        responsavel: "Alef William e Joel Feitosa (Requisitos e UX)",
-        isExample: true,
-        createdAt: new Date("2026-11-25T10:00:00Z")
-      }
-    ]
-  },
-  noite: {
-    E1: [
-      {
-        code: "R1",
-        teamKey: "E1",
-        risco: "Dificuldade para integrar a API de mapas e localização",
-        causaConsequencia: "A equipe ainda não usou a biblioteca de mapas. Isso pode impedir a busca de serviços por proximidade.",
-        probabilidade: "50%",
-        impacto: "Alto",
-        nivel: "Alto",
-        resposta: "Testar a API logo na primeira semana e tirar dúvidas com a documentação oficial.",
-        responsavel: "Desenvolvedor Front-end",
-        isExample: true,
-        createdAt: new Date("2026-11-25T10:00:00Z")
-      }
-    ],
-    E2: [
-      {
-        code: "R1",
-        teamKey: "E2",
-        risco: "Problemas na criação do login e níveis de acesso",
-        causaConsequencia: "Pouca experiência com autenticação de usuários. Pode deixar o sistema vulnerável ou atrasar as telas principais.",
-        probabilidade: "70%",
-        impacto: "Alto",
-        nivel: "Alto",
-        resposta: "Escolher uma biblioteca pronta de login e implementar essa parte primeiro.",
-        responsavel: "Desenvolvedor Back-end",
-        isExample: true,
-        createdAt: new Date("2026-11-25T10:00:00Z")
-      }
-    ],
-    E3: [
-      {
-        code: "R1",
-        teamKey: "E3",
-        risco: "Dúvidas na modelagem do banco de dados das vagas",
-        causaConsequencia: "Incerteza em como relacionar candidatos, empresas e vagas. Pode gerar retrabalho nas tabelas do banco.",
-        probabilidade: "50%",
-        impacto: "Moderado",
-        nivel: "Médio",
-        resposta: "Revisar o diagrama do banco com a professora antes de começar a criar as tabelas.",
-        responsavel: "Responsável pelo Banco",
-        isExample: true,
-        createdAt: new Date("2026-11-25T10:00:00Z")
-      }
-    ],
-    E4: [
-      {
-        code: "R1",
-        teamKey: "E4",
-        risco: "Telas e formulários desconfigurados no celular",
-        causaConsequencia: "Formulários de cadastro longos podem ficar ruins de preencher em telas pequenas de celular.",
-        probabilidade: "70%",
-        impacto: "Baixo",
-        nivel: "Médio",
-        resposta: "Desenvolver pensando primeiro na tela do celular e usar componentes prontos de interface.",
-        responsavel: "Desenvolvedor Front-end",
-        isExample: true,
-        createdAt: new Date("2026-11-25T10:00:00Z")
-      }
-    ],
-    E5: [
-      {
-        code: "R1",
-        teamKey: "E5",
-        risco: "Baixa adesão inicial de empresas parceiras com vagas de tecnologia",
-        causaConsequencia: "Estudantes não encontrarem projetos práticos suficientes cadastrados na plataforma.",
-        probabilidade: "50%",
-        impacto: "Alto",
-        nivel: "Alto",
-        resposta: "Cadastrar projetos pilotos da própria universidade e parcerias acadêmicas antes do lançamento.",
-        responsavel: "Product Owner",
-        isExample: true,
-        createdAt: new Date("2026-11-25T10:00:00Z")
-      }
-    ]
-  }
-};
-
-function getExamplesForTeam(turma, teamKey) {
-  const dict = (turma === "manha") ? DEFAULT_EXAMPLES_BY_TURMA.manha : DEFAULT_EXAMPLES_BY_TURMA.noite;
-  const item = dict[teamKey];
-  if (!item) return [];
-  if (Array.isArray(item)) {
-    return item.map(function(x) { return Object.assign({}, x); });
-  }
-  return [Object.assign({}, item)];
-}
-
-const DEFAULT_EXAMPLES = DEFAULT_EXAMPLES_BY_TURMA.noite;
 
 // REGRAS DA MATRIZ (5x5)
 const PROB_ROWS = ["90%", "70%", "50%", "30%", "10%"];
@@ -1485,47 +1295,8 @@ const MATRIX_LEVELS = {
   "10%": { "Muito Baixo": "Baixo", "Baixo": "Baixo", "Moderado": "Baixo", "Alto": "Baixo", "Muito Alto": "Médio" }
 };
 
-// DETECCAO DO DONO E REPOSITORIO
-function getRepoInfo() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const paramOwner = urlParams.get("owner");
-  const paramRepo = urlParams.get("repo");
-  if (paramOwner && paramRepo) {
-    return { owner: paramOwner, repo: paramRepo };
-  }
-
-  const hostname = window.location.hostname;
-  if (hostname.endsWith(".github.io")) {
-    const owner = hostname.replace(".github.io", "");
-    const pathParts = window.location.pathname.replace(/^\/|\/$/g, "").split("/");
-    const repo = pathParts[0] || "TaskManager";
-    return { owner: owner, repo: repo };
-  }
-
-  return { owner: "Rebecabl", repo: "TaskManager" };
-}
-
-const REPO_INFO = getRepoInfo();
-
-// DETECÇÃO DE TURMA NA ISSUE DO GITHUB
-function detectIssueTurma(issue) {
-  const fullText = ((issue.title || '') + ' ' + (issue.body || '')).toLowerCase();
-  let hasManha = /manh[ãa]|matutino/i.test(fullText);
-  let hasNoite = /noite|noturno/i.test(fullText);
-
-  if (issue.labels) {
-    issue.labels.forEach(function(l) {
-      const name = (typeof l === 'string' ? l : l.name).toLowerCase();
-      if (/manh[ãa]|matutino/i.test(name)) hasManha = true;
-      if (/noite|noturno/i.test(name)) hasNoite = true;
-    });
-  }
-
-  if (hasManha && !hasNoite) return "manha";
-  if (hasNoite && !hasManha) return "noite";
-  // Padrão: noite (onde os primeiros testes foram realizados)
-  return "noite";
-}
+// DONO E REPOSITÓRIO NO GITHUB
+const REPO_INFO = { owner: "Rebecabl", repo: "TaskManager" };
 
 // PARSER DE ISSUES DO GITHUB
 function parseIssueBody(bodyText) {
@@ -1566,80 +1337,69 @@ function parseIssueBody(bodyText) {
 
 function formatRiskFromIssue(issue) {
   const parsed = parseIssueBody(issue.body);
-
   let teamKey = parsed.equipe;
+
   if (!teamKey && issue.title) {
-    const m = issue.title.match(/\[(E[1-5])\]/i);
+    const m = issue.title.match(/\[(E[1-5])\]/i) || issue.title.match(/\b(E[1-5])\b/i);
     if (m) teamKey = m[1].toUpperCase();
   }
-  if (!teamKey) {
+
+  if (!teamKey && issue.labels) {
     issue.labels.forEach(function(l) {
       const name = typeof l === 'string' ? l : l.name;
-      if (/^E[1-5]$/i.test(name)) teamKey = name.toUpperCase();
+      const m = name.match(/E[1-5]/i);
+      if (m) teamKey = m[0].toUpperCase();
     });
   }
+
   if (!teamKey) teamKey = "E1";
 
   const prob = parsed.probabilidade || "50%";
   const imp = parsed.impacto || "Moderado";
-  let nivel = "-";
+  let nivel = "Médio";
   if (MATRIX_LEVELS[prob] && MATRIX_LEVELS[prob][imp]) {
     nivel = MATRIX_LEVELS[prob][imp];
   }
 
-  let cleanTitle = issue.title.replace(/\[E[1-5]\]\s*/i, "").trim();
-
   return {
     code: "R" + issue.number,
+    issueNumber: issue.number,
+    issueUrl: issue.html_url,
     teamKey: teamKey,
-    turma: detectIssueTurma(issue),
-    risco: parsed.risco || cleanTitle || "Risco sem descrição",
-    causaConsequencia: parsed.causaConsequencia || "-",
+    risco: parsed.risco || issue.title || "",
+    causaConsequencia: parsed.causaConsequencia || "",
     probabilidade: prob,
     impacto: imp,
     nivel: nivel,
-    resposta: parsed.resposta || "-",
-    responsavel: parsed.responsavel || (issue.user ? issue.user.login : "-"),
-    issueUrl: issue.html_url,
-    issueNumber: issue.number,
+    resposta: parsed.resposta || "",
+    responsavel: parsed.responsavel || (issue.user ? issue.user.login : ""),
     createdAt: issue.created_at
   };
 }
 
 let allRisks = [];
 
-// PERSISTÊNCIA ISOLADA POR TURMA E EQUIPE
-function getStorageKey(turma, teamKey) {
-  return "taskmanager_risks_" + turma + "_" + teamKey;
+function getStorageKey(teamKey) {
+  return STORAGE_PREFIX + "risks_" + teamKey;
 }
 
-function getTeamRisks(turma, teamKey) {
+function getTeamRisks(teamKey) {
   let deletedIssues = [];
   try {
-    deletedIssues = JSON.parse(localStorage.getItem("taskmanager_deleted_issues_" + turma) || "[]");
+    deletedIssues = JSON.parse(localStorage.getItem(STORAGE_PREFIX + "deleted_issues") || "[]");
   } catch (e) {}
 
   const fromGithub = allRisks
     .filter(function(r) {
       if (r.teamKey !== teamKey) return false;
-      if (r.turma && r.turma !== turma) return false;
       if (r.issueNumber && deletedIssues.includes(Number(r.issueNumber))) return false;
       return true;
     })
     .sort(function(a, b) { return new Date(a.createdAt) - new Date(b.createdAt); });
 
   let localRisks = [];
-  const primaryKey = getStorageKey(turma, teamKey);
-  let localRaw = localStorage.getItem(primaryKey);
-
-  // Compatibilidade com dados anteriores cadastrados na turma da noite:
-  if (!localRaw && turma === "noite") {
-    const legacyRaw = localStorage.getItem("taskmanager_risks_" + teamKey);
-    if (legacyRaw) {
-      localRaw = legacyRaw;
-      try { localStorage.setItem(primaryKey, legacyRaw); } catch (e) {}
-    }
-  }
+  const primaryKey = getStorageKey(teamKey);
+  const localRaw = localStorage.getItem(primaryKey);
 
   if (localRaw) {
     try {
@@ -1648,7 +1408,6 @@ function getTeamRisks(turma, teamKey) {
     } catch (e) {}
   }
 
-  // Se temos issues oficiais vindas do GitHub para esta equipe e turma
   if (fromGithub.length > 0) {
     const result = fromGithub.map(function(ghRisk) {
       const localEdit = localRisks.find(function(lr) { return lr.issueNumber === ghRisk.issueNumber; });
@@ -1676,15 +1435,13 @@ function getTeamRisks(turma, teamKey) {
     });
   }
 
-  // Se nao ha issues no GitHub mas ha linhas salvas localmente
   if (localRisks.length > 0) {
     return localRisks.map(function(r, idx) {
       return Object.assign({}, r, { code: "R" + (idx + 1) });
     });
   }
 
-  // Se nao ha issues no GitHub nem dados locais, exibe os exemplos iniciais da equipe e turma
-  const examples = getExamplesForTeam(turma, teamKey);
+  const examples = DEFAULT_EXAMPLES[teamKey];
   if (examples && examples.length > 0) {
     return examples.map(function(ex, idx) {
       return Object.assign({}, ex, { code: "R" + (idx + 1) });
@@ -1694,23 +1451,22 @@ function getTeamRisks(turma, teamKey) {
   return [];
 }
 
-function saveTeamRisks(turma, teamKey, risks) {
+function saveTeamRisks(teamKey, risks) {
   try {
-    localStorage.setItem(getStorageKey(turma, teamKey), JSON.stringify(risks));
+    localStorage.setItem(getStorageKey(teamKey), JSON.stringify(risks));
   } catch (e) {}
 }
 
-function resetTeamRisks(turma, teamKey) {
-  localStorage.removeItem(getStorageKey(turma, teamKey));
-  localStorage.removeItem("taskmanager_deleted_issues_" + turma);
+function resetTeamRisks(teamKey) {
+  localStorage.removeItem(getStorageKey(teamKey));
+  localStorage.removeItem(STORAGE_PREFIX + "deleted_issues");
   renderApp();
 }
 
-function getTotalRisksCount(turma) {
+function getTotalRisksCount() {
   let count = 0;
-  const teams = getTeamsForTurma(turma);
-  Object.keys(teams).forEach(function(teamKey) {
-    count += getTeamRisks(turma, teamKey).length;
+  Object.keys(TEAMS).forEach(function(teamKey) {
+    count += getTeamRisks(teamKey).length;
   });
   return count;
 }
@@ -1750,63 +1506,28 @@ async function fetchIssues(isManualClick) {
   }
 }
 
-function getOtherTurmaUrl(otherTurma) {
-  if (window.location.hostname.endsWith(".github.io")) {
-    if (otherTurma === "manha") {
-      return "https://rebecabl.github.io/TaskManager-Manha/?turma=manha";
-    } else {
-      return "https://rebecabl.github.io/TaskManager/?turma=noite";
-    }
-  }
-  return "?turma=" + otherTurma;
-}
-
 // ATUALIZAÇÃO DO CABEÇALHO E NAVEGAÇÃO
-function updateHeaderNavigation(currentTurma, selectedTeam) {
-  const instBadge = document.getElementById("inst-badge");
-  const instSubtitle = document.getElementById("inst-subtitle");
-  const navBar = document.getElementById("main-nav-bar");
+function updateHeaderNavigation(selectedTeam) {
+  const btnHome = document.getElementById("btn-home-nav");
+  const btnNewRisk = document.getElementById("btn-new-risk-header");
 
-  if (!currentTurma) {
-    if (instBadge) instBadge.textContent = "Laboratórios Ativos";
-    if (instSubtitle) instSubtitle.textContent = "Central de Ambientes e Matrizes de Riscos - Seleção de Turma";
-    if (navBar) {
-      navBar.innerHTML = 
-        '<a href="' + getOtherTurmaUrl("manha") + '" class="nav-btn">Painel Lab Manhã</a>' +
-        '<a href="' + getOtherTurmaUrl("noite") + '" class="nav-btn">Painel Lab Noite</a>' +
-        '<button id="btn-refresh" class="nav-btn" onclick="fetchIssues(true)">Atualizar Dados</button>';
+  if (btnHome) {
+    if (selectedTeam) {
+      btnHome.classList.remove("nav-btn-primary");
+    } else {
+      btnHome.classList.add("nav-btn-primary");
     }
-    return;
   }
 
-  const isManha = (currentTurma === "manha");
-  const otherTurma = isManha ? "noite" : "manha";
-  const otherLabel = isManha ? "Lab Noite" : "Lab Manhã";
-
-  if (instBadge) instBadge.textContent = isManha ? "Turma da Manhã" : "Turma da Noite";
-  if (instSubtitle) instSubtitle.textContent = "Painel de Riscos dos Projetos de Software";
-
-  if (navBar) {
-    let navHtml = '';
-    navHtml += '<a href="?turma=' + currentTurma + '" class="nav-btn' + (!selectedTeam ? ' nav-btn-primary' : '') + '">Ver Todos os Projetos</a>';
-    navHtml += '<a href="' + getOtherTurmaUrl(otherTurma) + '" class="nav-btn">Alternar para ' + otherLabel + '</a>';
-    navHtml += '<button id="btn-refresh" class="nav-btn" onclick="fetchIssues(true)">Atualizar Dados</button>';
-
-    const teams = getTeamsForTurma(currentTurma);
-    if (selectedTeam && teams[selectedTeam]) {
-      navHtml += '<button id="btn-new-risk-header" class="nav-btn nav-btn-primary">+ Adicionar Risco na Tabela</button>';
-    }
-
-    navBar.innerHTML = navHtml;
-
-    if (selectedTeam && teams[selectedTeam]) {
-      const btnNew = document.getElementById("btn-new-risk-header");
-      if (btnNew) {
-        btnNew.onclick = function(e) {
-          e.preventDefault();
-          addNewRow(currentTurma, selectedTeam);
-        };
-      }
+  if (btnNewRisk) {
+    if (selectedTeam && TEAMS[selectedTeam]) {
+      btnNewRisk.style.display = "inline-flex";
+      btnNewRisk.onclick = function(e) {
+        e.preventDefault();
+        addNewRow(selectedTeam);
+      };
+    } else {
+      btnNewRisk.style.display = "none";
     }
   }
 }
@@ -1814,102 +1535,22 @@ function updateHeaderNavigation(currentTurma, selectedTeam) {
 // RENDERIZADOR PRINCIPAL DO APLICATIVO
 function renderApp() {
   const params = new URLSearchParams(window.location.search);
-  let turmaParam = params.get("turma") ? params.get("turma").toLowerCase() : null;
   const selectedTeam = params.get("equipe") ? params.get("equipe").toUpperCase() : null;
 
-  if (turmaParam && turmaParam !== "manha" && turmaParam !== "noite") {
-    turmaParam = null;
-  }
-
-  const isManhaRepo = (REPO_INFO.repo || "").toLowerCase().includes("manha");
-  const defaultTurma = isManhaRepo ? "manha" : "noite";
-
-  let currentTurma = turmaParam || (selectedTeam ? (localStorage.getItem("taskmanager_last_turma") || defaultTurma) : defaultTurma);
-
-  if (currentTurma) {
-    try { localStorage.setItem("taskmanager_last_turma", currentTurma); } catch (e) {}
-  }
-
-  updateHeaderNavigation(currentTurma, selectedTeam);
+  updateHeaderNavigation(selectedTeam);
 
   const appContent = document.getElementById("app-content");
-  const teams = getTeamsForTurma(currentTurma);
 
-  if (currentTurma && selectedTeam && teams[selectedTeam]) {
-    renderTeamView(currentTurma, selectedTeam, appContent);
-  } else if (currentTurma) {
-    renderHomeView(currentTurma, appContent);
+  if (selectedTeam && TEAMS[selectedTeam]) {
+    renderTeamView(selectedTeam, appContent);
   } else {
-    renderTurmaSelectorView(appContent);
+    renderHomeView(appContent);
   }
 }
 
-// TELA 1: SELETOR DE TURMA (CENTRAL PRINCIPAL SEPARADA)
-function renderTurmaSelectorView(container) {
-  const countManha = getTotalRisksCount("manha");
-  const countNoite = getTotalRisksCount("noite");
-
-  let html = '';
-
-  // Banner da Competição entre Turmas
-  html += '<div class="competition-banner">';
-  html += '  <h3 class="competition-title">Competição entre Turmas: Lab Manhã vs Lab Noite</h3>';
-  html += '  <p class="competition-desc">Os ambientes de laboratório são separados para que cada turma desenvolva e gerencie sua própria matriz de riscos para os 5 projetos de software.</p>';
-  html += '  <div class="competition-scores">';
-  html += '    <div class="competition-score-item"><strong>Lab Manhã:</strong> ' + countManha + (countManha === 1 ? ' risco cadastrado' : ' riscos cadastrados') + '</div>';
-  html += '    <div class="competition-score-item"><strong>Lab Noite:</strong> ' + countNoite + (countNoite === 1 ? ' risco cadastrado' : ' riscos cadastrados') + '</div>';
-  html += '  </div>';
-  html += '</div>';
-
-  html += '<div class="panel-header-block">';
-  html += '  <h2 class="panel-title">Selecione o seu Ambiente de Laboratório</h2>';
-  html += '  <p class="panel-desc">Escolha a sua turma abaixo para acessar o painel exclusivo da sua equipe.</p>';
-  html += '</div>';
-
-  html += '<div class="turma-selector-grid">';
-
-  // Card Lab Manhã
-  html += '<div class="turma-panel-card turma-panel-manha">';
-  html += '  <div>';
-  html += '    <span class="turma-card-badge badge-manha">Turno Matutino</span>';
-  html += '    <h3 class="turma-card-title">Lab Manhã</h3>';
-  html += '    <p class="turma-card-desc">Ambiente exclusivo da Turma da Manhã. Acompanhe os 5 projetos acadêmicos e gerencie os riscos mapeados pela sua turma.</p>';
-  html += '  </div>';
-  html += '  <div>';
-  html += '    <div class="turma-card-stats">';
-  html += '      <span>Projetos: <strong>5 equipes</strong></span>';
-  html += '      <span>Riscos: <strong>' + countManha + '</strong></span>';
-  html += '    </div>';
-  html += '    <a href="' + getOtherTurmaUrl("manha") + '" class="turma-card-btn turma-btn-manha">Acessar Painel da Manhã</a>';
-  html += '  </div>';
-  html += '</div>';
-
-  // Card Lab Noite
-  html += '<div class="turma-panel-card turma-panel-noite">';
-  html += '  <div>';
-  html += '    <span class="turma-card-badge badge-noite">Turno Noturno</span>';
-  html += '    <h3 class="turma-card-title">Lab Noite</h3>';
-  html += '    <p class="turma-card-desc">Ambiente exclusivo da Turma da Noite. Acompanhe os 5 projetos acadêmicos e gerencie os riscos mapeados pela sua turma.</p>';
-  html += '  </div>';
-  html += '  <div>';
-  html += '    <div class="turma-card-stats">';
-  html += '      <span>Projetos: <strong>5 equipes</strong></span>';
-  html += '      <span>Riscos: <strong>' + countNoite + '</strong></span>';
-  html += '    </div>';
-  html += '    <a href="' + getOtherTurmaUrl("noite") + '" class="turma-card-btn turma-btn-noite">Acessar Painel da Noite</a>';
-  html += '  </div>';
-  html += '</div>';
-
-  html += '</div>';
-
-  container.innerHTML = html;
-}
-
-// TELA 2: PROJETOS DA TURMA ESCOLHIDA (MANHÃ OU NOITE)
-function renderHomeView(turma, container) {
-  const isManha = (turma === "manha");
-  const countTurma = getTotalRisksCount(turma);
-  const teams = getTeamsForTurma(turma);
+// TELA: LISTAGEM DE PROJETOS DA TURMA
+function renderHomeView(container) {
+  const countTurma = getTotalRisksCount();
 
   let html = '';
 
@@ -1926,9 +1567,9 @@ function renderHomeView(turma, container) {
   html += '</div>';
 
   html += '<div class="projects-cards-grid">';
-  Object.keys(teams).forEach(function(teamKey) {
-    const team = teams[teamKey];
-    const teamRisks = getTeamRisks(turma, teamKey);
+  Object.keys(TEAMS).forEach(function(teamKey) {
+    const team = TEAMS[teamKey];
+    const teamRisks = getTeamRisks(teamKey);
     const count = teamRisks.length;
 
     html += '<div class="project-card">';
@@ -1948,7 +1589,7 @@ function renderHomeView(turma, container) {
     html += '      <span class="text-muted">Fase: Planejamento</span>';
     html += '    </div>';
     html += '    <div class="project-card-actions noprint">';
-    html += '      <a href="?turma=' + turma + '&equipe=' + team.id + '" class="btn-open-matrix">Abrir Matriz da Equipe</a>';
+    html += '      <a href="?equipe=' + team.id + '" class="btn-open-matrix">Abrir Matriz da Equipe</a>';
     html += '    </div>';
     html += '  </div>';
     html += '</div>';
@@ -1958,14 +1599,12 @@ function renderHomeView(turma, container) {
   container.innerHTML = html;
 }
 
-// TELA 3: PAINEL DA EQUIPE DENTRO DA TURMA SELECIONADA
-function renderTeamView(turma, teamKey, container) {
-  const isManha = (turma === "manha");
-  const teams = getTeamsForTurma(turma);
-  const team = teams[teamKey] || TEAMS[teamKey];
-  const teamRisks = getTeamRisks(turma, teamKey);
-  const examples = getExamplesForTeam(turma, teamKey);
-  const example = examples[0] || (DEFAULT_EXAMPLES.E1 && DEFAULT_EXAMPLES.E1[0]) || {};
+// TELA: PAINEL DA EQUIPE (MATRIZ + TABELA)
+function renderTeamView(teamKey, container) {
+  const team = TEAMS[teamKey];
+  const teamRisks = getTeamRisks(teamKey);
+  const examples = DEFAULT_EXAMPLES[teamKey] || [];
+  const example = examples[0] || {};
 
   let html = '';
 
@@ -1973,7 +1612,7 @@ function renderTeamView(turma, teamKey, container) {
   html += '<div class="team-banner">';
   html += '  <div class="team-banner-left">';
   html += '    <div class="breadcrumb-nav noprint">';
-  html += '      <a href="?turma=' + turma + '">Início</a> / <span>Equipe ' + team.id + '</span>';
+  html += '      <a href="index.html">Início</a> / <span>Equipe ' + team.id + '</span>';
   html += '    </div>';
   html += '    <h2 class="team-banner-title">Projeto: ' + team.name + ' <span class="team-code-tag">' + team.id + '</span></h2>';
   html += '    <p class="team-banner-desc"><strong>Sobre o software:</strong> ' + team.description + '</p>';
@@ -1983,112 +1622,95 @@ function renderTeamView(turma, teamKey, container) {
   html += '  </div>';
   html += '  <div class="team-banner-right noprint">';
   html += '    <span class="count-tag">' + teamRisks.length + (teamRisks.length === 1 ? ' risco cadastrado' : ' riscos cadastrados') + '</span>';
-  html += '    <button type="button" class="btn-action btn-action-primary" onclick="addNewRow(\'' + turma + '\', \'' + team.id + '\')">+ Adicionar Risco na Tabela</button>';
+  html += '    <button type="button" class="btn-action btn-action-primary" onclick="addNewRow(\'' + team.id + '\')">+ Adicionar Risco na Tabela</button>';
   html += '  </div>';
   html += '</div>';
 
-  // Box de Exemplo Didatico para a Equipe
-  let exampleLevelClass = "cell-media";
-  if (example.nivel === "Baixo") exampleLevelClass = "cell-baixa";
-  if (example.nivel === "Alto") exampleLevelClass = "cell-alta";
+  // Box de Exemplo Didatico para a Equipe (se houver)
+  if (example.risco) {
+    let exampleLevelClass = "cell-media";
+    if (example.nivel === "Baixo") exampleLevelClass = "cell-baixa";
+    if (example.nivel === "Alto") exampleLevelClass = "cell-alta";
 
-  html += '<div class="example-ref-panel noprint">';
-  html += '  <div class="example-ref-header">';
-  html += '    <strong>Exemplo de risco para este projeto:</strong>';
+    html += '<div class="example-ref-panel noprint">';
+    html += '  <div class="example-ref-header">';
+    html += '    <strong>Exemplo de risco para este projeto:</strong>';
+    html += '  </div>';
+    html += '  <table class="example-ref-table">';
+    html += '    <tbody>';
+    html += '      <tr>';
+    html += '        <th style="width: 170px;">Risco:</th>';
+    html += '        <td colspan="3">' + escapeHtml(example.risco) + '</td>';
+    html += '      </tr>';
+    html += '      <tr>';
+    html += '        <th>Causa e consequência:</th>';
+    html += '        <td colspan="3">' + escapeHtml(example.causaConsequencia) + '</td>';
+    html += '      </tr>';
+    html += '      <tr>';
+    html += '        <th>Probabilidade:</th>';
+    html += '        <td><strong>' + example.probabilidade + '</strong></td>';
+    html += '        <th style="width: 130px;">Impacto:</th>';
+    html += '        <td><strong>' + example.impacto + '</strong></td>';
+    html += '      </tr>';
+    html += '      <tr>';
+    html += '        <th>Nível na matriz:</th>';
+    html += '        <td><span class="matrix-chip-example ' + exampleLevelClass + '"><strong>' + example.nivel + '</strong></span></td>';
+    html += '        <th>Responsável:</th>';
+    html += '        <td>' + escapeHtml(example.responsavel) + '</td>';
+    html += '      </tr>';
+    html += '      <tr>';
+    html += '        <th>Ação preventiva:</th>';
+    html += '        <td colspan="3">' + escapeHtml(example.resposta) + '</td>';
+    html += '      </tr>';
+    html += '    </tbody>';
+    html += '  </table>';
+    html += '</div>';
+  }
+
+  // Matriz de Probabilidade x Impacto (5x5)
+  html += '<div class="matrix-wrapper">';
+  html += '  <div class="panel-header-block">';
+  html += '    <h3 class="panel-title">Matriz de Probabilidade x Impacto</h3>';
+  html += '    <p class="panel-desc">Visualização gráfica dos riscos da equipe ' + team.id + '. Os riscos se movem automaticamente conforme a probabilidade e o impacto definidos na tabela abaixo.</p>';
   html += '  </div>';
-  html += '  <table class="example-ref-table">';
-  html += '    <tbody>';
-  html += '      <tr>';
-  html += '        <th style="width: 170px;">Risco:</th>';
-  html += '        <td colspan="3">' + escapeHtml(example.risco) + '</td>';
-  html += '      </tr>';
-  html += '      <tr>';
-  html += '        <th>Causa e consequência:</th>';
-  html += '        <td colspan="3">' + escapeHtml(example.causaConsequencia) + '</td>';
-  html += '      </tr>';
-  html += '      <tr>';
-  html += '        <th>Probabilidade:</th>';
-  html += '        <td><strong>' + example.probabilidade + '</strong></td>';
-  html += '        <th style="width: 130px;">Impacto:</th>';
-  html += '        <td><strong>' + example.impacto + '</strong></td>';
-  html += '      </tr>';
-  html += '      <tr>';
-  html += '        <th>Nível na matriz:</th>';
-  html += '        <td><span class="matrix-chip-example ' + exampleLevelClass + '"><strong>' + example.nivel + '</strong></span></td>';
-  html += '        <th>Responsável:</th>';
-  html += '        <td>' + escapeHtml(example.responsavel) + '</td>';
-  html += '      </tr>';
-  html += '      <tr>';
-  html += '        <th>Ação preventiva:</th>';
-  html += '        <td colspan="3">' + escapeHtml(example.resposta) + '</td>';
-  html += '      </tr>';
-  html += '    </tbody>';
-  html += '  </table>';
-  html += '</div>';
-
-  // Matriz 5x5 fiel a imagem de referencia
-  html += '<div class="matrix-panel">';
-  html += '  <div class="matrix-panel-header">';
-  html += '    <h3 class="panel-title">Matriz de Probabilidade x Impacto (5x5)</h3>';
-  html += '    <div class="matrix-legend">';
-  html += '      <span class="legend-item"><span class="legend-swatch swatch-baixa"></span> Baixa</span>';
-  html += '      <span class="legend-item"><span class="legend-swatch swatch-media"></span> Média</span>';
-  html += '      <span class="legend-item"><span class="legend-swatch swatch-alta"></span> Alta</span>';
-  html += '    </div>';
-  html += '  </div>';
-
-  html += '  <div class="matrix-scroll-wrapper">';
-  html += '    <table class="matrix-5x5-table" role="table" aria-label="Matriz de Probabilidade e Impacto">';
+  html += '  <div class="table-responsive">';
+  html += '    <table class="matrix-grid">';
+  html += '      <thead>';
+  html += '        <tr>';
+  html += '          <th rowspan="2" class="y-axis-label">Probabilidade</th>';
+  html += '          <th colspan="5" style="border-bottom: 1px solid var(--border-light); font-size: 13px; font-weight: 700; color: #111827;">Impacto</th>';
+  html += '        </tr>';
+  html += '        <tr>';
+  IMP_COLS.forEach(function(imp) {
+    html += '      <th>' + imp + '</th>';
+  });
+  html += '        </tr>';
+  html += '      </thead>';
   html += '      <tbody>';
 
-  PROB_ROWS.forEach(function(prob, rowIndex) {
-    html += '        <tr>';
-    if (rowIndex === 0) {
-      html += '          <td rowspan="5" class="matrix-axis-y-cell">';
-      html += '            <span class="vertical-axis-label">Probabilidade</span>';
-      html += '          </td>';
-    }
-    html += '          <th class="matrix-th-prob">' + prob + '</th>';
-
+  PROB_ROWS.forEach(function(prob) {
+    html += '    <tr>';
+    html += '      <th class="matrix-prob-label">' + prob + '</th>';
     IMP_COLS.forEach(function(imp) {
       const level = MATRIX_LEVELS[prob][imp];
-      let cellColorClass = "cell-baixa";
-      let cellDisplayWord = "Baixa";
-      if (level === "Médio") { cellColorClass = "cell-media"; cellDisplayWord = "Média"; }
-      if (level === "Alto") { cellColorClass = "cell-alta"; cellDisplayWord = "Alta"; }
+      let levelClass = "cell-media";
+      if (level === "Baixo") levelClass = "cell-baixa";
+      if (level === "Alto") levelClass = "cell-alta";
 
-      const matchingRisks = teamRisks.filter(function(r) {
+      const cellRisks = teamRisks.filter(function(r) {
         return r.probabilidade === prob && r.impacto === imp;
       });
 
-      html += '          <td class="matrix-cell ' + cellColorClass + '" data-prob="' + prob + '" data-imp="' + imp + '">';
-      html += '            <span class="cell-level-title">' + cellDisplayWord + '</span>';
-      html += '            <div class="cell-codes-list" id="cell-risks-' + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '') + '">';
-      matchingRisks.forEach(function(r) {
-        html += '              <a href="#row-' + r.code + '" class="matrix-risk-tag" title="' + escapeHtml(r.risco) + '">' + r.code + '</a>';
+      html += '    <td class="' + levelClass + '">';
+      html += '      <div class="matrix-cell-content" id="cell-' + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '') + '">';
+      cellRisks.forEach(function(r) {
+        html += '<a href="#row-' + r.code + '" class="matrix-risk-tag" title="' + escapeHtml(r.code + ': ' + r.risco) + '"><strong>' + r.code + '</strong></a>';
       });
-      html += '            </div>';
-      html += '          </td>';
+      html += '      </div>';
+      html += '    </td>';
     });
-    html += '        </tr>';
+    html += '    </tr>';
   });
-
-  // Linha de rotulos de Impacto
-  html += '        <tr>';
-  html += '          <td class="matrix-empty-corner"></td>';
-  html += '          <td class="matrix-empty-corner"></td>';
-  IMP_COLS.forEach(function(col) {
-    html += '          <th class="matrix-th-imp">' + col + '</th>';
-  });
-  html += '        </tr>';
-
-  // Linha do eixo horizontal Impacto
-  html += '        <tr>';
-  html += '          <td colspan="2" class="matrix-empty-corner"></td>';
-  html += '          <td colspan="5" class="matrix-axis-x-cell">';
-  html += '            <span class="horizontal-axis-label">Impacto</span>';
-  html += '          </td>';
-  html += '        </tr>';
 
   html += '      </tbody>';
   html += '    </table>';
@@ -2140,7 +1762,7 @@ function renderTeamView(turma, teamKey, container) {
   html += '  </div>';
   html += '</div>';
 
-  // Criterios e Escalas de Medicao (Exibido dentro de cada projeto para consulta da equipe)
+  // Tabelas de Referência Didática
   html += '<section class="scales-section">';
   html += '  <div class="panel-header-block">';
   html += '    <h3 class="panel-title">Como Avaliar a Probabilidade e o Impacto</h3>';
@@ -2158,11 +1780,31 @@ function renderTeamView(turma, teamKey, container) {
   html += '          </tr>';
   html += '        </thead>';
   html += '        <tbody>';
-  html += '          <tr><td><strong>10%</strong></td><td>Muito baixa</td><td>A equipe domina a tecnologia e quase não há chance de dar errado.</td></tr>';
-  html += '          <tr><td><strong>30%</strong></td><td>Baixa</td><td>Podem surgir dúvidas pequenas, mas a equipe resolve com facilidade.</td></tr>';
-  html += '          <tr><td><strong>50%</strong></td><td>Moderada</td><td>A equipe tem incertezas sobre a tecnologia ou sobre como implementar.</td></tr>';
-  html += '          <tr><td><strong>70%</strong></td><td>Alta</td><td>Tarefa difícil, tecnologia pouco conhecida ou depende de serviços externos.</td></tr>';
-  html += '          <tr><td><strong>90%</strong></td><td>Muito alta</td><td>É quase certeza de que vai dar problema se nada for feito antes.</td></tr>';
+  html += '          <tr>';
+  html += '            <td><strong>10%</strong></td>';
+  html += '            <td>Muito baixa</td>';
+  html += '            <td>A equipe já sabe exatamente como fazer e quase não há chance de dar errado.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>30%</strong></td>';
+  html += '            <td>Baixa</td>';
+  html += '            <td>Podem surgir pequenas dúvidas, mas a equipe resolve facilmente durante a aula.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>50%</strong></td>';
+  html += '            <td>Média</td>';
+  html += '            <td>A equipe ainda tem incertezas sobre como programar ou integrar essa funcionalidade.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>70%</strong></td>';
+  html += '            <td>Alta</td>';
+  html += '            <td>Tarefa difícil, tecnologia pouco conhecida ou dependência de serviços externos.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>90%</strong></td>';
+  html += '            <td>Muito alta</td>';
+  html += '            <td>É quase certeza de que vai dar problema se nada for planejado com antecedência.</td>';
+  html += '          </tr>';
   html += '        </tbody>';
   html += '      </table>';
   html += '    </div>';
@@ -2171,16 +1813,31 @@ function renderTeamView(turma, teamKey, container) {
   html += '      <table class="reference-table">';
   html += '        <thead>';
   html += '          <tr>';
-  html += '            <th style="width: 100px;">Impacto</th>';
-  html += '            <th>O que acontece caso o risco ocorra</th>';
+  html += '            <th style="width: 100px;">Gravidade</th>';
+  html += '            <th>O que acontece se o risco ocorrer</th>';
   html += '          </tr>';
   html += '        </thead>';
   html += '        <tbody>';
-  html += '          <tr><td><strong>Muito baixo</strong></td><td>Ajuste simples e rápido, sem atrapalhar o andamento do projeto.</td></tr>';
-  html += '          <tr><td><strong>Baixo</strong></td><td>Afeta apenas detalhes visuais ou funções secundárias do sistema.</td></tr>';
-  html += '          <tr><td><strong>Moderado</strong></td><td>Atrasa uma função importante ou gera retrabalho para a equipe.</td></tr>';
-  html += '          <tr><td><strong>Alto</strong></td><td>Prejudica uma parte essencial do sistema ou compromete a data de entrega.</td></tr>';
-  html += '          <tr><td><strong>Muito alto</strong></td><td>Impede o funcionamento do sistema ou inviabiliza a entrega do projeto.</td></tr>';
+  html += '          <tr>';
+  html += '            <td><strong>Muito Baixo</strong></td>';
+  html += '            <td>Ajuste simples e rápido, sem atrapalhar o andamento do projeto.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>Baixo</strong></td>';
+  html += '            <td>Pequeno retrabalho que a equipe resolve em poucas horas de desenvolvimento.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>Moderado</strong></td>';
+  html += '            <td>Atrasa a entrega da funcionalidade em alguns dias ou exige mudar parte da tela.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>Alto</strong></td>';
+  html += '            <td>Pode impedir a conclusão da entrega ou quebrar partes importantes do sistema.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>Muito Alto</strong></td>';
+  html += '            <td>Inviabiliza a entrega ou compromete o funcionamento de todo o software da equipe.</td>';
+  html += '          </tr>';
   html += '        </tbody>';
   html += '      </table>';
   html += '    </div>';
@@ -2188,15 +1845,13 @@ function renderTeamView(turma, teamKey, container) {
   html += '</section>';
 
   container.innerHTML = html;
-
-  attachTableEventListeners(turma, teamKey);
+  attachTableEventListeners(teamKey);
 }
 
 function renderRiskRowHtml(r) {
-  let levelClass = "vazio";
-  if (r.nivel === "Baixo") levelClass = "baixa";
-  if (r.nivel === "Médio") levelClass = "media";
-  if (r.nivel === "Alto") levelClass = "alta";
+  let levelClass = "badge-media";
+  if (r.nivel === "Baixo") levelClass = "badge-baixa";
+  if (r.nivel === "Alto") levelClass = "badge-alta";
 
   let probOptions = '<option value="">Escolher</option>';
   PROB_ROWS.forEach(function(p) {
@@ -2229,16 +1884,15 @@ function renderRiskRowHtml(r) {
   return html;
 }
 
-function addNewRow(turma, teamKey) {
-  manualSaveTeam(turma, teamKey);
-  const risks = getTeamRisks(turma, teamKey);
+function addNewRow(teamKey) {
+  manualSaveTeam(teamKey);
+  const risks = getTeamRisks(teamKey);
   const nextNumber = risks.length + 1;
   const newCode = "R" + nextNumber;
 
   const newRisk = {
     code: newCode,
     teamKey: teamKey,
-    turma: turma,
     risco: "",
     causaConsequencia: "",
     probabilidade: "50%",
@@ -2250,7 +1904,7 @@ function addNewRow(turma, teamKey) {
   };
 
   risks.push(newRisk);
-  saveTeamRisks(turma, teamKey, risks);
+  saveTeamRisks(teamKey, risks);
   renderApp();
 
   showSaveFeedback("Nova linha " + newCode + " adicionada! Preencha os campos e clique no botão verde 'Salvar Alterações'.");
@@ -2267,11 +1921,11 @@ function addNewRow(turma, teamKey) {
   }, 100);
 }
 
-function manualSaveTeam(turma, teamKey) {
+function manualSaveTeam(teamKey) {
   const tbody = document.getElementById("risks-tbody");
   if (!tbody) return;
 
-  const risks = getTeamRisks(turma, teamKey);
+  const risks = getTeamRisks(teamKey);
 
   tbody.querySelectorAll("tr[data-code]").forEach(function(row) {
     const code = row.dataset.code;
@@ -2297,8 +1951,8 @@ function manualSaveTeam(turma, teamKey) {
     }
   });
 
-  saveTeamRisks(turma, teamKey, risks);
-  recalculateMatrix(turma, teamKey);
+  saveTeamRisks(teamKey, risks);
+  recalculateMatrix(teamKey);
   showSaveFeedback("Riscos salvos com sucesso!");
 }
 
@@ -2315,7 +1969,7 @@ function showSaveFeedback(message) {
   }, 4000);
 }
 
-function attachTableEventListeners(turma, teamKey) {
+function attachTableEventListeners(teamKey) {
   const tbody = document.getElementById("risks-tbody");
   if (!tbody) return;
 
@@ -2324,11 +1978,11 @@ function attachTableEventListeners(turma, teamKey) {
       const code = this.dataset.code;
       const field = this.dataset.field;
       const val = this.value;
-      const risks = getTeamRisks(turma, teamKey);
+      const risks = getTeamRisks(teamKey);
       const item = risks.find(function(r) { return r.code === code; });
       if (item) {
         item[field] = val;
-        saveTeamRisks(turma, teamKey, risks);
+        saveTeamRisks(teamKey, risks);
       }
     });
   });
@@ -2336,7 +1990,7 @@ function attachTableEventListeners(turma, teamKey) {
   tbody.querySelectorAll(".select-prob, .select-imp").forEach(function(select) {
     select.addEventListener("change", function() {
       const code = this.dataset.code;
-      onRiskCriteriaChange(code, turma, teamKey);
+      onRiskCriteriaChange(code, teamKey);
     });
   });
 
@@ -2345,14 +1999,13 @@ function attachTableEventListeners(turma, teamKey) {
       const code = this.dataset.code;
       const issueNum = this.dataset.issue;
       const issueUrl = this.dataset.url;
-      openDeleteModal(turma, teamKey, code, issueNum, issueUrl);
+      openDeleteModal(teamKey, code, issueNum, issueUrl);
     });
   });
 
   tbody.querySelectorAll(".btn-save-row").forEach(function(btn) {
     btn.addEventListener("click", function() {
-      const code = this.dataset.code;
-      manualSaveTeam(turma, teamKey);
+      manualSaveTeam(teamKey);
       showSaveFeedback("Riscos salvos com sucesso!");
     });
   });
@@ -2360,29 +2013,28 @@ function attachTableEventListeners(turma, teamKey) {
   const btnSave = document.getElementById("btn-save-team");
   if (btnSave) {
     btnSave.addEventListener("click", function() {
-      manualSaveTeam(turma, teamKey);
+      manualSaveTeam(teamKey);
     });
   }
 
   const btnAdd = document.getElementById("btn-add-row");
   if (btnAdd) {
     btnAdd.addEventListener("click", function() {
-      addNewRow(turma, teamKey);
+      addNewRow(teamKey);
     });
   }
 
   const btnReset = document.getElementById("btn-reset-team");
   if (btnReset) {
     btnReset.addEventListener("click", function() {
-      if (confirm("Deseja restaurar os dados originais desta equipe? As alterações feitas apenas nesta tela serão canceladas.")) {
-        resetTeamRisks(turma, teamKey);
-        fetchIssues();
+      if (confirm("Deseja recarregar os dados padrão desta equipe? Alterações locais não salvas no repositório serão redefinidas.")) {
+        resetTeamRisks(teamKey);
       }
     });
   }
 }
 
-function onRiskCriteriaChange(code, turma, teamKey) {
+function onRiskCriteriaChange(code, teamKey) {
   const row = document.getElementById("row-" + code);
   if (!row) return;
 
@@ -2390,69 +2042,71 @@ function onRiskCriteriaChange(code, turma, teamKey) {
   const imp = row.querySelector(".select-imp").value;
   const badge = document.getElementById("badge-" + code);
 
-  const risks = getTeamRisks(turma, teamKey);
-  const riskObj = risks.find(function(r) { return r.code === code; });
-
   let nivel = "-";
+  let levelClass = "badge-media";
+
   if (prob && imp && MATRIX_LEVELS[prob] && MATRIX_LEVELS[prob][imp]) {
     nivel = MATRIX_LEVELS[prob][imp];
+    if (nivel === "Baixo") levelClass = "badge-baixa";
+    if (nivel === "Alto") levelClass = "badge-alta";
+  }
+
+  if (badge) {
     badge.textContent = nivel;
-    badge.className = "level-badge " + (nivel === "Baixo" ? "baixa" : (nivel === "Médio" ? "media" : "alta"));
-  } else {
-    badge.textContent = "-";
-    badge.className = "level-badge vazio";
+    badge.className = "level-badge " + levelClass;
   }
 
-  if (riskObj) {
-    riskObj.probabilidade = prob;
-    riskObj.impacto = imp;
-    riskObj.nivel = nivel;
-    saveTeamRisks(turma, teamKey, risks);
+  const risks = getTeamRisks(teamKey);
+  const item = risks.find(function(r) { return r.code === code; });
+  if (item) {
+    item.probabilidade = prob;
+    item.impacto = imp;
+    item.nivel = nivel;
+    saveTeamRisks(teamKey, risks);
   }
 
-  recalculateMatrix(turma, teamKey);
+  recalculateMatrix(teamKey);
 }
 
-function recalculateMatrix(turma, teamKey) {
+function recalculateMatrix(teamKey) {
+  const risks = getTeamRisks(teamKey);
+
   PROB_ROWS.forEach(function(prob) {
     IMP_COLS.forEach(function(imp) {
-      const containerId = "cell-risks-" + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '');
-      const container = document.getElementById(containerId);
-      if (container) container.innerHTML = "";
+      const cellId = "cell-" + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '');
+      const cell = document.getElementById(cellId);
+      if (cell) {
+        cell.innerHTML = "";
+      }
     });
   });
 
-  const risks = getTeamRisks(turma, teamKey);
   risks.forEach(function(r) {
     if (r.probabilidade && r.impacto) {
-      const containerId = "cell-risks-" + r.probabilidade.replace('%', '') + '-' + r.impacto.replace(/\s+/g, '');
-      const container = document.getElementById(containerId);
-      if (container) {
-        const a = document.createElement("a");
-        a.href = "#row-" + r.code;
-        a.className = "matrix-risk-tag";
-        a.title = r.risco || r.code;
-        a.textContent = r.code;
-        container.appendChild(a);
+      const cellId = "cell-" + r.probabilidade.replace('%', '') + '-' + r.impacto.replace(/\s+/g, '');
+      const cell = document.getElementById(cellId);
+      if (cell) {
+        cell.innerHTML += '<a href="#row-' + r.code + '" class="matrix-risk-tag" title="' + escapeHtml(r.code + ': ' + r.risco) + '"><strong>' + r.code + '</strong></a>';
       }
     }
   });
 }
 
-// MODAL DE EXCLUSAO
-let pendingDelete = null;
+let pendingDeleteCode = null;
+let pendingDeleteTeamKey = null;
+let pendingDeleteIssueNum = null;
 
-function openDeleteModal(turma, teamKey, code, issueNum, issueUrl) {
-  pendingDelete = { turma, teamKey, code, issueNum, issueUrl };
+function openDeleteModal(teamKey, code, issueNum, issueUrl) {
+  pendingDeleteTeamKey = teamKey;
+  pendingDeleteCode = code;
+  pendingDeleteIssueNum = issueNum;
 
   const modal = document.getElementById("delete-modal");
   const title = document.getElementById("modal-delete-title");
   const desc = document.getElementById("modal-delete-desc");
-  const btnGithub = document.getElementById("modal-btn-github");
 
   title.textContent = "Remover Risco " + code;
   desc.innerHTML = "Deseja remover o risco <strong>" + code + "</strong>? A linha será excluída e a matriz atualizada.";
-  if (btnGithub) btnGithub.style.display = "none";
 
   modal.style.display = "flex";
 }
@@ -2460,74 +2114,41 @@ function openDeleteModal(turma, teamKey, code, issueNum, issueUrl) {
 function closeDeleteModal() {
   const modal = document.getElementById("delete-modal");
   if (modal) modal.style.display = "none";
-  pendingDelete = null;
+  pendingDeleteCode = null;
+  pendingDeleteTeamKey = null;
+  pendingDeleteIssueNum = null;
 }
 
 function confirmDelete() {
-  if (!pendingDelete) return;
-  const turma = pendingDelete.turma;
-  const teamKey = pendingDelete.teamKey;
-  const code = pendingDelete.code;
-  const issueNum = pendingDelete.issueNum;
-  let risks = getTeamRisks(turma, teamKey);
+  if (!pendingDeleteCode || !pendingDeleteTeamKey) return;
+
+  const teamKey = pendingDeleteTeamKey;
+  const code = pendingDeleteCode;
+  const issueNum = pendingDeleteIssueNum;
 
   if (issueNum) {
     let deletedIssues = [];
     try {
-      deletedIssues = JSON.parse(localStorage.getItem("taskmanager_deleted_issues_" + turma) || "[]");
+      deletedIssues = JSON.parse(localStorage.getItem(STORAGE_PREFIX + "deleted_issues") || "[]");
     } catch (e) {}
     if (!deletedIssues.includes(Number(issueNum))) {
       deletedIssues.push(Number(issueNum));
-      localStorage.setItem("taskmanager_deleted_issues_" + turma, JSON.stringify(deletedIssues));
+      localStorage.setItem(STORAGE_PREFIX + "deleted_issues", JSON.stringify(deletedIssues));
     }
   }
 
+  let risks = getTeamRisks(teamKey);
   risks = risks.filter(function(r) { return r.code !== code; });
+  saveTeamRisks(teamKey, risks);
 
-  risks.forEach(function(r, idx) {
-    r.code = "R" + (idx + 1);
-  });
-
-  saveTeamRisks(turma, teamKey, risks);
   closeDeleteModal();
   renderApp();
+  showSaveFeedback("Risco " + code + " removido com sucesso!");
 }
 
-function onModalGithubClick() {
-  if (pendingDelete) {
-    confirmDelete();
-  }
-}
-
-function setupModalEvents() {
-  const btnCancel = document.getElementById("modal-btn-cancel");
-  if (btnCancel) {
-    btnCancel.addEventListener("click", closeDeleteModal);
-  }
-
-  const btnConfirm = document.getElementById("modal-btn-confirm");
-  if (btnConfirm) {
-    btnConfirm.addEventListener("click", confirmDelete);
-  }
-
-  const btnGithub = document.getElementById("modal-btn-github");
-  if (btnGithub) {
-    btnGithub.addEventListener("click", onModalGithubClick);
-  }
-
-  const modal = document.getElementById("delete-modal");
-  if (modal) {
-    modal.addEventListener("click", function(e) {
-      if (e.target === modal) {
-        closeDeleteModal();
-      }
-    });
-  }
-}
-
-function escapeHtml(text) {
-  if (!text) return "";
-  return String(text)
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
@@ -2535,18 +2156,10 @@ function escapeHtml(text) {
     .replace(/'/g, "&#039;");
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-  const btnRefresh = document.getElementById("btn-refresh");
-  if (btnRefresh) {
-    btnRefresh.addEventListener("click", function() {
-      fetchIssues();
-    });
-  }
-
-  setupModalEvents();
-  fetchIssues();
+window.addEventListener("DOMContentLoaded", function() {
+  fetchIssues(false);
 });
-
 </script>
+
 </body>
 </html>

@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratório de Engenharia de Software I - Turma da Noite</title>
+<style>
+
+  :root {
+    --bg-page: #f8f9fa;
+    --bg-surface: #ffffff;
+    --text-main: #212529;
+    --text-muted: #495057;
+    --border-dark: #000000;
+    --border-table: #ced4da;
+    --primary-navy: #1a365d;
+    --primary-navy-hover: #10243e;
+    --matrix-blue: #d9e1f2;
+    --baixa: #a9d18e;
+    --media: #ffd966;
+    --alta: #ff7c80;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-family: Arial, "Helvetica Neue", Helvetica, "Segoe UI", sans-serif;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .site-wrapper {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 20px 20px 60px;
+  }
+
+  /* Cabecalho Institucional Academico */
+  header.institutional-header {
+    background-color: var(--bg-surface);
+    border: 1px solid #ced4da;
+    border-top: 5px solid var(--primary-navy);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+
+  .inst-top-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .inst-univ {
+    display: none;
+  }
+
+  .inst-dept {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .inst-semester {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background-color: #f1f3f5;
+    padding: 3px 8px;
+    border-radius: 3px;
+    border: 1px solid #dee2e6;
+  }
+
+  .inst-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+    margin: 6px 0 3px;
+  }
+
+  .inst-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0 0 16px;
+  }
+
+  .nav-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 14px;
+    border-top: 1px solid #e9ecef;
+  }
+
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 3px;
+    border: 1px solid #ced4da;
+    background-color: #f8f9fa;
+    color: #212529;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .nav-btn:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+  }
+
+  .nav-btn-primary {
+    background-color: var(--primary-navy);
+    border-color: #142c4c;
+    color: #ffffff;
+  }
+
+  .nav-btn-primary:hover {
+    background-color: var(--primary-navy-hover);
+    color: #ffffff;
+  }
+
+  /* Status Bar */
+  .status-message {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-left: 4px solid #ffc107;
+    border-radius: 3px;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #856404;
+  }
+
+  /* Painel Principal e Titulos */
+  .panel-header-block {
+    margin-bottom: 14px;
+  }
+
+  .panel-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 4px;
+  }
+
+  .panel-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .home-panel, .team-banner, .matrix-panel, .table-panel, .example-ref-panel {
+    background-color: var(--bg-surface);
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+  }
+
+  /* Tabela de Projetos (Home) */
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  table.academic-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background-color: #ffffff;
+  }
+
+  table.academic-table th, table.academic-table td {
+    border: 1px solid #ced4da;
+    padding: 9px 12px;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  table.academic-table th {
+    background-color: #f1f3f5;
+    color: #212529;
+    font-weight: 700;
+    font-size: 12.5px;
+  }
+
+  table.academic-table tr:hover td {
+    background-color: #fafbfc;
+  }
+
+  table.academic-table tr:target td {
+    background-color: #fff3cd !important;
+    transition: background-color 0.3s;
+  }
+
+  .team-code-tag {
+    font-weight: 700;
+    color: var(--primary-navy);
+    background-color: #e9ecef;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid #ced4da;
+    display: inline-block;
+  }
+
+  .btn-action {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 3px;
+    border: 1px solid #ced4da;
+    background-color: #f8f9fa;
+    color: #212529;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .btn-action:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+  }
+
+  .btn-action-primary {
+    background-color: var(--primary-navy);
+    border-color: #142c4c;
+    color: #ffffff;
+  }
+
+  .btn-action-primary:hover {
+    background-color: var(--primary-navy-hover);
+    color: #ffffff;
+  }
+
+  .btn-action-save {
+    background-color: #198754;
+    border-color: #157347;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .btn-action-save:hover {
+    background-color: #146c43;
+    border-color: #13653f;
+    color: #ffffff;
+  }
+
+  .team-save-hint {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin: 6px 0 0;
+  }
+
+  .save-feedback-banner {
+    background-color: #d1e7dd;
+    border: 1px solid #badbcc;
+    color: #0f5132;
+    padding: 9px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: opacity 0.3s;
+  }
+
+  /* Seletor de Turma e Central de Paineis */
+  .turma-selector-section {
+    margin-bottom: 28px;
+  }
+
+  .turma-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .turma-panel-card {
+    background-color: var(--bg-surface);
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    position: relative;
+  }
+
+  .turma-panel-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  .turma-panel-manha {
+    border-top: 6px solid #0d6efd;
+  }
+
+  .turma-panel-noite {
+    border-top: 6px solid #1a365d;
+  }
+
+  .turma-card-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+  }
+
+  .badge-manha {
+    background-color: #e7f1ff;
+    color: #0c63e4;
+    border: 1px solid #b6d4fe;
+  }
+
+  .badge-noite {
+    background-color: #e9ecef;
+    color: #1a365d;
+    border: 1px solid #ced4da;
+  }
+
+  .turma-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 8px;
+  }
+
+  .turma-card-desc {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0 0 16px;
+  }
+
+  .turma-card-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-bottom: 18px;
+    font-size: 13px;
+  }
+
+  .turma-card-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .turma-btn-manha {
+    background-color: #0d6efd;
+    color: #ffffff;
+    border: 1px solid #0b5ed7;
+  }
+
+  .turma-btn-manha:hover {
+    background-color: #0b5ed7;
+    color: #ffffff;
+  }
+
+  .turma-btn-noite {
+    background-color: #1a365d;
+    color: #ffffff;
+    border: 1px solid #142c4c;
+  }
+
+  .turma-btn-noite:hover {
+    background-color: #10243e;
+    color: #ffffff;
+  }
+
+  .competition-banner {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-left: 4px solid #198754;
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+
+  .competition-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 6px;
+  }
+
+  .competition-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0 0 12px;
+  }
+
+  .competition-scores {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .competition-score-item {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .team-members-box {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  /* Grid de Cards dos Projetos */
+  .projects-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .project-card {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-top: 4px solid var(--primary-navy);
+    border-radius: 4px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .project-card:hover {
+    border-color: #adb5bd;
+    border-top-color: var(--primary-navy);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  .project-card-top {
+    margin-bottom: 14px;
+  }
+
+  .project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .project-card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+  }
+
+  .project-card-scope {
+    font-size: 12.8px;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .project-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-top: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 14px;
+    font-size: 12px;
+  }
+
+  .project-card-risks-count {
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  .project-card-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-open-matrix {
+    flex: 1;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: var(--primary-navy);
+    border: 1px solid #142c4c;
+    border-radius: 3px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .btn-open-matrix:hover {
+    background-color: var(--primary-navy-hover);
+    color: #ffffff;
+  }
+
+  .btn-register-risk {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #212529;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .btn-register-risk:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+  }
+
+  .btn-action-add {
+    background-color: #198754;
+    border-color: #157347;
+    color: #ffffff;
+  }
+
+  .btn-action-add:hover {
+    background-color: #146c43;
+    color: #ffffff;
+  }
+
+  /* Barra de Equipe */
+  .team-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .breadcrumb-nav {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .breadcrumb-nav a {
+    color: var(--primary-navy);
+    text-decoration: none;
+  }
+
+  .breadcrumb-nav a:hover {
+    text-decoration: underline;
+  }
+
+  .team-banner-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+  }
+
+  .team-banner-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 4px 0 0;
+  }
+
+  .team-banner-right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .count-tag {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    background-color: #f1f3f5;
+    padding: 4px 8px;
+    border-radius: 3px;
+    border: 1px solid #ced4da;
+  }
+
+  /* Painel de Exemplo Didatico */
+  .example-ref-header {
+    font-size: 13px;
+    color: var(--primary-navy);
+    margin-bottom: 8px;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 6px;
+  }
+
+  table.example-ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+
+  table.example-ref-table th, table.example-ref-table td {
+    border: 1px solid #dee2e6;
+    padding: 6px 10px;
+    vertical-align: top;
+  }
+
+  table.example-ref-table th {
+    background-color: #f8f9fa;
+    color: #212529;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .matrix-chip-example {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 11px;
+    border: 1px solid #000000;
+    border-radius: 2px;
+  }
+
+  /* MATRIZ DE RISCOS (5x5) FIEL A IMAGEM OFICIAL */
+  .matrix-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .matrix-legend {
+    display: flex;
+    gap: 14px;
+    font-size: 12px;
+    align-items: center;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+  }
+
+  .legend-swatch {
+    width: 14px;
+    height: 14px;
+    border: 1px solid #000000;
+    display: inline-block;
+  }
+
+  .swatch-baixa { background-color: var(--baixa); }
+  .swatch-media { background-color: var(--media); }
+  .swatch-alta { background-color: var(--alta); }
+
+  .matrix-scroll-wrapper {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  table.matrix-5x5-table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    background-color: #ffffff;
+  }
+
+  .matrix-axis-y-cell {
+    background-color: var(--matrix-blue);
+    border: 1px solid var(--border-dark);
+    width: 38px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 6px;
+  }
+
+  .vertical-axis-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 13px;
+    font-weight: 700;
+    color: #000000;
+    letter-spacing: 0.05em;
+    display: inline-block;
+  }
+
+  .matrix-axis-x-cell {
+    background-color: var(--matrix-blue);
+    border: 1px solid var(--border-dark);
+    height: 36px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .horizontal-axis-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #000000;
+    letter-spacing: 0.05em;
+  }
+
+  .matrix-empty-corner {
+    border: none;
+    background-color: transparent;
+  }
+
+  .matrix-th-prob {
+    background-color: #ffffff;
+    border: 1px solid var(--border-dark);
+    width: 75px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 13px;
+    font-weight: 700;
+    color: #000000;
+  }
+
+  .matrix-th-imp {
+    background-color: #ffffff;
+    border: 1px solid var(--border-dark);
+    height: 40px;
+    width: 110px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #000000;
+    padding: 4px 6px;
+  }
+
+  .matrix-cell {
+    border: 1px solid var(--border-dark);
+    width: 110px;
+    height: 72px;
+    text-align: center;
+    vertical-align: top;
+    padding: 6px 4px;
+    box-sizing: border-box;
+  }
+
+  .cell-baixa {
+    background-color: var(--baixa);
+    color: #000000;
+  }
+
+  .cell-media {
+    background-color: var(--media);
+    color: #000000;
+  }
+
+  .cell-alta {
+    background-color: var(--alta);
+    color: #000000;
+  }
+
+  .cell-level-title {
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+    color: #000000;
+  }
+
+  .cell-codes-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    justify-content: center;
+  }
+
+  .matrix-risk-tag {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1.5px solid #000000;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 2px;
+    text-decoration: none;
+    line-height: 1.4;
+  }
+
+  .matrix-risk-tag:hover {
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  /* Quadro de Registro de Riscos */
+  .table-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .table-panel-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .cell-input {
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-radius: 2px;
+    font-family: inherit;
+    font-size: 12.5px;
+    padding: 5px 7px;
+    background-color: #ffffff;
+    color: var(--text-main);
+  }
+
+  .cell-input:focus {
+    outline: 2px solid var(--primary-navy);
+    border-color: var(--primary-navy);
+  }
+
+  textarea.cell-input {
+    resize: vertical;
+    min-height: 44px;
+  }
+
+  select.select-criteria {
+    width: 100%;
+    min-width: 115px;
+    border: 1px solid #ced4da;
+    border-radius: 2px;
+    font-family: inherit;
+    font-size: 12px;
+    padding: 5px 6px;
+    background-color: #ffffff;
+    color: var(--text-main);
+  }
+
+  select.select-criteria:focus {
+    outline: 2px solid var(--primary-navy);
+  }
+
+  .level-badge {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 4px 6px;
+    border: 1px solid #000000;
+    border-radius: 2px;
+    box-sizing: border-box;
+  }
+
+  .level-badge.baixa { background-color: var(--baixa); color: #000000; }
+  .level-badge.media { background-color: var(--media); color: #000000; }
+  .level-badge.alta { background-color: var(--alta); color: #000000; }
+  .level-badge.vazio { background-color: #e9ecef; color: #6c757d; border-color: #ced4da; font-weight: normal; }
+
+  .issue-link {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--primary-navy);
+    text-decoration: none;
+    background-color: #e9ecef;
+    padding: 2px 5px;
+    border-radius: 2px;
+    border: 1px solid #ced4da;
+  }
+
+  .issue-link:hover {
+    text-decoration: underline;
+  }
+
+  .tag-example {
+    font-size: 11px;
+    font-weight: 600;
+    color: #495057;
+    background-color: #f1f3f5;
+    padding: 2px 5px;
+    border-radius: 2px;
+    border: 1px solid #ced4da;
+  }
+
+  .tag-local {
+    font-size: 11px;
+    font-weight: 600;
+    color: #0b5ed7;
+    background-color: #e7f1ff;
+    padding: 2px 5px;
+    border-radius: 2px;
+    border: 1px solid #b6d4fe;
+  }
+
+  .btn-delete-row {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 2px;
+    border: 1px solid #dc3545;
+    background-color: #ffffff;
+    color: #dc3545;
+    cursor: pointer;
+  }
+
+  .btn-delete-row:hover {
+    background-color: #dc3545;
+    color: #ffffff;
+  }
+
+  .btn-save-row {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 2px;
+    border: 1px solid #198754;
+    background-color: #ffffff;
+    color: #198754;
+    cursor: pointer;
+  }
+
+  .btn-save-row:hover {
+    background-color: #198754;
+    color: #ffffff;
+  }
+
+  .btn-publish-github {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 2px;
+    border: 1px solid var(--primary-navy);
+    background-color: #ffffff;
+    color: var(--primary-navy);
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-publish-github:hover {
+    background-color: var(--primary-navy);
+    color: #ffffff;
+  }
+
+  /* Escalas e Criterios Didaticos */
+  .scales-section {
+    background-color: var(--bg-surface);
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 20px 22px;
+    margin-top: 28px;
+  }
+
+  .scales-tables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 20px;
+    margin-top: 14px;
+  }
+
+  .scale-table-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--primary-navy);
+    margin: 0 0 8px;
+    border-bottom: 2px solid var(--primary-navy);
+    padding-bottom: 4px;
+  }
+
+  table.reference-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  table.reference-table th, table.reference-table td {
+    border: 1px solid #ced4da;
+    padding: 7px 9px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  table.reference-table th {
+    background-color: #f1f3f5;
+    font-weight: 700;
+    color: #212529;
+  }
+
+  /* Rodape Institucional */
+  footer.site-footer {
+    border-top: 1px solid #ced4da;
+    padding-top: 18px;
+    margin-top: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* Modal de Exclusao */
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 16px;
+  }
+
+  .modal-box {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    max-width: 480px;
+    width: 100%;
+    padding: 20px 22px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .modal-title {
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .modal-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0 0 18px;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .btn-danger-solid {
+    background-color: #dc3545;
+    border: 1px solid #b02a37;
+    color: #ffffff;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .btn-danger-solid:hover {
+    background-color: #bb2d3b;
+  }
+
+  @media print {
+    body { background: #ffffff; color: #000000; font-size: 10.5pt; }
+    .nav-bar, .noprint, .btn-action, select, button { display: none !important; }
+    .site-wrapper { max-width: 100%; padding: 0; }
+    header.institutional-header, .matrix-panel, .table-panel, .scales-section { border-color: #999; box-shadow: none; margin-bottom: 16px; padding: 10px; }
+    .cell-input { border: none !important; background: transparent !important; padding: 0 !important; resize: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="site-wrapper">
+  <!-- Cabecalho Institucional Academico -->
+  <header class="institutional-header">
+    <div class="inst-top-bar">
+      <span class="inst-semester" id="inst-badge">Turma da Noite</span>
+    </div>
+    <h1 class="inst-title">Laboratório de Engenharia de Software I</h1>
+    <p class="inst-subtitle" id="inst-subtitle">
+      Painel de Riscos dos Projetos de Software
+    </p>
+    <nav class="nav-bar noprint" id="main-nav-bar">
+      <a href="index.html" class="nav-btn nav-btn-primary" id="btn-home-nav">Ver Todos os Projetos</a>
+      <button id="btn-refresh" class="nav-btn" title="Recarregar dados" onclick="fetchIssues(true)">Atualizar Dados</button>
+      <button id="btn-new-risk-header" class="nav-btn nav-btn-primary" style="display:none;">+ Adicionar Risco na Tabela</button>
+    </nav>
+  </header>
+
+  <div id="status-bar" style="display:none;" class="status-message"></div>
+
+  <!-- Conteudo Principal -->
+  <main id="app-content"></main>
+
+  <!-- Rodape Institucional -->
+  <footer class="site-footer">
+    <div>
+      UNIVERSIDADE ESTADUAL DA PARAÍBA (UEPB)
+    </div>
+    <div>
+      Laboratório de Engenharia de Software I · Turma da Noite
+    </div>
+  </footer>
+</div>
+
+<!-- Modal de Exclusao de Risco -->
+<div id="delete-modal" class="modal-backdrop" style="display:none;" onclick="if(event.target===this) closeDeleteModal()" role="dialog" aria-modal="true" aria-labelledby="modal-delete-title">
+  <div class="modal-box">
+    <h3 class="modal-title" id="modal-delete-title">Remover Risco</h3>
+    <div id="modal-delete-desc" class="modal-desc"></div>
+    <div class="modal-actions">
+      <button type="button" id="modal-btn-cancel" class="nav-btn" onclick="closeDeleteModal()">Cancelar</button>
+      <button type="button" id="modal-btn-confirm" class="btn-danger-solid" onclick="confirmDelete()">Remover da tela</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// CONFIGURAÇÕES EXCLUSIVAS DA TURMA
+const TURMA_KEY = "noite";
+const TURMA_LABEL = "Turma da Noite";
+const STORAGE_PREFIX = "taskmanager_noite_";
+
+// EQUIPES E PROJETOS ACADÊMICOS
+const TEAMS = {
+  "E1": {
+    "id": "E1",
+    "name": "Sertão Ágil",
+    "description": "Conecta trabalhadores autônomos e prestadores de serviços da região a oportunidades locais de trabalho.",
+    "po": "PO da Equipe E1",
+    "integrantes": "Equipe E1 - Turma da Noite"
+  },
+  "E2": {
+    "id": "E2",
+    "name": "DuckTrampos",
+    "description": "Aplicativo para contratação rápida e segura de serviços pontuais e freelancers na comunidade.",
+    "po": "PO da Equipe E2",
+    "integrantes": "Equipe E2 - Turma da Noite"
+  },
+  "E3": {
+    "id": "E3",
+    "name": "VagaCerta",
+    "description": "Sistema para ajudar pequenas e médias empresas a divulgar vagas e selecionar candidatos.",
+    "po": "PO da Equipe E3",
+    "integrantes": "Equipe E3 - Turma da Noite"
+  },
+  "E4": {
+    "id": "E4",
+    "name": "Primeira Oportunidade",
+    "description": "Portal para ajudar jovens e estudantes a encontrar vagas de estágio e primeiro emprego.",
+    "po": "PO da Equipe E4",
+    "integrantes": "Equipe E4 - Turma da Noite"
+  },
+  "E5": {
+    "id": "E5",
+    "name": "StarTI",
+    "description": "Plataforma para conectar estudantes de tecnologia a projetos práticos e vagas de estágio.",
+    "po": "PO da Equipe E5",
+    "integrantes": "Equipe E5 - Turma da Noite"
+  }
+};
+
+// EXEMPLOS DIDÁTICOS DE RISCOS
+const DEFAULT_EXAMPLES = {
+  "E1": [
+    {
+      "code": "R1",
+      "teamKey": "E1",
+      "risco": "Dificuldade para integrar a API de mapas e localização",
+      "causaConsequencia": "A equipe ainda não usou a biblioteca de mapas. Isso pode impedir a busca de serviços por proximidade.",
+      "probabilidade": "50%",
+      "impacto": "Alto",
+      "nivel": "Alto",
+      "resposta": "Testar a API logo na primeira semana e tirar dúvidas com a documentação oficial.",
+      "responsavel": "Desenvolvedor Front-end",
+      "isExample": true,
+      "createdAt": "2026-11-25T10:00:00Z"
+    }
+  ],
+  "E2": [
+    {
+      "code": "R1",
+      "teamKey": "E2",
+      "risco": "Problemas na criação do login e níveis de acesso",
+      "causaConsequencia": "Pouca experiência com autenticação de usuários. Pode deixar o sistema vulnerável ou atrasar as telas principais.",
+      "probabilidade": "70%",
+      "impacto": "Alto",
+      "nivel": "Alto",
+      "resposta": "Escolher uma biblioteca pronta de login e implementar essa parte primeiro.",
+      "responsavel": "Desenvolvedor Back-end",
+      "isExample": true,
+      "createdAt": "2026-11-25T10:00:00Z"
+    }
+  ],
+  "E3": [
+    {
+      "code": "R1",
+      "teamKey": "E3",
+      "risco": "Dúvidas na modelagem do banco de dados das vagas",
+      "causaConsequencia": "Incerteza em como relacionar candidatos, empresas e vagas. Pode gerar retrabalho nas tabelas do banco.",
+      "probabilidade": "50%",
+      "impacto": "Moderado",
+      "nivel": "Médio",
+      "resposta": "Revisar o diagrama do banco com a professora antes de começar a criar as tabelas.",
+      "responsavel": "Responsável pelo Banco",
+      "isExample": true,
+      "createdAt": "2026-11-25T10:00:00Z"
+    }
+  ],
+  "E4": [
+    {
+      "code": "R1",
+      "teamKey": "E4",
+      "risco": "Telas e formulários desconfigurados no celular",
+      "causaConsequencia": "Formulários de cadastro longos podem ficar ruins de preencher em telas pequenas de celular.",
+      "probabilidade": "70%",
+      "impacto": "Baixo",
+      "nivel": "Médio",
+      "resposta": "Desenvolver pensando primeiro na tela do celular e usar componentes prontos de interface.",
+      "responsavel": "Desenvolvedor Front-end",
+      "isExample": true,
+      "createdAt": "2026-11-25T10:00:00Z"
+    }
+  ],
+  "E5": [
+    {
+      "code": "R1",
+      "teamKey": "E5",
+      "risco": "Baixa adesão inicial de empresas parceiras com vagas de tecnologia",
+      "causaConsequencia": "Estudantes não encontrarem projetos práticos suficientes cadastrados na plataforma.",
+      "probabilidade": "50%",
+      "impacto": "Alto",
+      "nivel": "Alto",
+      "resposta": "Cadastrar projetos pilotos da própria universidade e parcerias acadêmicas antes do lançamento.",
+      "responsavel": "Product Owner",
+      "isExample": true,
+      "createdAt": "2026-11-25T10:00:00Z"
+    }
+  ]
+};
+
+// REGRAS DA MATRIZ (5x5)
+const PROB_ROWS = ["90%", "70%", "50%", "30%", "10%"];
+const IMP_COLS = ["Muito Baixo", "Baixo", "Moderado", "Alto", "Muito Alto"];
+
+const MATRIX_LEVELS = {
+  "90%": { "Muito Baixo": "Médio", "Baixo": "Médio", "Moderado": "Alto", "Alto": "Alto", "Muito Alto": "Alto" },
+  "70%": { "Muito Baixo": "Baixo", "Baixo": "Médio", "Moderado": "Médio", "Alto": "Alto", "Muito Alto": "Alto" },
+  "50%": { "Muito Baixo": "Baixo", "Baixo": "Baixo", "Moderado": "Médio", "Alto": "Alto", "Muito Alto": "Alto" },
+  "30%": { "Muito Baixo": "Baixo", "Baixo": "Baixo", "Moderado": "Médio", "Alto": "Médio", "Muito Alto": "Alto" },
+  "10%": { "Muito Baixo": "Baixo", "Baixo": "Baixo", "Moderado": "Baixo", "Alto": "Baixo", "Muito Alto": "Médio" }
+};
+
+// DONO E REPOSITÓRIO NO GITHUB
+const REPO_INFO = { owner: "Rebecabl", repo: "TaskManager" };
+
+// PARSER DE ISSUES DO GITHUB
+function parseIssueBody(bodyText) {
+  const data = {};
+  if (!bodyText) return data;
+
+  const sections = bodyText.split(/###\s+/);
+  sections.forEach(function(sec) {
+    const lines = sec.trim().split('\n');
+    const header = lines[0] ? lines[0].trim().toLowerCase() : '';
+    const content = lines.slice(1).join('\n').trim();
+
+    if (header.includes("equipe")) {
+      const m = content.match(/E[1-5]/i);
+      if (m) data.equipe = m[0].toUpperCase();
+    } else if (header.includes("risco") && !header.includes("resposta") && !header.includes("ação") && !header.includes("acao")) {
+      data.risco = content;
+    } else if (header.includes("causa")) {
+      data.causaConsequencia = content;
+    } else if (header.includes("probabilidade")) {
+      const m = content.match(/10%|30%|50%|70%|90%/);
+      if (m) data.probabilidade = m[0];
+    } else if (header.includes("impacto")) {
+      if (/muito\s*baixo/i.test(content)) data.impacto = "Muito Baixo";
+      else if (/muito\s*alto/i.test(content)) data.impacto = "Muito Alto";
+      else if (/baixo/i.test(content)) data.impacto = "Baixo";
+      else if (/moderado/i.test(content)) data.impacto = "Moderado";
+      else if (/alto/i.test(content)) data.impacto = "Alto";
+    } else if (header.includes("resposta") || header.includes("ação") || header.includes("acao")) {
+      data.resposta = content;
+    } else if (header.includes("respons")) {
+      data.responsavel = content;
+    }
+  });
+
+  return data;
+}
+
+function formatRiskFromIssue(issue) {
+  const parsed = parseIssueBody(issue.body);
+  let teamKey = parsed.equipe;
+
+  if (!teamKey && issue.title) {
+    const m = issue.title.match(/\[(E[1-5])\]/i) || issue.title.match(/\b(E[1-5])\b/i);
+    if (m) teamKey = m[1].toUpperCase();
+  }
+
+  if (!teamKey && issue.labels) {
+    issue.labels.forEach(function(l) {
+      const name = typeof l === 'string' ? l : l.name;
+      const m = name.match(/E[1-5]/i);
+      if (m) teamKey = m[0].toUpperCase();
+    });
+  }
+
+  if (!teamKey) teamKey = "E1";
+
+  const prob = parsed.probabilidade || "50%";
+  const imp = parsed.impacto || "Moderado";
+  let nivel = "Médio";
+  if (MATRIX_LEVELS[prob] && MATRIX_LEVELS[prob][imp]) {
+    nivel = MATRIX_LEVELS[prob][imp];
+  }
+
+  return {
+    code: "R" + issue.number,
+    issueNumber: issue.number,
+    issueUrl: issue.html_url,
+    teamKey: teamKey,
+    risco: parsed.risco || issue.title || "",
+    causaConsequencia: parsed.causaConsequencia || "",
+    probabilidade: prob,
+    impacto: imp,
+    nivel: nivel,
+    resposta: parsed.resposta || "",
+    responsavel: parsed.responsavel || (issue.user ? issue.user.login : ""),
+    createdAt: issue.created_at
+  };
+}
+
+let allRisks = [];
+
+function getStorageKey(teamKey) {
+  return STORAGE_PREFIX + "risks_" + teamKey;
+}
+
+function getTeamRisks(teamKey) {
+  let deletedIssues = [];
+  try {
+    deletedIssues = JSON.parse(localStorage.getItem(STORAGE_PREFIX + "deleted_issues") || "[]");
+  } catch (e) {}
+
+  const fromGithub = allRisks
+    .filter(function(r) {
+      if (r.teamKey !== teamKey) return false;
+      if (r.issueNumber && deletedIssues.includes(Number(r.issueNumber))) return false;
+      return true;
+    })
+    .sort(function(a, b) { return new Date(a.createdAt) - new Date(b.createdAt); });
+
+  let localRisks = [];
+  const primaryKey = getStorageKey(teamKey);
+  const localRaw = localStorage.getItem(primaryKey);
+
+  if (localRaw) {
+    try {
+      const parsed = JSON.parse(localRaw);
+      if (Array.isArray(parsed)) localRisks = parsed;
+    } catch (e) {}
+  }
+
+  if (fromGithub.length > 0) {
+    const result = fromGithub.map(function(ghRisk) {
+      const localEdit = localRisks.find(function(lr) { return lr.issueNumber === ghRisk.issueNumber; });
+      if (localEdit) {
+        return Object.assign({}, ghRisk, {
+          risco: localEdit.risco || ghRisk.risco,
+          causaConsequencia: localEdit.causaConsequencia || ghRisk.causaConsequencia,
+          probabilidade: localEdit.probabilidade || ghRisk.probabilidade,
+          impacto: localEdit.impacto || ghRisk.impacto,
+          nivel: localEdit.nivel || ghRisk.nivel,
+          resposta: localEdit.resposta || ghRisk.resposta,
+          responsavel: localEdit.responsavel || ghRisk.responsavel
+        });
+      }
+      return Object.assign({}, ghRisk);
+    });
+
+    const extraLocal = localRisks.filter(function(lr) {
+      return !lr.issueNumber && !lr.isExample;
+    });
+    extraLocal.forEach(function(el) { result.push(el); });
+
+    return result.map(function(r, idx) {
+      return Object.assign({}, r, { code: "R" + (idx + 1) });
+    });
+  }
+
+  if (localRisks.length > 0) {
+    return localRisks.map(function(r, idx) {
+      return Object.assign({}, r, { code: "R" + (idx + 1) });
+    });
+  }
+
+  const examples = DEFAULT_EXAMPLES[teamKey];
+  if (examples && examples.length > 0) {
+    return examples.map(function(ex, idx) {
+      return Object.assign({}, ex, { code: "R" + (idx + 1) });
+    });
+  }
+
+  return [];
+}
+
+function saveTeamRisks(teamKey, risks) {
+  try {
+    localStorage.setItem(getStorageKey(teamKey), JSON.stringify(risks));
+  } catch (e) {}
+}
+
+function resetTeamRisks(teamKey) {
+  localStorage.removeItem(getStorageKey(teamKey));
+  localStorage.removeItem(STORAGE_PREFIX + "deleted_issues");
+  renderApp();
+}
+
+function getTotalRisksCount() {
+  let count = 0;
+  Object.keys(TEAMS).forEach(function(teamKey) {
+    count += getTeamRisks(teamKey).length;
+  });
+  return count;
+}
+
+async function fetchIssues(isManualClick) {
+  const statusBar = document.getElementById("status-bar");
+  if (isManualClick && statusBar) {
+    statusBar.style.display = "block";
+    statusBar.innerHTML = "Atualizando dados...";
+  }
+
+  try {
+    const apiUrl = "https://api.github.com/repos/" + REPO_INFO.owner + "/" + REPO_INFO.repo + "/issues?state=open&per_page=100&_t=" + Date.now();
+    const response = await fetch(apiUrl, { cache: "no-store" });
+
+    if (response.ok) {
+      const issues = await response.json();
+      const riskIssues = issues.filter(function(issue) {
+        return !issue.pull_request;
+      });
+      allRisks = riskIssues.map(formatRiskFromIssue);
+    }
+    if (statusBar) statusBar.style.display = "none";
+    if (isManualClick) {
+      showSaveFeedback("Dados atualizados com sucesso!");
+    }
+  } catch (error) {
+    if (statusBar) statusBar.style.display = "none";
+    if (isManualClick) {
+      showSaveFeedback("Dados locais prontos e atualizados!");
+    }
+  } finally {
+    if (statusBar && !isManualClick) {
+      statusBar.style.display = "none";
+    }
+    renderApp();
+  }
+}
+
+// ATUALIZAÇÃO DO CABEÇALHO E NAVEGAÇÃO
+function updateHeaderNavigation(selectedTeam) {
+  const btnHome = document.getElementById("btn-home-nav");
+  const btnNewRisk = document.getElementById("btn-new-risk-header");
+
+  if (btnHome) {
+    if (selectedTeam) {
+      btnHome.classList.remove("nav-btn-primary");
+    } else {
+      btnHome.classList.add("nav-btn-primary");
+    }
+  }
+
+  if (btnNewRisk) {
+    if (selectedTeam && TEAMS[selectedTeam]) {
+      btnNewRisk.style.display = "inline-flex";
+      btnNewRisk.onclick = function(e) {
+        e.preventDefault();
+        addNewRow(selectedTeam);
+      };
+    } else {
+      btnNewRisk.style.display = "none";
+    }
+  }
+}
+
+// RENDERIZADOR PRINCIPAL DO APLICATIVO
+function renderApp() {
+  const params = new URLSearchParams(window.location.search);
+  const selectedTeam = params.get("equipe") ? params.get("equipe").toUpperCase() : null;
+
+  updateHeaderNavigation(selectedTeam);
+
+  const appContent = document.getElementById("app-content");
+
+  if (selectedTeam && TEAMS[selectedTeam]) {
+    renderTeamView(selectedTeam, appContent);
+  } else {
+    renderHomeView(appContent);
+  }
+}
+
+// TELA: LISTAGEM DE PROJETOS DA TURMA
+function renderHomeView(container) {
+  const countTurma = getTotalRisksCount();
+
+  let html = '';
+
+  html += '<div class="panel-header-block">';
+  html += '  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">';
+  html += '    <div>';
+  html += '      <h2 class="panel-title">Projetos da Turma</h2>';
+  html += '      <p class="panel-desc">Escolha a equipe do seu grupo para ver a Matriz de Riscos e acompanhar as ações planejadas.</p>';
+  html += '    </div>';
+  html += '    <div class="noprint">';
+  html += '      <span class="count-tag">Total da turma: ' + countTurma + (countTurma === 1 ? ' risco' : ' riscos') + '</span>';
+  html += '    </div>';
+  html += '  </div>';
+  html += '</div>';
+
+  html += '<div class="projects-cards-grid">';
+  Object.keys(TEAMS).forEach(function(teamKey) {
+    const team = TEAMS[teamKey];
+    const teamRisks = getTeamRisks(teamKey);
+    const count = teamRisks.length;
+
+    html += '<div class="project-card">';
+    html += '  <div class="project-card-top">';
+    html += '    <div class="project-card-header">';
+    html += '      <span class="team-code-tag">' + team.id + '</span>';
+    html += '      <h3 class="project-card-title">' + team.name + '</h3>';
+    html += '    </div>';
+    html += '    <p class="project-card-scope">' + team.description + '</p>';
+    html += '    <div style="margin-top: 8px; font-size: 11.5px; color: var(--text-muted);">';
+    html += '      <strong>PO:</strong> ' + team.po;
+    html += '    </div>';
+    html += '  </div>';
+    html += '  <div>';
+    html += '    <div class="project-card-meta">';
+    html += '      <span class="project-card-risks-count">Riscos cadastrados: <strong>' + count + '</strong></span>';
+    html += '      <span class="text-muted">Fase: Planejamento</span>';
+    html += '    </div>';
+    html += '    <div class="project-card-actions noprint">';
+    html += '      <a href="?equipe=' + team.id + '" class="btn-open-matrix">Abrir Matriz da Equipe</a>';
+    html += '    </div>';
+    html += '  </div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  container.innerHTML = html;
+}
+
+// TELA: PAINEL DA EQUIPE (MATRIZ + TABELA)
+function renderTeamView(teamKey, container) {
+  const team = TEAMS[teamKey];
+  const teamRisks = getTeamRisks(teamKey);
+  const examples = DEFAULT_EXAMPLES[teamKey] || [];
+  const example = examples[0] || {};
+
+  let html = '';
+
+  // Barra de informacoes da equipe
+  html += '<div class="team-banner">';
+  html += '  <div class="team-banner-left">';
+  html += '    <div class="breadcrumb-nav noprint">';
+  html += '      <a href="index.html">Início</a> / <span>Equipe ' + team.id + '</span>';
+  html += '    </div>';
+  html += '    <h2 class="team-banner-title">Projeto: ' + team.name + ' <span class="team-code-tag">' + team.id + '</span></h2>';
+  html += '    <p class="team-banner-desc"><strong>Sobre o software:</strong> ' + team.description + '</p>';
+  html += '    <div class="team-members-box">';
+  html += '      <strong>Product Owner:</strong> ' + team.po + ' &nbsp;|&nbsp; <strong>Equipe:</strong> ' + team.integrantes;
+  html += '    </div>';
+  html += '  </div>';
+  html += '  <div class="team-banner-right noprint">';
+  html += '    <span class="count-tag">' + teamRisks.length + (teamRisks.length === 1 ? ' risco cadastrado' : ' riscos cadastrados') + '</span>';
+  html += '    <button type="button" class="btn-action btn-action-primary" onclick="addNewRow(\'' + team.id + '\')">+ Adicionar Risco na Tabela</button>';
+  html += '  </div>';
+  html += '</div>';
+
+  // Box de Exemplo Didatico para a Equipe (se houver)
+  if (example.risco) {
+    let exampleLevelClass = "cell-media";
+    if (example.nivel === "Baixo") exampleLevelClass = "cell-baixa";
+    if (example.nivel === "Alto") exampleLevelClass = "cell-alta";
+
+    html += '<div class="example-ref-panel noprint">';
+    html += '  <div class="example-ref-header">';
+    html += '    <strong>Exemplo de risco para este projeto:</strong>';
+    html += '  </div>';
+    html += '  <table class="example-ref-table">';
+    html += '    <tbody>';
+    html += '      <tr>';
+    html += '        <th style="width: 170px;">Risco:</th>';
+    html += '        <td colspan="3">' + escapeHtml(example.risco) + '</td>';
+    html += '      </tr>';
+    html += '      <tr>';
+    html += '        <th>Causa e consequência:</th>';
+    html += '        <td colspan="3">' + escapeHtml(example.causaConsequencia) + '</td>';
+    html += '      </tr>';
+    html += '      <tr>';
+    html += '        <th>Probabilidade:</th>';
+    html += '        <td><strong>' + example.probabilidade + '</strong></td>';
+    html += '        <th style="width: 130px;">Impacto:</th>';
+    html += '        <td><strong>' + example.impacto + '</strong></td>';
+    html += '      </tr>';
+    html += '      <tr>';
+    html += '        <th>Nível na matriz:</th>';
+    html += '        <td><span class="matrix-chip-example ' + exampleLevelClass + '"><strong>' + example.nivel + '</strong></span></td>';
+    html += '        <th>Responsável:</th>';
+    html += '        <td>' + escapeHtml(example.responsavel) + '</td>';
+    html += '      </tr>';
+    html += '      <tr>';
+    html += '        <th>Ação preventiva:</th>';
+    html += '        <td colspan="3">' + escapeHtml(example.resposta) + '</td>';
+    html += '      </tr>';
+    html += '    </tbody>';
+    html += '  </table>';
+    html += '</div>';
+  }
+
+  // Matriz de Probabilidade x Impacto (5x5)
+  html += '<div class="matrix-wrapper">';
+  html += '  <div class="panel-header-block">';
+  html += '    <h3 class="panel-title">Matriz de Probabilidade x Impacto</h3>';
+  html += '    <p class="panel-desc">Visualização gráfica dos riscos da equipe ' + team.id + '. Os riscos se movem automaticamente conforme a probabilidade e o impacto definidos na tabela abaixo.</p>';
+  html += '  </div>';
+  html += '  <div class="table-responsive">';
+  html += '    <table class="matrix-grid">';
+  html += '      <thead>';
+  html += '        <tr>';
+  html += '          <th rowspan="2" class="y-axis-label">Probabilidade</th>';
+  html += '          <th colspan="5" style="border-bottom: 1px solid var(--border-light); font-size: 13px; font-weight: 700; color: #111827;">Impacto</th>';
+  html += '        </tr>';
+  html += '        <tr>';
+  IMP_COLS.forEach(function(imp) {
+    html += '      <th>' + imp + '</th>';
+  });
+  html += '        </tr>';
+  html += '      </thead>';
+  html += '      <tbody>';
+
+  PROB_ROWS.forEach(function(prob) {
+    html += '    <tr>';
+    html += '      <th class="matrix-prob-label">' + prob + '</th>';
+    IMP_COLS.forEach(function(imp) {
+      const level = MATRIX_LEVELS[prob][imp];
+      let levelClass = "cell-media";
+      if (level === "Baixo") levelClass = "cell-baixa";
+      if (level === "Alto") levelClass = "cell-alta";
+
+      const cellRisks = teamRisks.filter(function(r) {
+        return r.probabilidade === prob && r.impacto === imp;
+      });
+
+      html += '    <td class="' + levelClass + '">';
+      html += '      <div class="matrix-cell-content" id="cell-' + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '') + '">';
+      cellRisks.forEach(function(r) {
+        html += '<a href="#row-' + r.code + '" class="matrix-risk-tag" title="' + escapeHtml(r.code + ': ' + r.risco) + '"><strong>' + r.code + '</strong></a>';
+      });
+      html += '      </div>';
+      html += '    </td>';
+    });
+    html += '    </tr>';
+  });
+
+  html += '      </tbody>';
+  html += '    </table>';
+  html += '  </div>';
+  html += '</div>';
+
+  // Tabela de Registro de Riscos
+  html += '<div class="table-panel">';
+  html += '  <div class="table-panel-header">';
+  html += '    <h3 class="panel-title">Tabela de Riscos da Equipe</h3>';
+  html += '    <div class="table-panel-actions noprint">';
+  html += '      <button id="btn-save-team" class="btn-action btn-action-save" title="Salva os dados digitados na tabela">Salvar Alterações</button>';
+  html += '      <button id="btn-add-row" class="btn-action btn-action-add">+ Adicionar Linha</button>';
+  html += '      <button id="btn-reset-team" class="btn-action" title="Recarrega os dados salvos">Recarregar Dados</button>';
+  html += '      <button onclick="window.print()" class="btn-action">Imprimir / Salvar PDF</button>';
+  html += '    </div>';
+  html += '  </div>';
+  html += '  <div id="save-feedback" class="save-feedback-banner" style="display:none;"></div>';
+
+  html += '  <div class="table-responsive">';
+  html += '    <table class="academic-table" id="risks-table">';
+  html += '      <thead>';
+  html += '        <tr>';
+  html += '          <th style="width: 50px; text-align: center;">ID</th>';
+  html += '          <th style="min-width: 180px;">Risco</th>';
+  html += '          <th style="min-width: 180px;">Causa e Consequência</th>';
+  html += '          <th style="width: 120px;">Probabilidade</th>';
+  html += '          <th style="width: 140px;">Impacto</th>';
+  html += '          <th style="width: 85px; text-align: center;">Nível</th>';
+  html += '          <th style="min-width: 170px;">Ação Planejada</th>';
+  html += '          <th style="width: 130px;">Responsável</th>';
+  html += '          <th style="width: 90px; text-align: center;" class="noprint">Ações</th>';
+  html += '        </tr>';
+  html += '      </thead>';
+  html += '      <tbody id="risks-tbody">';
+
+  if (teamRisks.length === 0) {
+    html += '        <tr id="empty-row"><td colspan="9" style="text-align:center; padding: 24px; color: #6c757d;">';
+    html += '          Nenhum risco adicionado ainda. Clique em <strong>+ Adicionar Linha</strong> para preencher os riscos na tabela e clique em <strong>Salvar Alterações</strong>.';
+    html += '        </td></tr>';
+  } else {
+    teamRisks.forEach(function(r) {
+      html += renderRiskRowHtml(r);
+    });
+  }
+
+  html += '      </tbody>';
+  html += '    </table>';
+  html += '  </div>';
+  html += '</div>';
+
+  // Tabelas de Referência Didática
+  html += '<section class="scales-section">';
+  html += '  <div class="panel-header-block">';
+  html += '    <h3 class="panel-title">Como Avaliar a Probabilidade e o Impacto</h3>';
+  html += '    <p class="panel-desc">Use as tabelas abaixo para ajudar a escolher a probabilidade e o impacto de cada risco antes de programar.</p>';
+  html += '  </div>';
+  html += '  <div class="scales-tables-grid">';
+  html += '    <div>';
+  html += '      <h4 class="scale-table-title">Tabela 1 - Chance de acontecer (Probabilidade)</h4>';
+  html += '      <table class="reference-table">';
+  html += '        <thead>';
+  html += '          <tr>';
+  html += '            <th style="width: 70px;">Chance</th>';
+  html += '            <th style="width: 100px;">Nível</th>';
+  html += '            <th>Quando escolher</th>';
+  html += '          </tr>';
+  html += '        </thead>';
+  html += '        <tbody>';
+  html += '          <tr>';
+  html += '            <td><strong>10%</strong></td>';
+  html += '            <td>Muito baixa</td>';
+  html += '            <td>A equipe já sabe exatamente como fazer e quase não há chance de dar errado.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>30%</strong></td>';
+  html += '            <td>Baixa</td>';
+  html += '            <td>Podem surgir pequenas dúvidas, mas a equipe resolve facilmente durante a aula.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>50%</strong></td>';
+  html += '            <td>Média</td>';
+  html += '            <td>A equipe ainda tem incertezas sobre como programar ou integrar essa funcionalidade.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>70%</strong></td>';
+  html += '            <td>Alta</td>';
+  html += '            <td>Tarefa difícil, tecnologia pouco conhecida ou dependência de serviços externos.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>90%</strong></td>';
+  html += '            <td>Muito alta</td>';
+  html += '            <td>É quase certeza de que vai dar problema se nada for planejado com antecedência.</td>';
+  html += '          </tr>';
+  html += '        </tbody>';
+  html += '      </table>';
+  html += '    </div>';
+  html += '    <div>';
+  html += '      <h4 class="scale-table-title">Tabela 2 - Gravidade para o projeto (Impacto)</h4>';
+  html += '      <table class="reference-table">';
+  html += '        <thead>';
+  html += '          <tr>';
+  html += '            <th style="width: 100px;">Gravidade</th>';
+  html += '            <th>O que acontece se o risco ocorrer</th>';
+  html += '          </tr>';
+  html += '        </thead>';
+  html += '        <tbody>';
+  html += '          <tr>';
+  html += '            <td><strong>Muito Baixo</strong></td>';
+  html += '            <td>Ajuste simples e rápido, sem atrapalhar o andamento do projeto.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>Baixo</strong></td>';
+  html += '            <td>Pequeno retrabalho que a equipe resolve em poucas horas de desenvolvimento.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>Moderado</strong></td>';
+  html += '            <td>Atrasa a entrega da funcionalidade em alguns dias ou exige mudar parte da tela.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>Alto</strong></td>';
+  html += '            <td>Pode impedir a conclusão da entrega ou quebrar partes importantes do sistema.</td>';
+  html += '          </tr>';
+  html += '          <tr>';
+  html += '            <td><strong>Muito Alto</strong></td>';
+  html += '            <td>Inviabiliza a entrega ou compromete o funcionamento de todo o software da equipe.</td>';
+  html += '          </tr>';
+  html += '        </tbody>';
+  html += '      </table>';
+  html += '    </div>';
+  html += '  </div>';
+  html += '</section>';
+
+  container.innerHTML = html;
+  attachTableEventListeners(teamKey);
+}
+
+function renderRiskRowHtml(r) {
+  let levelClass = "badge-media";
+  if (r.nivel === "Baixo") levelClass = "badge-baixa";
+  if (r.nivel === "Alto") levelClass = "badge-alta";
+
+  let probOptions = '<option value="">Escolher</option>';
+  PROB_ROWS.forEach(function(p) {
+    const sel = (r.probabilidade === p) ? ' selected' : '';
+    probOptions += '<option value="' + p + '"' + sel + '>' + p + '</option>';
+  });
+
+  let impOptions = '<option value="">Escolher</option>';
+  IMP_COLS.forEach(function(i) {
+    const sel = (r.impacto === i) ? ' selected' : '';
+    impOptions += '<option value="' + i + '"' + sel + '>' + i + '</option>';
+  });
+
+  let actionsCol = '';
+  actionsCol += '<button type="button" class="btn-save-row" data-code="' + r.code + '" title="Salvar alterações">Salvar</button> ';
+  actionsCol += '<button type="button" class="btn-delete-row" data-code="' + r.code + '" title="Excluir risco">Excluir</button>';
+
+  let html = '';
+  html += '<tr id="row-' + r.code + '" data-code="' + r.code + '">';
+  html += '  <td style="text-align: center;"><strong>' + r.code + '</strong></td>';
+  html += '  <td><textarea class="cell-input input-field" data-code="' + r.code + '" data-field="risco" rows="2" placeholder="Qual é o risco...">' + escapeHtml(r.risco) + '</textarea></td>';
+  html += '  <td><textarea class="cell-input input-field" data-code="' + r.code + '" data-field="causaConsequencia" rows="2" placeholder="Por que pode acontecer e qual a consequência...">' + escapeHtml(r.causaConsequencia) + '</textarea></td>';
+  html += '  <td><select class="select-criteria select-prob" data-code="' + r.code + '">' + probOptions + '</select></td>';
+  html += '  <td><select class="select-criteria select-imp" data-code="' + r.code + '">' + impOptions + '</select></td>';
+  html += '  <td style="text-align: center;"><span class="level-badge ' + levelClass + '" id="badge-' + r.code + '">' + (r.nivel || '-') + '</span></td>';
+  html += '  <td><textarea class="cell-input input-field" data-code="' + r.code + '" data-field="resposta" rows="2" placeholder="O que fazer para evitar ou resolver...">' + escapeHtml(r.resposta) + '</textarea></td>';
+  html += '  <td><input type="text" class="cell-input input-field" data-code="' + r.code + '" data-field="responsavel" value="' + escapeHtml(r.responsavel) + '" placeholder="Quem vai acompanhar..."></td>';
+  html += '  <td class="noprint" style="text-align: center; white-space: nowrap;">' + actionsCol + '</td>';
+  html += '</tr>';
+  return html;
+}
+
+function addNewRow(teamKey) {
+  manualSaveTeam(teamKey);
+  const risks = getTeamRisks(teamKey);
+  const nextNumber = risks.length + 1;
+  const newCode = "R" + nextNumber;
+
+  const newRisk = {
+    code: newCode,
+    teamKey: teamKey,
+    risco: "",
+    causaConsequencia: "",
+    probabilidade: "50%",
+    impacto: "Moderado",
+    nivel: "Médio",
+    resposta: "",
+    responsavel: "",
+    createdAt: new Date().toISOString()
+  };
+
+  risks.push(newRisk);
+  saveTeamRisks(teamKey, risks);
+  renderApp();
+
+  showSaveFeedback("Nova linha " + newCode + " adicionada! Preencha os campos e clique no botão verde 'Salvar Alterações'.");
+
+  setTimeout(function() {
+    const newRow = document.getElementById('row-' + newCode);
+    if (newRow) {
+      newRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const newRowInput = newRow.querySelector('[data-field="risco"]');
+      if (newRowInput) {
+        newRowInput.focus();
+      }
+    }
+  }, 100);
+}
+
+function manualSaveTeam(teamKey) {
+  const tbody = document.getElementById("risks-tbody");
+  if (!tbody) return;
+
+  const risks = getTeamRisks(teamKey);
+
+  tbody.querySelectorAll("tr[data-code]").forEach(function(row) {
+    const code = row.dataset.code;
+    const item = risks.find(function(r) { return r.code === code; });
+    if (!item) return;
+
+    const riscoInput = row.querySelector('[data-field="risco"]');
+    const causaInput = row.querySelector('[data-field="causaConsequencia"]');
+    const probSelect = row.querySelector('.select-prob');
+    const impSelect = row.querySelector('.select-imp');
+    const respTextarea = row.querySelector('[data-field="resposta"]');
+    const responsavelInput = row.querySelector('[data-field="responsavel"]');
+
+    if (riscoInput) item.risco = riscoInput.value;
+    if (causaInput) item.causaConsequencia = causaInput.value;
+    if (probSelect) item.probabilidade = probSelect.value;
+    if (impSelect) item.impacto = impSelect.value;
+    if (respTextarea) item.resposta = respTextarea.value;
+    if (responsavelInput) item.responsavel = responsavelInput.value;
+
+    if (item.probabilidade && item.impacto && MATRIX_LEVELS[item.probabilidade] && MATRIX_LEVELS[item.probabilidade][item.impacto]) {
+      item.nivel = MATRIX_LEVELS[item.probabilidade][item.impacto];
+    }
+  });
+
+  saveTeamRisks(teamKey, risks);
+  recalculateMatrix(teamKey);
+  showSaveFeedback("Riscos salvos com sucesso!");
+}
+
+function showSaveFeedback(message) {
+  const banner = document.getElementById("save-feedback");
+  if (!banner) return;
+  banner.style.display = "flex";
+  banner.innerHTML = '<span>' + message + '</span><button type="button" style="background:none;border:none;cursor:pointer;font-size:16px;font-weight:bold;color:#0f5132;" onclick="this.parentElement.style.display=\'none\'">×</button>';
+
+  clearTimeout(window.__saveTimeout);
+  window.__saveTimeout = setTimeout(function() {
+    const b = document.getElementById("save-feedback");
+    if (b) b.style.display = "none";
+  }, 4000);
+}
+
+function attachTableEventListeners(teamKey) {
+  const tbody = document.getElementById("risks-tbody");
+  if (!tbody) return;
+
+  tbody.querySelectorAll(".input-field").forEach(function(input) {
+    input.addEventListener("input", function() {
+      const code = this.dataset.code;
+      const field = this.dataset.field;
+      const val = this.value;
+      const risks = getTeamRisks(teamKey);
+      const item = risks.find(function(r) { return r.code === code; });
+      if (item) {
+        item[field] = val;
+        saveTeamRisks(teamKey, risks);
+      }
+    });
+  });
+
+  tbody.querySelectorAll(".select-prob, .select-imp").forEach(function(select) {
+    select.addEventListener("change", function() {
+      const code = this.dataset.code;
+      onRiskCriteriaChange(code, teamKey);
+    });
+  });
+
+  tbody.querySelectorAll(".btn-delete-row").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      const code = this.dataset.code;
+      const issueNum = this.dataset.issue;
+      const issueUrl = this.dataset.url;
+      openDeleteModal(teamKey, code, issueNum, issueUrl);
+    });
+  });
+
+  tbody.querySelectorAll(".btn-save-row").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      manualSaveTeam(teamKey);
+      showSaveFeedback("Riscos salvos com sucesso!");
+    });
+  });
+
+  const btnSave = document.getElementById("btn-save-team");
+  if (btnSave) {
+    btnSave.addEventListener("click", function() {
+      manualSaveTeam(teamKey);
+    });
+  }
+
+  const btnAdd = document.getElementById("btn-add-row");
+  if (btnAdd) {
+    btnAdd.addEventListener("click", function() {
+      addNewRow(teamKey);
+    });
+  }
+
+  const btnReset = document.getElementById("btn-reset-team");
+  if (btnReset) {
+    btnReset.addEventListener("click", function() {
+      if (confirm("Deseja recarregar os dados padrão desta equipe? Alterações locais não salvas no repositório serão redefinidas.")) {
+        resetTeamRisks(teamKey);
+      }
+    });
+  }
+}
+
+function onRiskCriteriaChange(code, teamKey) {
+  const row = document.getElementById("row-" + code);
+  if (!row) return;
+
+  const prob = row.querySelector(".select-prob").value;
+  const imp = row.querySelector(".select-imp").value;
+  const badge = document.getElementById("badge-" + code);
+
+  let nivel = "-";
+  let levelClass = "badge-media";
+
+  if (prob && imp && MATRIX_LEVELS[prob] && MATRIX_LEVELS[prob][imp]) {
+    nivel = MATRIX_LEVELS[prob][imp];
+    if (nivel === "Baixo") levelClass = "badge-baixa";
+    if (nivel === "Alto") levelClass = "badge-alta";
+  }
+
+  if (badge) {
+    badge.textContent = nivel;
+    badge.className = "level-badge " + levelClass;
+  }
+
+  const risks = getTeamRisks(teamKey);
+  const item = risks.find(function(r) { return r.code === code; });
+  if (item) {
+    item.probabilidade = prob;
+    item.impacto = imp;
+    item.nivel = nivel;
+    saveTeamRisks(teamKey, risks);
+  }
+
+  recalculateMatrix(teamKey);
+}
+
+function recalculateMatrix(teamKey) {
+  const risks = getTeamRisks(teamKey);
+
+  PROB_ROWS.forEach(function(prob) {
+    IMP_COLS.forEach(function(imp) {
+      const cellId = "cell-" + prob.replace('%', '') + '-' + imp.replace(/\s+/g, '');
+      const cell = document.getElementById(cellId);
+      if (cell) {
+        cell.innerHTML = "";
+      }
+    });
+  });
+
+  risks.forEach(function(r) {
+    if (r.probabilidade && r.impacto) {
+      const cellId = "cell-" + r.probabilidade.replace('%', '') + '-' + r.impacto.replace(/\s+/g, '');
+      const cell = document.getElementById(cellId);
+      if (cell) {
+        cell.innerHTML += '<a href="#row-' + r.code + '" class="matrix-risk-tag" title="' + escapeHtml(r.code + ': ' + r.risco) + '"><strong>' + r.code + '</strong></a>';
+      }
+    }
+  });
+}
+
+let pendingDeleteCode = null;
+let pendingDeleteTeamKey = null;
+let pendingDeleteIssueNum = null;
+
+function openDeleteModal(teamKey, code, issueNum, issueUrl) {
+  pendingDeleteTeamKey = teamKey;
+  pendingDeleteCode = code;
+  pendingDeleteIssueNum = issueNum;
+
+  const modal = document.getElementById("delete-modal");
+  const title = document.getElementById("modal-delete-title");
+  const desc = document.getElementById("modal-delete-desc");
+
+  title.textContent = "Remover Risco " + code;
+  desc.innerHTML = "Deseja remover o risco <strong>" + code + "</strong>? A linha será excluída e a matriz atualizada.";
+
+  modal.style.display = "flex";
+}
+
+function closeDeleteModal() {
+  const modal = document.getElementById("delete-modal");
+  if (modal) modal.style.display = "none";
+  pendingDeleteCode = null;
+  pendingDeleteTeamKey = null;
+  pendingDeleteIssueNum = null;
+}
+
+function confirmDelete() {
+  if (!pendingDeleteCode || !pendingDeleteTeamKey) return;
+
+  const teamKey = pendingDeleteTeamKey;
+  const code = pendingDeleteCode;
+  const issueNum = pendingDeleteIssueNum;
+
+  if (issueNum) {
+    let deletedIssues = [];
+    try {
+      deletedIssues = JSON.parse(localStorage.getItem(STORAGE_PREFIX + "deleted_issues") || "[]");
+    } catch (e) {}
+    if (!deletedIssues.includes(Number(issueNum))) {
+      deletedIssues.push(Number(issueNum));
+      localStorage.setItem(STORAGE_PREFIX + "deleted_issues", JSON.stringify(deletedIssues));
+    }
+  }
+
+  let risks = getTeamRisks(teamKey);
+  risks = risks.filter(function(r) { return r.code !== code; });
+  saveTeamRisks(teamKey, risks);
+
+  closeDeleteModal();
+  renderApp();
+  showSaveFeedback("Risco " + code + " removido com sucesso!");
+}
+
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+window.addEventListener("DOMContentLoaded", function() {
+  fetchIssues(false);
+});
+</script>
+
+</body>
+</html>
