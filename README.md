@@ -38,28 +38,9 @@ Acesse o painel geral ou clique diretamente no link da sua equipe para visualiza
 
 ---
 
-## Como a Equipe Deve Avaliar os Riscos
+## Professora e Disciplina
 
-1. Acesse o link da sua equipe na lista acima.
-2. Identifique o risco e preencha os campos na tabela:
-   - **Risco:** O que pode dar errado no desenvolvimento.
-   - **Causa e consequência:** Por que pode acontecer e o impacto no projeto.
-   - **Probabilidade:** Chance estimada (10% a 90%).
-   - **Impacto:** Gravidade caso ocorra (Muito Baixo a Muito Alto).
-   - **Ação preventiva:** O que a equipe vai fazer para evitar ou resolver.
-   - **Responsável:** Quem vai acompanhar esse risco.
-3. Clique em **"Salvar Alterações"** na tabela.
-
----
-
-## Estrutura de Arquivos
-
-```text
-.
-├── .github/
-│   └── ISSUE_TEMPLATE/
-│       ├── config.yml            # Desabilita issues em branco
-│       └── registrar-risco.yml   # Formulario padronizado de registro de riscos
-├── index.html                    # Painel estatico oficial da Turma da Noite
-└── README.md                     # Instrucoes e links de acesso da Turma da Noite
-```
+- **Instituição:** Universidade Estadual da Paraíba (UEPB)
+- **Disciplina:** Laboratório de Engenharia de Software I
+- **Turma:** Noite
+- **Docente:** Profa. Rebeca Barbosa Lourenço

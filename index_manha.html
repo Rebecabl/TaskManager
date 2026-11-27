@@ -6,6 +6,7 @@
 <title>Laboratório de Engenharia de Software I - Turma da Manhã</title>
 <style>
 
+
   :root {
     --bg-page: #f8f9fa;
     --bg-surface: #ffffff;
@@ -1110,6 +1111,7 @@
     .cell-input { border: none !important; background: transparent !important; padding: 0 !important; resize: none !important; }
   }
 
+
 </style>
 </head>
 <body>
@@ -1347,36 +1349,94 @@ const REPO_INFO = { owner: "Rebecabl", repo: "TaskManager-Manha" };
 // PARSER DE ISSUES DO GITHUB
 function parseIssueBody(bodyText) {
   const data = {};
-  if (!bodyText) return data;
+  if (!bodyText || typeof bodyText !== "string") return data;
+  const text = bodyText.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
 
-  const sections = bodyText.split(/###\s+/);
+  let sections = [];
+  if (/(?:^|\n)#{1,6}\s+/.test(text)) {
+    sections = text.split(/(?:^|\n)#{1,6}\s+/).filter(Boolean);
+  } else {
+    sections = text.split(/(?:^|\n)(?=(?:[#*_\-\s]*)(?:Equipe|Time|Risco|Causa|Probabilidade|Impacto|Ação|Acao|Resposta|Responsável|Responsavel)\b)/i).filter(Boolean);
+  }
+
   sections.forEach(function(sec) {
-    const lines = sec.trim().split('\n');
-    const header = lines[0] ? lines[0].trim().toLowerCase() : '';
-    const content = lines.slice(1).join('\n').trim();
+    const lines = sec.trim().split("\n");
+    if (lines.length === 0) return;
+    const firstLine = lines[0].trim();
 
-    if (header.includes("equipe")) {
-      const m = content.match(/E[1-5]/i);
-      if (m) data.equipe = m[0].toUpperCase();
-    } else if (header.includes("risco") && !header.includes("resposta") && !header.includes("ação") && !header.includes("acao")) {
+    const match = firstLine.match(/^(?:[#*_\-\s]*)(Equipe|Time|Risco|Causa|Probabilidade|Impacto|Ação|Acao|Resposta|Responsável|Responsavel)[^:\n]*[:\s-]*(.*)$/i);
+    let key = "";
+    let content = "";
+
+    if (match) {
+      key = match[1].toLowerCase();
+      const inlineVal = match[2].replace(/[*_#]/g, "").trim();
+      const restVal = lines.slice(1).join("\n").trim();
+      content = inlineVal ? (inlineVal + (restVal ? "\n" + restVal : "")) : restVal;
+    } else {
+      key = firstLine.toLowerCase().replace(/[*_#]/g, "").trim();
+      content = lines.slice(1).join("\n").trim();
+    }
+
+    if (key.includes("equipe") || key.includes("time")) {
+      const m = (content || firstLine).match(/\bE([1-5])\b/i) || (content || firstLine).match(/E([1-5])/i);
+      if (m) data.equipe = "E" + m[1];
+    } else if (key.includes("risco") && !key.includes("resposta") && !key.includes("ação") && !key.includes("acao")) {
       data.risco = content;
-    } else if (header.includes("causa")) {
+    } else if (key.includes("causa")) {
       data.causaConsequencia = content;
-    } else if (header.includes("probabilidade")) {
-      const m = content.match(/10%|30%|50%|70%|90%/);
+    } else if (key.includes("probabilidade") || key.includes("chance")) {
+      const m = (content || firstLine).match(/10%|30%|50%|70%|90%/);
       if (m) data.probabilidade = m[0];
-    } else if (header.includes("impacto")) {
-      if (/muito\s*baixo/i.test(content)) data.impacto = "Muito Baixo";
-      else if (/muito\s*alto/i.test(content)) data.impacto = "Muito Alto";
-      else if (/baixo/i.test(content)) data.impacto = "Baixo";
-      else if (/moderado/i.test(content)) data.impacto = "Moderado";
-      else if (/alto/i.test(content)) data.impacto = "Alto";
-    } else if (header.includes("resposta") || header.includes("ação") || header.includes("acao")) {
+    } else if (key.includes("impacto") || key.includes("gravidade")) {
+      const full = (content + " " + firstLine).toLowerCase();
+      if (/muito\s*baixo/i.test(full)) data.impacto = "Muito Baixo";
+      else if (/muito\s*alto/i.test(full)) data.impacto = "Muito Alto";
+      else if (/baixo/i.test(full)) data.impacto = "Baixo";
+      else if (/moderado/i.test(full)) data.impacto = "Moderado";
+      else if (/alto/i.test(full)) data.impacto = "Alto";
+    } else if (key.includes("resposta") || key.includes("ação") || key.includes("acao") || key.includes("preventiva")) {
       data.resposta = content;
-    } else if (header.includes("respons")) {
+    } else if (key.includes("respons")) {
       data.responsavel = content;
     }
   });
+
+  if (!data.equipe) {
+    const m = text.match(/(?:equipe|time)[^\n:]*[:\s]+(E[1-5])/i) || text.match(/\b(E[1-5])\b/i);
+    if (m) data.equipe = m[1].toUpperCase();
+  }
+  if (!data.probabilidade) {
+    const m = text.match(/(?:probabilidade|chance)[^\n:]*[:\s]+(10%|30%|50%|70%|90%)/i) || text.match(/(10%|30%|50%|70%|90%)/);
+    if (m) data.probabilidade = m[1];
+  }
+  if (!data.impacto) {
+    const m = text.match(/(?:impacto|gravidade)[^\n:]*[:\s]+(muito\s*baixo|muito\s*alto|baixo|moderado|alto)/i);
+    if (m) {
+      const imp = m[1].toLowerCase();
+      if (/muito\s*baixo/.test(imp)) data.impacto = "Muito Baixo";
+      else if (/muito\s*alto/.test(imp)) data.impacto = "Muito Alto";
+      else if (/baixo/.test(imp)) data.impacto = "Baixo";
+      else if (/moderado/.test(imp)) data.impacto = "Moderado";
+      else if (/alto/.test(imp)) data.impacto = "Alto";
+    }
+  }
+  if (!data.risco) {
+    const m = text.match(/(?:risco)[^\n:]*[:\s]+([^\n]+)/i);
+    if (m) data.risco = m[1].trim();
+  }
+  if (!data.causaConsequencia) {
+    const m = text.match(/(?:causa[^\n:]*|consequ[^\n:]*)[:\s]+([^\n]+)/i);
+    if (m) data.causaConsequencia = m[1].trim();
+  }
+  if (!data.resposta) {
+    const m = text.match(/(?:resposta|ação|acao|preventiva)[^\n:]*[:\s]+([^\n]+)/i);
+    if (m) data.resposta = m[1].trim();
+  }
+  if (!data.responsavel) {
+    const m = text.match(/(?:respons[^\n:]*)[:\s]+([^\n]+)/i);
+    if (m) data.responsavel = m[1].trim();
+  }
 
   return data;
 }
@@ -1407,12 +1467,14 @@ function formatRiskFromIssue(issue) {
     nivel = MATRIX_LEVELS[prob][imp];
   }
 
+  const cleanTitle = (issue.title || "").replace(/\[E[1-5]\]\s*/i, "").trim();
+
   return {
     code: "R" + issue.number,
     issueNumber: issue.number,
     issueUrl: issue.html_url,
     teamKey: teamKey,
-    risco: parsed.risco || issue.title || "",
+    risco: parsed.risco || cleanTitle || issue.title || "",
     causaConsequencia: parsed.causaConsequencia || "",
     probabilidade: prob,
     impacto: imp,
@@ -1472,7 +1534,7 @@ function getTeamRisks(teamKey) {
     });
 
     const extraLocal = localRisks.filter(function(lr) {
-      return !lr.issueNumber && !lr.isExample;
+      return (!lr.issueNumber && !lr.isExample) || lr.isUserEdited;
     });
     extraLocal.forEach(function(el) { result.push(el); });
 
@@ -1913,7 +1975,7 @@ function renderRiskRowHtml(r) {
 
   let actionsCol = '';
   actionsCol += '<button type="button" class="btn-save-row" data-code="' + r.code + '" title="Salvar alterações">Salvar</button> ';
-  actionsCol += '<button type="button" class="btn-delete-row" data-code="' + r.code + '" title="Excluir risco">Excluir</button>';
+  actionsCol += '<button type="button" class="btn-delete-row" data-code="' + r.code + '" data-issue="' + (r.issueNumber || '') + '" data-url="' + (r.issueUrl || '') + '" title="Excluir risco">Excluir</button>';
 
   let html = '';
   html += '<tr id="row-' + r.code + '" data-code="' + r.code + '">';
@@ -1977,6 +2039,8 @@ function manualSaveTeam(teamKey) {
     const code = row.dataset.code;
     const item = risks.find(function(r) { return r.code === code; });
     if (!item) return;
+
+    item.isUserEdited = true;
 
     const riscoInput = row.querySelector('[data-field="risco"]');
     const causaInput = row.querySelector('[data-field="causaConsequencia"]');
