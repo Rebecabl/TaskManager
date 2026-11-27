@@ -52,20 +52,14 @@
 
   .inst-top-bar {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
     gap: 8px;
     margin-bottom: 6px;
   }
 
   .inst-univ {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--primary-navy);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    display: block;
+    display: none;
   }
 
   .inst-dept {
@@ -1122,20 +1116,15 @@
   <!-- Cabecalho Institucional Academico -->
   <header class="institutional-header">
     <div class="inst-top-bar">
-      <div>
-        <span class="inst-univ">UNIVERSIDADE ESTADUAL DA PARAÍBA (UEPB)</span>
-      </div>
-      <div>
-        <span class="inst-semester" id="inst-badge">Laboratórios Ativos</span>
-      </div>
+      <span class="inst-semester" id="inst-badge">Turma da Noite</span>
     </div>
     <h1 class="inst-title">Laboratório de Engenharia de Software I</h1>
     <p class="inst-subtitle" id="inst-subtitle">
       Painel de Riscos dos Projetos de Software
     </p>
     <nav class="nav-bar noprint" id="main-nav-bar">
-      <a href="?turma=manha" class="nav-btn">Painel Lab Manhã</a>
-      <a href="?turma=noite" class="nav-btn">Painel Lab Noite</a>
+      <a href="?turma=noite" class="nav-btn nav-btn-primary">Ver Todos os Projetos</a>
+      <a href="https://rebecabl.github.io/TaskManager-Manha/?turma=manha" class="nav-btn">Alternar para Lab Manhã</a>
       <button id="btn-refresh" class="nav-btn" title="Recarregar dados">Atualizar Dados</button>
       <button id="btn-new-risk-header" class="nav-btn nav-btn-primary" style="display:none;">+ Adicionar Risco na Tabela</button>
     </nav>
@@ -1188,113 +1177,301 @@ const TURMAS = {
   }
 };
 
-// EQUIPES E PROJETOS ACADÊMICOS (ESPECIFICAÇÃO OFICIAL UEPB)
-const TEAMS = {
-  E1: {
-    id: "E1",
-    name: "ConectaPro",
-    description: "Plataforma para conectar pessoas em situação de vulnerabilidade e grupos desfavorecidos a oportunidades de trabalho centralizadas.",
-    po: "Alexander Gabriel da Silva Nascimento",
-    integrantes: "Alexander Gabriel (PO), Erika Tainá (UX), Lorranny Keylla (UX), Lucas Medeiros (Requisitos), Marina Pereira (Qualidade/Doc), Zaqueu Dos Santos (Qualidade/Doc)"
+// EQUIPES E PROJETOS ACADÊMICOS SEPARADOS POR TURMA (ESPECIFICAÇÕES OFICIAIS UEPB)
+const TEAMS_BY_TURMA = {
+  manha: {
+    E1: {
+      id: "E1",
+      name: "ConectaPro",
+      description: "Plataforma acessível para conectar pessoas em situação de vulnerabilidade e grupos desfavorecidos (PCDs, 1º emprego, baixa renda) a oportunidades de trabalho centralizadas.",
+      po: "Alexander Gabriel da Silva Nascimento",
+      integrantes: "Alexander Gabriel (PO), Erika Tainá (UX), Lorranny Keylla (UX), Lucas Medeiros (Requisitos), Marina Pereira (Qualidade e Doc), Zaqueu Dos Santos (Qualidade e Doc)"
+    },
+    E2: {
+      id: "E2",
+      name: "Veil",
+      description: "Plataforma de recrutamento às cegas focada em mitigar vieses inconscientes e promover oportunidades equitativas no mercado de tecnologia, avaliando puramente competências técnicas e comportamentais.",
+      po: "Jhulia Medeiros de Queiroz",
+      integrantes: "Jhulia Medeiros (PO), Alessandro Viana (Requisitos e UX), Laryssa Albuquerque (Requisitos e UX), Bárbara Alves (Qualidade e Doc), Davi Argemiro (Qualidade e Doc), Rafaela Bezerra (Qualidade e Doc)"
+    },
+    E3: {
+      id: "E3",
+      name: "ConnectLAB",
+      description: "Conexão entre pessoas em início de carreira e empresas por meio de microexperiências profissionais orientadas (Labs práticos) com avaliação e feedback de competências.",
+      po: "Luan Alves do Nascimento",
+      integrantes: "Luan Alves (PO), Kayke Ryan (Requisitos e UX), Vilmar Gomes (Requisitos), Dinaldo do Nascimento (Qualidade e Doc), Luís Felipe Gonçalves (Qualidade e Doc)"
+    },
+    E4: {
+      id: "E4",
+      name: "Conecta Estágio Patos",
+      description: "Conexão entre estudantes universitários de Patos-PB e oportunidades de estágio locais compatíveis com seu curso, suas habilidades e a disponibilidade de horário.",
+      po: "Abdon Werner",
+      integrantes: "Abdon Werner (PO), Gustavo Barbosa (Requisitos e UX), Filipe Medeiros (Requisitos e UX), Júlio César (Qualidade e Doc), Tarcísio Fontes (Qualidade e Doc)"
+    },
+    E5: {
+      id: "E5",
+      name: "ConectaCarreiras",
+      description: "Tecnologia com situações simuladas do mercado de trabalho para autodescoberta de habilidades, identificação de pontos fortes e orientação vocacional de jovens.",
+      po: "Marcos Gustavo de Andrade Ferreira",
+      integrantes: "Marcos Gustavo (PO e Doc), Alef William (Requisitos e UX), Joel Feitosa (Requisitos e UX), Kayky Gomes (Qualidade e Doc)"
+    }
   },
-  E2: {
-    id: "E2",
-    name: "Veil",
-    description: "Plataforma de recrutamento às cegas focada em mitigar vieses inconscientes e promover oportunidades equitativas no mercado de tecnologia.",
-    po: "Jhulia Medeiros de Queiroz",
-    integrantes: "Jhulia Medeiros (PO), Alessandro Viana (Requisitos/UX), Laryssa Albuquerque (Requisitos/UX), Bárbara Alves (Qualidade/Doc), Davi Argemiro (Qualidade/Doc), Rafaela Bezerra (Qualidade/Doc)"
-  },
-  E3: {
-    id: "E3",
-    name: "ConnectLAB",
-    description: "Conexão entre pessoas em início de carreira e empresas por meio de microexperiências profissionais orientadas (Labs práticos).",
-    po: "Luan Alves do Nascimento",
-    integrantes: "Luan Alves (PO), Kayke Ryan (Requisitos/UX), Vilmar Gomes (Requisitos), Dinaldo do Nascimento (Qualidade/Doc), Luís Felipe Gonçalves (Qualidade/Doc)"
-  },
-  E4: {
-    id: "E4",
-    name: "Conecta Estágio Patos",
-    description: "Conexão entre universitários e oportunidades de estágio compatíveis com curso, habilidades e horários na cidade de Patos-PB.",
-    po: "Abdon Werner",
-    integrantes: "Abdon Werner (PO), Gustavo Barbosa (Requisitos/UX), Filipe Medeiros (Requisitos/UX), Júlio César (Qualidade/Doc), Tarcísio Fontes (Qualidade/Doc)"
-  },
-  E5: {
-    id: "E5",
-    name: "ConectaCarreiras",
-    description: "Tecnologia com situações simuladas do mercado de trabalho para autodescoberta de habilidades e orientação vocacional de jovens.",
-    po: "Marcos Gustavo de Andrade Ferreira",
-    integrantes: "Marcos Gustavo (PO/Doc), Alef William (Requisitos/UX), Joel Feitosa (Requisitos/UX), Kayky Gomes (Qualidade/Doc)"
+  noite: {
+    E1: {
+      id: "E1",
+      name: "Sertão Ágil",
+      description: "Conecta trabalhadores autônomos e prestadores de serviços da região a oportunidades locais de trabalho.",
+      po: "PO da Equipe E1",
+      integrantes: "Equipe E1 - Turma da Noite"
+    },
+    E2: {
+      id: "E2",
+      name: "DuckTrampos",
+      description: "Aplicativo para contratação rápida e segura de serviços pontuais e freelancers na comunidade.",
+      po: "PO da Equipe E2",
+      integrantes: "Equipe E2 - Turma da Noite"
+    },
+    E3: {
+      id: "E3",
+      name: "VagaCerta",
+      description: "Sistema para ajudar pequenas e médias empresas a divulgar vagas e selecionar candidatos.",
+      po: "PO da Equipe E3",
+      integrantes: "Equipe E3 - Turma da Noite"
+    },
+    E4: {
+      id: "E4",
+      name: "Primeira Oportunidade",
+      description: "Portal para ajudar jovens e estudantes a encontrar vagas de estágio e primeiro emprego.",
+      po: "PO da Equipe E4",
+      integrantes: "Equipe E4 - Turma da Noite"
+    },
+    E5: {
+      id: "E5",
+      name: "StarTI",
+      description: "Plataforma para conectar estudantes de tecnologia a projetos práticos e vagas de estágio.",
+      po: "PO da Equipe E5",
+      integrantes: "Equipe E5 - Turma da Noite"
+    }
   }
 };
 
-// EXEMPLOS DE RISCOS POR PROJETO (BASEADOS NAS ESPECIFICAÇÕES DOS ALUNOS)
-const DEFAULT_EXAMPLES = {
-  E1: {
-    code: "R1",
-    teamKey: "E1",
-    risco: "Dificuldade na centralização e filtragem correta das vagas dispersas",
-    causaConsequencia: "As oportunidades de emprego estão distribuídas em múltiplos canais informais. Pode dificultar a localização de vagas compatíveis com a realidade do candidato.",
-    probabilidade: "50%",
-    impacto: "Alto",
-    nivel: "Alto",
-    resposta: "Definir campos padronizados para curso, habilidades e localização, e validar os filtros prioritários logo no primeiro ciclo.",
-    responsavel: "Lucas Medeiros (Requisitos)",
-    isExample: true,
-    createdAt: new Date("2026-11-25T10:00:00Z")
+function getTeamsForTurma(turma) {
+  if (turma === "manha") {
+    return TEAMS_BY_TURMA.manha;
+  }
+  return TEAMS_BY_TURMA.noite;
+}
+
+const TEAMS = TEAMS_BY_TURMA.noite;
+
+// EXEMPLOS DE RISCOS POR PROJETO E TURMA
+const DEFAULT_EXAMPLES_BY_TURMA = {
+  manha: {
+    E1: [
+      {
+        code: "R1",
+        teamKey: "E1",
+        risco: "Dificuldade na centralização e filtragem correta das vagas dispersas",
+        causaConsequencia: "As oportunidades de emprego estão distribuídas em múltiplos canais informais. Pode dificultar a localização de vagas compatíveis com a realidade do candidato.",
+        probabilidade: "50%",
+        impacto: "Alto",
+        nivel: "Alto",
+        resposta: "Definir campos padronizados para curso, habilidades e localização, e validar os filtros prioritários logo no primeiro ciclo.",
+        responsavel: "Lucas Medeiros (Requisitos)",
+        isExample: true,
+        createdAt: new Date("2026-11-25T10:00:00Z")
+      }
+    ],
+    E2: [
+      {
+        code: "R1",
+        teamKey: "E2",
+        risco: "Vazamento acidental de dados sensíveis na triagem às cegas",
+        causaConsequencia: "Nome, e-mail, foto ou dados de identificação aparecendo na tela ou resposta da triagem às cegas, quebrando a proposta de anonimato do processo.",
+        probabilidade: "50%",
+        impacto: "Muito Alto",
+        nivel: "Alto",
+        resposta: "Separar claramente os dados privados da conta dos dados públicos da triagem e testar o retorno das rotas/telas antes de fechar cada tarefa.",
+        responsavel: "Jhulia Medeiros (PO) e QA",
+        isExample: true,
+        createdAt: new Date("2026-11-25T10:00:00Z")
+      },
+      {
+        code: "R2",
+        teamKey: "E2",
+        risco: "Inconsistência no cálculo de compatibilidade por falta de padronização nas habilidades",
+        causaConsequencia: "Escrita não padronizada de habilidades (ex: Node, NodeJS, Node.js) prejudicando o cruzamento de compatibilidade entre candidato e vaga.",
+        probabilidade: "70%",
+        impacto: "Moderado",
+        nivel: "Médio",
+        resposta: "Implementar catálogo controlado de skills com autocomplete e normalização de sinônimos no backend antes do matchmaking.",
+        responsavel: "Alessandro Viana (Requisitos e UX)",
+        isExample: true,
+        createdAt: new Date("2026-11-25T10:00:00Z")
+      },
+      {
+        code: "R3",
+        teamKey: "E2",
+        risco: "Quebra de anonimato por inferência indireta em campos de texto livre",
+        causaConsequencia: "Candidatos citando nomes de empresas, projetos ou faculdades nas descrições de experiência.",
+        probabilidade: "70%",
+        impacto: "Muito Alto",
+        nivel: "Alto",
+        resposta: "Estruturar o perfil prioritariamente por tags padronizadas de hard/soft skills e aplicar sanitização nos campos descritivos.",
+        responsavel: "Bárbara Alves e Davi Argemiro (QA)",
+        isExample: true,
+        createdAt: new Date("2026-11-25T10:00:00Z")
+      },
+      {
+        code: "R4",
+        teamKey: "E2",
+        risco: "Análise de linguagem excludente genérica ou com falsos positivos",
+        causaConsequencia: "Errar sugestões de termos capacitistas, etaristas ou de gênero nas descrições de vagas cadastradas pelas empresas.",
+        probabilidade: "50%",
+        impacto: "Moderado",
+        nivel: "Médio",
+        resposta: "Começar com lista objetiva de termos mais comuns em português para apoiar a revisão humana do recrutador.",
+        responsavel: "Laryssa Albuquerque e Rafaela Bezerra",
+        isExample: true,
+        createdAt: new Date("2026-11-25T10:00:00Z")
+      }
+    ],
+    E3: [
+      {
+        code: "R1",
+        teamKey: "E3",
+        risco: "Empresas cadastrarem Labs com duração ou exigências desproporcionais",
+        causaConsequencia: "Falta de limitação clara no escopo dos desafios práticos pode desvirtuar a proposta pedagógica e sobrecarregar os estudantes.",
+        probabilidade: "50%",
+        impacto: "Alto",
+        nivel: "Alto",
+        resposta: "Limitar o tempo de duração e exigir objetivos e entregas bem definidos no formulário de criação de Labs.",
+        responsavel: "Kayke Ryan (Requisitos e UX)",
+        isExample: true,
+        createdAt: new Date("2026-11-25T10:00:00Z")
+      }
+    ],
+    E4: [
+      {
+        code: "R1",
+        teamKey: "E4",
+        risco: "Incompatibilidade entre horários das vagas e turnos de aulas dos estudantes",
+        causaConsequencia: "Ausência de informação clara sobre turnos de trabalho pode levar a candidaturas inviáveis e desistência precoce dos universitários.",
+        probabilidade: "70%",
+        impacto: "Alto",
+        nivel: "Alto",
+        resposta: "Tornar obrigatória a indicação de horário/turno no cadastro da vaga e no perfil do estudante para permitir filtragem direta.",
+        responsavel: "Gustavo Barbosa e Filipe Medeiros (Requisitos e UX)",
+        isExample: true,
+        createdAt: new Date("2026-11-25T10:00:00Z")
+      }
+    ],
+    E5: [
+      {
+        code: "R1",
+        teamKey: "E5",
+        risco: "Usuários confundirem catálogo de orientação vocacional com painel de vagas imediatas",
+        causaConsequencia: "Nomenclatura ambígua na interface pode gerar frustração no estudante que procura contratação direta em vez de simulação prática.",
+        probabilidade: "50%",
+        impacto: "Moderado",
+        nivel: "Médio",
+        resposta: "Ajustar o nome da seção para 'Catálogo de Carreiras / Trilhas' e esclarecer no topo da tela o objetivo didático de autoavaliação.",
+        responsavel: "Alef William e Joel Feitosa (Requisitos e UX)",
+        isExample: true,
+        createdAt: new Date("2026-11-25T10:00:00Z")
+      }
+    ]
   },
-  E2: {
-    code: "R1",
-    teamKey: "E2",
-    risco: "Vazamento acidental de dados sensíveis na triagem às cegas",
-    causaConsequencia: "Falha na separação de dados privados e públicos pode expor nome, foto ou endereço dos candidatos, quebrando a proposta de anonimato do processo.",
-    probabilidade: "50%",
-    impacto: "Alto",
-    nivel: "Alto",
-    resposta: "Separar claramente os dados privados da conta dos dados públicos da triagem e testar o retorno das telas antes de fechar cada tarefa.",
-    responsavel: "Davi Argemiro (Qualidade)",
-    isExample: true,
-    createdAt: new Date("2026-11-25T10:00:00Z")
-  },
-  E3: {
-    code: "R1",
-    teamKey: "E3",
-    risco: "Empresas cadastrarem Labs com duração ou exigências desproporcionais",
-    causaConsequencia: "Falta de limitação clara no escopo dos desafios práticos pode desvirtuar a proposta pedagógica e sobrecarregar os estudantes.",
-    probabilidade: "50%",
-    impacto: "Alto",
-    nivel: "Alto",
-    resposta: "Limitar o tempo de duração e exigir objetivos e entregas bem definidos no formulário de criação de Labs.",
-    responsavel: "Kayke Ryan (Requisitos e UX)",
-    isExample: true,
-    createdAt: new Date("2026-11-25T10:00:00Z")
-  },
-  E4: {
-    code: "R1",
-    teamKey: "E4",
-    risco: "Incompatibilidade entre horários das vagas e turnos de aulas dos estudantes",
-    causaConsequencia: "Ausência de informação clara sobre turnos de trabalho pode levar a candidaturas inviáveis e desistência precoce dos universitários.",
-    probabilidade: "70%",
-    impacto: "Alto",
-    nivel: "Alto",
-    resposta: "Tornar obrigatória a indicação de horário/turno no cadastro da vaga e no perfil do estudante para permitir filtragem direta.",
-    responsavel: "Gustavo Barbosa (Requisitos e UX)",
-    isExample: true,
-    createdAt: new Date("2026-11-25T10:00:00Z")
-  },
-  E5: {
-    code: "R1",
-    teamKey: "E5",
-    risco: "Usuários confundirem catálogo de orientação vocacional com painel de vagas imediatas",
-    causaConsequencia: "Nomenclatura ambígua na interface pode gerar frustração no estudante que procura contratação direta em vez de simulação prática.",
-    probabilidade: "50%",
-    impacto: "Moderado",
-    nivel: "Médio",
-    resposta: "Ajustar o nome da seção para 'Catálogo de Carreiras / Trilhas' e esclarecer no topo da tela o objetivo didático de autoavaliação.",
-    responsavel: "Alef William (Requisitos e UX)",
-    isExample: true,
-    createdAt: new Date("2026-11-25T10:00:00Z")
+  noite: {
+    E1: [
+      {
+        code: "R1",
+        teamKey: "E1",
+        risco: "Dificuldade para integrar a API de mapas e localização",
+        causaConsequencia: "A equipe ainda não usou a biblioteca de mapas. Isso pode impedir a busca de serviços por proximidade.",
+        probabilidade: "50%",
+        impacto: "Alto",
+        nivel: "Alto",
+        resposta: "Testar a API logo na primeira semana e tirar dúvidas com a documentação oficial.",
+        responsavel: "Desenvolvedor Front-end",
+        isExample: true,
+        createdAt: new Date("2026-11-25T10:00:00Z")
+      }
+    ],
+    E2: [
+      {
+        code: "R1",
+        teamKey: "E2",
+        risco: "Problemas na criação do login e níveis de acesso",
+        causaConsequencia: "Pouca experiência com autenticação de usuários. Pode deixar o sistema vulnerável ou atrasar as telas principais.",
+        probabilidade: "70%",
+        impacto: "Alto",
+        nivel: "Alto",
+        resposta: "Escolher uma biblioteca pronta de login e implementar essa parte primeiro.",
+        responsavel: "Desenvolvedor Back-end",
+        isExample: true,
+        createdAt: new Date("2026-11-25T10:00:00Z")
+      }
+    ],
+    E3: [
+      {
+        code: "R1",
+        teamKey: "E3",
+        risco: "Dúvidas na modelagem do banco de dados das vagas",
+        causaConsequencia: "Incerteza em como relacionar candidatos, empresas e vagas. Pode gerar retrabalho nas tabelas do banco.",
+        probabilidade: "50%",
+        impacto: "Moderado",
+        nivel: "Médio",
+        resposta: "Revisar o diagrama do banco com a professora antes de começar a criar as tabelas.",
+        responsavel: "Responsável pelo Banco",
+        isExample: true,
+        createdAt: new Date("2026-11-25T10:00:00Z")
+      }
+    ],
+    E4: [
+      {
+        code: "R1",
+        teamKey: "E4",
+        risco: "Telas e formulários desconfigurados no celular",
+        causaConsequencia: "Formulários de cadastro longos podem ficar ruins de preencher em telas pequenas de celular.",
+        probabilidade: "70%",
+        impacto: "Baixo",
+        nivel: "Médio",
+        resposta: "Desenvolver pensando primeiro na tela do celular e usar componentes prontos de interface.",
+        responsavel: "Desenvolvedor Front-end",
+        isExample: true,
+        createdAt: new Date("2026-11-25T10:00:00Z")
+      }
+    ],
+    E5: [
+      {
+        code: "R1",
+        teamKey: "E5",
+        risco: "Baixa adesão inicial de empresas parceiras com vagas de tecnologia",
+        causaConsequencia: "Estudantes não encontrarem projetos práticos suficientes cadastrados na plataforma.",
+        probabilidade: "50%",
+        impacto: "Alto",
+        nivel: "Alto",
+        resposta: "Cadastrar projetos pilotos da própria universidade e parcerias acadêmicas antes do lançamento.",
+        responsavel: "Product Owner",
+        isExample: true,
+        createdAt: new Date("2026-11-25T10:00:00Z")
+      }
+    ]
   }
 };
+
+function getExamplesForTeam(turma, teamKey) {
+  const dict = (turma === "manha") ? DEFAULT_EXAMPLES_BY_TURMA.manha : DEFAULT_EXAMPLES_BY_TURMA.noite;
+  const item = dict[teamKey];
+  if (!item) return [];
+  if (Array.isArray(item)) {
+    return item.map(function(x) { return Object.assign({}, x); });
+  }
+  return [Object.assign({}, item)];
+}
+
+const DEFAULT_EXAMPLES = DEFAULT_EXAMPLES_BY_TURMA.noite;
 
 // REGRAS DA MATRIZ (5x5)
 const PROB_ROWS = ["90%", "70%", "50%", "30%", "10%"];
@@ -1506,9 +1683,12 @@ function getTeamRisks(turma, teamKey) {
     });
   }
 
-  // Se nao ha issues no GitHub nem dados locais, exibe o exemplo inicial da equipe
-  if (DEFAULT_EXAMPLES[teamKey]) {
-    return [Object.assign({}, DEFAULT_EXAMPLES[teamKey])];
+  // Se nao ha issues no GitHub nem dados locais, exibe os exemplos iniciais da equipe e turma
+  const examples = getExamplesForTeam(turma, teamKey);
+  if (examples && examples.length > 0) {
+    return examples.map(function(ex, idx) {
+      return Object.assign({}, ex, { code: "R" + (idx + 1) });
+    });
   }
 
   return [];
@@ -1528,7 +1708,8 @@ function resetTeamRisks(turma, teamKey) {
 
 function getTotalRisksCount(turma) {
   let count = 0;
-  Object.keys(TEAMS).forEach(function(teamKey) {
+  const teams = getTeamsForTurma(turma);
+  Object.keys(teams).forEach(function(teamKey) {
     count += getTeamRisks(turma, teamKey).length;
   });
   return count;
@@ -1599,28 +1780,26 @@ function updateHeaderNavigation(currentTurma, selectedTeam) {
   }
 
   const isManha = (currentTurma === "manha");
-  const thisLabel = isManha ? "Lab Manhã" : "Lab Noite";
-  const thisShift = isManha ? "Turno Matutino" : "Turno Noturno";
   const otherTurma = isManha ? "noite" : "manha";
   const otherLabel = isManha ? "Lab Noite" : "Lab Manhã";
 
-  if (instBadge) instBadge.textContent = thisLabel + " (" + thisShift + ")";
-  if (instSubtitle) instSubtitle.textContent = "Painel de Riscos dos Projetos de Software - Turma da " + (isManha ? "Manhã" : "Noite");
+  if (instBadge) instBadge.textContent = isManha ? "Turma da Manhã" : "Turma da Noite";
+  if (instSubtitle) instSubtitle.textContent = "Painel de Riscos dos Projetos de Software";
 
   if (navBar) {
     let navHtml = '';
-    navHtml += '<a href="?turma=' + currentTurma + '" class="nav-btn' + (!selectedTeam ? ' nav-btn-primary' : '') + '">Ver Projetos (' + thisLabel + ')</a>';
+    navHtml += '<a href="?turma=' + currentTurma + '" class="nav-btn' + (!selectedTeam ? ' nav-btn-primary' : '') + '">Ver Todos os Projetos</a>';
     navHtml += '<a href="' + getOtherTurmaUrl(otherTurma) + '" class="nav-btn">Alternar para ' + otherLabel + '</a>';
-    navHtml += '<a href="index.html" class="nav-btn">Trocar de Turma</a>';
     navHtml += '<button id="btn-refresh" class="nav-btn" onclick="fetchIssues(true)">Atualizar Dados</button>';
 
-    if (selectedTeam && TEAMS[selectedTeam]) {
+    const teams = getTeamsForTurma(currentTurma);
+    if (selectedTeam && teams[selectedTeam]) {
       navHtml += '<button id="btn-new-risk-header" class="nav-btn nav-btn-primary">+ Adicionar Risco na Tabela</button>';
     }
 
     navBar.innerHTML = navHtml;
 
-    if (selectedTeam && TEAMS[selectedTeam]) {
+    if (selectedTeam && teams[selectedTeam]) {
       const btnNew = document.getElementById("btn-new-risk-header");
       if (btnNew) {
         btnNew.onclick = function(e) {
@@ -1643,9 +1822,9 @@ function renderApp() {
   }
 
   const isManhaRepo = (REPO_INFO.repo || "").toLowerCase().includes("manha");
-  const defaultTurma = isManhaRepo ? "manha" : null;
+  const defaultTurma = isManhaRepo ? "manha" : "noite";
 
-  let currentTurma = turmaParam || (selectedTeam ? (localStorage.getItem("taskmanager_last_turma") || (isManhaRepo ? "manha" : "noite")) : defaultTurma);
+  let currentTurma = turmaParam || (selectedTeam ? (localStorage.getItem("taskmanager_last_turma") || defaultTurma) : defaultTurma);
 
   if (currentTurma) {
     try { localStorage.setItem("taskmanager_last_turma", currentTurma); } catch (e) {}
@@ -1654,8 +1833,9 @@ function renderApp() {
   updateHeaderNavigation(currentTurma, selectedTeam);
 
   const appContent = document.getElementById("app-content");
+  const teams = getTeamsForTurma(currentTurma);
 
-  if (currentTurma && selectedTeam && TEAMS[selectedTeam]) {
+  if (currentTurma && selectedTeam && teams[selectedTeam]) {
     renderTeamView(currentTurma, selectedTeam, appContent);
   } else if (currentTurma) {
     renderHomeView(currentTurma, appContent);
@@ -1728,15 +1908,15 @@ function renderTurmaSelectorView(container) {
 // TELA 2: PROJETOS DA TURMA ESCOLHIDA (MANHÃ OU NOITE)
 function renderHomeView(turma, container) {
   const isManha = (turma === "manha");
-  const turmaLabel = isManha ? "Lab Manhã" : "Lab Noite";
   const countTurma = getTotalRisksCount(turma);
+  const teams = getTeamsForTurma(turma);
 
   let html = '';
 
   html += '<div class="panel-header-block">';
   html += '  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">';
   html += '    <div>';
-  html += '      <h2 class="panel-title">Projetos da Turma - ' + turmaLabel + '</h2>';
+  html += '      <h2 class="panel-title">Projetos da Turma</h2>';
   html += '      <p class="panel-desc">Escolha a equipe do seu grupo para ver a Matriz de Riscos e acompanhar as ações planejadas.</p>';
   html += '    </div>';
   html += '    <div class="noprint">';
@@ -1746,8 +1926,8 @@ function renderHomeView(turma, container) {
   html += '</div>';
 
   html += '<div class="projects-cards-grid">';
-  Object.keys(TEAMS).forEach(function(teamKey) {
-    const team = TEAMS[teamKey];
+  Object.keys(teams).forEach(function(teamKey) {
+    const team = teams[teamKey];
     const teamRisks = getTeamRisks(turma, teamKey);
     const count = teamRisks.length;
 
@@ -1765,7 +1945,7 @@ function renderHomeView(turma, container) {
     html += '  <div>';
     html += '    <div class="project-card-meta">';
     html += '      <span class="project-card-risks-count">Riscos cadastrados: <strong>' + count + '</strong></span>';
-    html += '      <span class="text-muted">Turno: ' + (isManha ? 'Manhã' : 'Noite') + '</span>';
+    html += '      <span class="text-muted">Fase: Planejamento</span>';
     html += '    </div>';
     html += '    <div class="project-card-actions noprint">';
     html += '      <a href="?turma=' + turma + '&equipe=' + team.id + '" class="btn-open-matrix">Abrir Matriz da Equipe</a>';
@@ -1781,10 +1961,11 @@ function renderHomeView(turma, container) {
 // TELA 3: PAINEL DA EQUIPE DENTRO DA TURMA SELECIONADA
 function renderTeamView(turma, teamKey, container) {
   const isManha = (turma === "manha");
-  const turmaLabel = isManha ? "Lab Manhã" : "Lab Noite";
-  const team = TEAMS[teamKey];
+  const teams = getTeamsForTurma(turma);
+  const team = teams[teamKey] || TEAMS[teamKey];
   const teamRisks = getTeamRisks(turma, teamKey);
-  const example = DEFAULT_EXAMPLES[teamKey] || DEFAULT_EXAMPLES.E1;
+  const examples = getExamplesForTeam(turma, teamKey);
+  const example = examples[0] || (DEFAULT_EXAMPLES.E1 && DEFAULT_EXAMPLES.E1[0]) || {};
 
   let html = '';
 
@@ -1792,9 +1973,9 @@ function renderTeamView(turma, teamKey, container) {
   html += '<div class="team-banner">';
   html += '  <div class="team-banner-left">';
   html += '    <div class="breadcrumb-nav noprint">';
-  html += '      <a href="index.html">Início</a> / <a href="?turma=' + turma + '">' + turmaLabel + '</a> / <span>Equipe ' + team.id + '</span>';
+  html += '      <a href="?turma=' + turma + '">Início</a> / <span>Equipe ' + team.id + '</span>';
   html += '    </div>';
-  html += '    <h2 class="team-banner-title">Projeto: ' + team.name + ' <span class="team-code-tag">' + team.id + '</span> <span style="font-size: 13px; font-weight: 600; color: var(--text-muted);">(' + turmaLabel + ')</span></h2>';
+  html += '    <h2 class="team-banner-title">Projeto: ' + team.name + ' <span class="team-code-tag">' + team.id + '</span></h2>';
   html += '    <p class="team-banner-desc"><strong>Sobre o software:</strong> ' + team.description + '</p>';
   html += '    <div class="team-members-box">';
   html += '      <strong>Product Owner:</strong> ' + team.po + ' &nbsp;|&nbsp; <strong>Equipe:</strong> ' + team.integrantes;
